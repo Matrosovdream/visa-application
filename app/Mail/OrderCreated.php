@@ -25,7 +25,7 @@ class OrderCreated extends Mailable
 
     public function build()
     {
-        return $this->from('appvisa@gmail.com', 'Visa App!')
+        return $this->from('matrosovdream@gmail.com')
                     ->subject('Your Order Has Been Created')
                     ->view('emails.order.created');
     }

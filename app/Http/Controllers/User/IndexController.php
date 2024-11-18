@@ -21,7 +21,7 @@ class IndexController extends Controller {
             $mail = $request->mail;
             Mail::raw('This is a test email.', function ($message) {
                 $message->to( 'matrosovdream@gmail.com' )
-                ->from('matrosovdream@gmail.com', 'Tt')
+                ->from(env('MAIL_FROM_ADDRESS'), 'Admin')
                         ->subject('Test Email');
             });
         }
