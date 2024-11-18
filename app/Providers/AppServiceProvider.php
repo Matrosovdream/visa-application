@@ -37,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         \View::share('siteSettings', $globalsService->getGlobals()['siteSettings']);
 
         // Set language globally
-        App::setLocale($globalsService->getActiveLanguageCode());
+        App::setLocale( strtolower($globalsService->getActiveLanguageCode()) );
 
         // Observers
         User::observe(UserObserver::class);

@@ -10,7 +10,7 @@ use App\Services\LocationService;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\UserCreated;
+use App;
 
 class IndexController extends Controller {
 
@@ -24,6 +24,10 @@ class IndexController extends Controller {
                 ->from('ma@gmail.com', 'Tt')
                         ->subject('Test Email');
             });
+        }
+
+        if( $request->has("lcl") ) {
+            dd( App::getLocale() );
         }
 
         /*
