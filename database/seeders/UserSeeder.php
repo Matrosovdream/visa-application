@@ -31,12 +31,6 @@ class UserSeeder extends Seeder
             $user->roles()->sync($userData['role']);
         }
 
-        $user = User::create([
-            'name' => 'Test User', // Replace with desired name
-            'email' => 'testuser@example.com', // Replace with desired email
-            'password' => Hash::make('123456'), // Securely hash the password
-        ]);
-
     }
 
 }
