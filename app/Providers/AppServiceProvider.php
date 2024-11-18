@@ -16,9 +16,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        /*$this->app->singleton(GlobalsService::class, function ($app) {
+        $this->app->singleton(GlobalsService::class, function ($app) {
             return new GlobalsService();
-        });*/
+        });
     }
 
     /**
@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
 
         //\View::share('geoData', $globalsService->getGlobals()['geoData']);
-        /*\View::share('languages', $globalsService->getLanguages());
+        \View::share('languages', $globalsService->getLanguages());
         \View::share('menuTop', $globalsService->getMenuTop());
         \View::share('currencies', $globalsService->getCurrencies());
         \View::share('countries', $globalsService->getCountries());
@@ -42,6 +42,6 @@ class AppServiceProvider extends ServiceProvider
         // Observers
         User::observe(UserObserver::class);
         Order::observe(OrderObserver::class);
-*/
+
     }
 }
