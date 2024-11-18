@@ -33,7 +33,8 @@ class UserCreated extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your Account Has Been Created')
-                    ->view('emails.user.created');
+        return $this->from('appvisa@gmail.com', 'Visa App!')
+                ->subject('Your Account Has Been Created')
+                ->view('emails.user.created');
     }
 }
