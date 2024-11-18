@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\OrderCertificate;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Helpers\orderHelper;
+use App\Helpers\OrderHelper;
 
 
 
@@ -18,7 +18,7 @@ class DashboardOrderCertificatesController extends Controller
         if ($request->hasFile('document')) {
 
             $data = ['description' => $request->description, 'order_id' => $order->id];
-            orderHelper::uploadDocument( 
+            OrderHelper::uploadDocument( 
                 $order->id, 
                 $request_file = 'document',
                 $data
