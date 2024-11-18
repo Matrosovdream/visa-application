@@ -39,7 +39,7 @@ class DashboardUsersController extends Controller
     public function update($user_id, Request $request)
     {
 
-        if( $request->action == 'save_general' ) {
+        if ($request->action == 'save_general') {
 
             $request->validate([
                 'name' => 'required',
@@ -54,7 +54,7 @@ class DashboardUsersController extends Controller
             return redirect()->route('dashboard.users.index');
         }
 
-        if( $request->action == 'save_password' ) {
+        if ($request->action == 'save_password') {
 
             $request->validate([
                 'password' => 'required',
@@ -97,6 +97,10 @@ class DashboardUsersController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        // Fix the bug
         $user->password = bcrypt($request->password);
         $user->save();
 
