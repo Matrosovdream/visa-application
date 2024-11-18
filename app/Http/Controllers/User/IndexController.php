@@ -8,28 +8,44 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Services\LocationService;
 use App\Models\Article;
-use App;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserCreated;
 
 class IndexController extends Controller {
 
     public function index( Request $request )
     {
 
-        /*
-        echo App::getLocale();
-        echo Article::first()->title;
-        */
+        if( $request->has("mail") ) {
+            $mail = $request->mail;
+            Mail::raw('This is a test email.', function ($message) {
+                $message->to( 'matrosovdream@gmail.com' )
+                ->from('ma@gmail.com', 'Tt')
+                        ->subject('Test Email');
+            });
+        }
 
-        // __('I love programming.')
-
         /*
-        $post = Article::first();
-        $post->translateOrNew('en')->title = 'Eng title';
-        $post->translateOrNew('fr')->title = 'FR title';
-        $post->translateOrNew('de')->title = 'DE title';
-        $post->translateOrNew('es')->title = 'ES title';
-        $post->save();
+        $email = 'admin2@gmail.com';
+
+        // Remove the user
+        $user = User::where('email', $email )->first();
+        if( $user ) {
+            $user->delete();
+        }
+
+        $user = User::create([
+            'name' => 'Admin 2',
+            'email' => $email,
+            'password' => Hash::make('123456'),
+        ]);
+
+        $user->setRole('admin');
+
+        // Set password
+        $user->password = Hash::make('123456');
+        $user->save();
         */
 
         if( request('lg') ) {
