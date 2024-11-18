@@ -22,7 +22,7 @@ class OrderStatusSeeder extends Seeder
         ];
         
         foreach ($orderStatuses as $orderStatus) {
-            OrderStatus::create($orderStatus);
+            OrderStatus::firstOrCreate($orderStatus);
         }
 
     }
