@@ -58,13 +58,11 @@ class GlobalsService {
     }
 
     public function getActiveLanguage() {
+        return Language::where('code', $this->getActiveLanguageCode() )->first();
+    }
 
-        if (isset($_COOKIE['language'])) {
-            $code = $_COOKIE['language'];
-        } else {
-            $code = 'EN';
-        }
-        return Language::where('code', $code)->first();
+    public function getActiveLanguageCode() {
+        return $_COOKIE['language'] ?? 'EN';
     }
 
     public function getActiveCurrency() {
