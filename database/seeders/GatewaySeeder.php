@@ -25,7 +25,7 @@ class GatewaySeeder extends Seeder
         ];
 
         foreach ($gateways as $gateway) {
-            PaymentGateway::create($gateway);
+            PaymentGateway::firstOrCreate($gateway);
         }
 
 
