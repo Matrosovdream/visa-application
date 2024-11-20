@@ -13,7 +13,8 @@ class UserHelper {
         $password = self::generateRandomPassword();
         $user->password = bcrypt($password);
         $user->save();
-        Mail::to($user->email)->send(new UserCreated($user, $password));
+        
+        Mail::to($user->email)->queue(new UserCreated($user, $password));
     }
 
     public static function generateRandomPassword() {
