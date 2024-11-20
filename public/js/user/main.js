@@ -387,9 +387,20 @@
 	// Accordion Box end
 
 	// datepicker
-	$(".datepicker").datepicker();
+	updateDatePicker();
 
 })(jQuery);
+
+function updateDatePicker() {
+
+	$(".datepicker").datepicker({});
+
+	// Datepicker that takes today as minimum date
+	$(".datepicker-min-today").datepicker({
+		minDate: new Date()
+	});
+
+}
 
 
 
