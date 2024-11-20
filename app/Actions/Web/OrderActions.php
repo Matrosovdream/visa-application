@@ -20,14 +20,16 @@ class OrderActions {
     public static function createOrder( Request $request, $user_id=null ) {
 
         // Create or find user by email
-        if( !$user_id ) {
-
-            $USER = auth()->user() ?? self::createUser($request, $role = 'user');
+        if( $user_id ) {
+            $USER = User::find($user_id);
+        } elseif( auth()->user() ) {
+            $USER = auth()->user();
+        } else {
+            // Create user
+            $USER = self::createUser($request, $role = 'user');
 
             // Log in user
             auth()->login($USER);
-        } else {
-            $USER = User::find($user_id);
         }
 
         // Calculate product price

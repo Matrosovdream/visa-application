@@ -9,9 +9,12 @@ use App\Helpers\orderHelper;
 use App\Models\Traveller;
 use App\Models\User;
 use App\Models\OrderCertificate;
+use App\Traits\Metaable;
 
 class Order extends Model
 {
+
+    use Metaable;
 
     protected static function boot()
     {
@@ -134,25 +137,6 @@ class Order extends Model
     public function getCurrency()
     {
         return $this->meta->where('key', 'currency')->first()->value;
-    }
-
-    public function getMeta($key)
-    {
-        return $this->meta->where('key', $key)->first()->value;
-    }
-
-    public function setMeta($key, $value)
-    {
-        $meta = $this->meta->where('key', $key)->first();
-        if( $meta ) {
-            $meta->value = $value;
-            $meta->save();
-        } else {
-            $this->meta()->create([
-                'key' => $key,
-                'value' => $value,
-            ]);
-        }
     }
 
     public function getProgress() {
