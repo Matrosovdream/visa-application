@@ -51,8 +51,10 @@ class ProductOffersSeeder extends Seeder
 
             // Assign metas to the offers
             foreach ($offers as $offer) {
-                $product->offers()->create([
+                $product->offers()->firstOrCreate([
                     'name' => $offer['name'],
+                    'product_id' => $product->id,
+                ], [
                     'price' => $offer['price'],
                     'description' => $offer['description'],
                 ])->meta()->createMany($offer['metas']);
