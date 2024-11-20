@@ -33,7 +33,11 @@ class ProductExtrasSeeder extends Seeder
 
             // Assign metas to the offers
             foreach ($extras as $extra) {
-                $product->extras()->create([
+                $product->extras()->firstOrCreate([
+                    'name' => $extra['name'],
+                    'product_id' => $product->id,
+                ],
+                [
                     'name' => $extra['name'],
                     'price' => $extra['price'],
                     'description' => $extra['description'],
