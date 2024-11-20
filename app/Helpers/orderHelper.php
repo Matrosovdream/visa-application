@@ -132,7 +132,7 @@ class orderHelper {
 
         if ($user) {
             // Send the email
-            Mail::to($user->email)->send(new OrderCreated($order, $user));
+            Mail::to($user->email)->queue(new OrderCreated($order, $user));
         }
 
     }
