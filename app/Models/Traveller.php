@@ -5,9 +5,12 @@ namespace App\Models;
 use App\Helpers\TravellerHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\Metaable;
 
 class Traveller extends Model
 {
+
+    use Metaable;
 
     protected $fillable = [
         'full_name',
@@ -30,23 +33,6 @@ class Traveller extends Model
     public function documents()
     {
         return $this->hasMany(TravellerDocuments::class);
-    }
-
-    public function getMeta($key)
-    {
-        $value = $this->meta->where('key', $key)->first();
-        return $value ? $value->value : null;
-    }
-
-    public function setMeta($key, $value)
-    {
-        $meta = $this->meta->where('key', $key)->first();
-        if ($meta) {
-            $meta->value = $value;
-            $meta->save();
-        } else {
-            $this->meta()->create(['key' => $key, 'value' => $value]);
-        }
     }
 
     public function isCompletedForm()

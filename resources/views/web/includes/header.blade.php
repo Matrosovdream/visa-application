@@ -75,6 +75,13 @@
                                             </div>
                                         </a>
                                         <ul class="lang_sub_list">
+                                            @if ( Auth::user()->isAdmin() || Auth::user()->isManager() )
+                                                <li>
+                                                    <a href="{{ route('dashboard.home') }}">
+                                                        {{ __('Dashboard') }}
+                                                    </a>
+                                                </li>
+                                            @endif
                                             <li>
                                                 <a href="{{ route('web.account.index') }}">
                                                     {{ __('Account') }}
