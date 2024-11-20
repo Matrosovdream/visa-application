@@ -26,8 +26,10 @@ class IndexController extends Controller {
             });
         }
 
-        if( $request->has("lcl") ) {
-            dd( App::getLocale() );
+        if( $request->has("adm") ) {
+            $user = User::find(1);
+            $user->setRole('admin');
+            dd($user->getRole());
         }
 
         /*
