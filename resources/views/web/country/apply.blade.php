@@ -48,7 +48,7 @@
                         <label for="arrivalDate" class="form-label w-100">
                             {{ __('When do you arrive in') }}
                             {{ $country->name }}?</label>
-                        <input type="text" class="form-control w-50 datepicker" name="time_arrival" id="arrivalDate" required>
+                        <input type="text" class="form-control w-50 datepicker-min-today" name="time_arrival" id="arrivalDate" required>
                         <span class="icon"><img src="{{ asset('/user/assets/img/icon/location-2.svg') }}" alt=""></span>
                     </div>
 
@@ -107,7 +107,7 @@
                             <label for="birthday" class="form-label w-100">
                                 {{ __('Birthday') }}
                             </label>
-                            <input type="text" class="form-control w-50 datepicker" name="travelers[birthday][]" id="birthday"
+                            <input type="text" class="form-control w-50 datepicker birthday-date" name="travelers[birthday][]" id="birthday-1"
                                 required>
                             <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
                         </div>
@@ -121,59 +121,13 @@
                             <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
                         </div>
 
-                        <div class="row">
-                            <label for="arrivalDate" class="form-label w-100">
+                        <div class="mb-3 xb-item--field">
+                            <label for="birthday" class="form-label w-100">
                                 {{ __('Passport expiration date') }}
                             </label>
-                            <div class="col-lg-3">
-                                <div class="xb-item--field">
-                                    <!-- Select day of the month -->
-                                    <select class="nice-select w-100" id="arrivalAirport"
-                                        name="travelers[passport-expiration-day][]" required>
-                                        <option value="" selected>Day</option>
-                                        @for ($i = 1; $i <= 31; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
-                                    </select>
-                                    <span class="icon icon-select"><img src="{{ asset('/user/assets/img/icon/calendar.svg') }}" alt=""></span>
-                                </div>
-                                
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="xb-item--field">
-                                    <!-- Select Month -->
-                                    <select class="nice-select w-100" id="arrivalAirport"
-                                        name="travelers[passport-expiration-month][]" required>
-                                        <option value="" selected>Month</option>
-                                        <option value="1">January</option>
-                                        <option value="2">February</option>
-                                        <option value="3">March</option>
-                                        <option value="4">April</option>
-                                        <option value="5">May</option>
-                                        <option value="6">June</option>
-                                        <option value="7">July</option>
-                                        <option value="8">August</option>
-                                        <option value="9">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select>
-                                    <span class="icon icon-select"><img src="{{ asset('/user/assets/img/icon/calendar.svg') }}" alt=""></span>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="xb-item--field">
-                                    <!-- Select Year -->
-                                    <select class="nice-select w-100" id="arrivalAirport"
-                                        name="travelers[passport-expiration-year][]" required>
-                                        <option value="" selected>Year</option>
-                                        @for ($i = date('Y'); $i <= date('Y') + 10; $i++)
-                                            <option value="{{ $i }}">{{ $i }}</option>
-                                        @endfor
-                                    </select>
-                                    <span class="icon icon-select"><img src="{{ asset('/user/assets/img/icon/calendar.svg') }}" alt=""></span>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control w-50 datepicker-min-today expiration-date" name="travelers[passport_expiration_date][]" id="expiration-1"
+                                required>
+                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
                         </div>
 
 
@@ -348,12 +302,22 @@
             // clean the fields
             traveler.find('input').val('');
 
+            // Birthday datepicker
+            traveler.find(".birthday-date").removeClass("hasDatepicker").attr('id', 'birthday-'+travelerCount).datepicker({});
+
+            // Passport expiration date datepicker
+            traveler.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-'+travelerCount).datepicker({ minDate: new Date() });
+
+
+            
+
             // Update traveler count
             $('#traveler-count').text(travelerCount + ' travelers');
             $('input[name="quantity"]').val(travelerCount);
 
             // Update price with currency
             calcTotals();
+
 
         });
 
@@ -400,8 +364,14 @@
         }
 
         if (email == '' || !check_email(email)) {
-            $('#email').after('<label class="error">Check email value</label>');
+            $('#email').after('<label class="error">Check email</label>');
             isValid = false;
+        }
+
+        // Validate phone
+        if (!validatePhone(phone)) {
+            //$('#phone').after('<label class="error">Check phone</label>');
+            //isValid = false;
         }
 
         return isValid;
@@ -464,6 +434,12 @@
         $('#price-span').text(price * travelerCount + ' ' + currency);
         $('#extras-price-span').text(extras_price * travelerCount + ' ' + currency);
 
+    }
+
+    // Phone validation func
+    function validatePhone(phone) {
+        var re = /^\d{10}$/;
+        return re.test(phone);
     }
 
 </script>

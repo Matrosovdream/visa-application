@@ -41,10 +41,7 @@ class TravellerHelper
 
         // Meta fields
         $meta_fields = [];
-        $meta_fields[] = ['key' => 'passport_expiration_day', 'value' => $values['passport-expiration-day']];
-        $meta_fields[] = ['key' => 'passport_expiration_month', 'value' => $values['passport-expiration-month']];
-        $meta_fields[] = ['key' => 'passport_expiration_year', 'value' => $values['passport-expiration-year']];
-
+        $meta_fields[] = ['key' => 'passport_expiration_date', 'value' => $values['passport_expiration_date']];
 
         return [
             'traveller' => $travellers_fields,
