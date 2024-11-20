@@ -18,7 +18,7 @@ trait Metaable {
             $this->meta()->create(['key' => $key, 'value' => $value ?? '']);
         }
     }
-die();
+
     public function setMetaSync($data)
     {
         foreach ($data as $key => $value) {
