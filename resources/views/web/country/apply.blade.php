@@ -43,95 +43,17 @@
 
                 <div id="step-1" class="form-step form-step-active">
                     <h3>Trip details</h3>
-                    <div class="mb-3 xb-item--field">
+
+                    @include('web.country.partials.step-1')
                     
-                        <label for="arrivalDate" class="form-label w-100">
-                            {{ __('When do you arrive in') }}
-                            {{ $country->name }}?</label>
-                        <input type="text" class="form-control w-50 datepicker-min-today" name="time_arrival" id="arrivalDate" required>
-                        <span class="icon"><img src="{{ asset('/user/assets/img/icon/location-2.svg') }}" alt=""></span>
-                    </div>
-
-                    <div class="mb-3 xb-item--field">
-                        <label for="full_name" class="form-label  w-100">
-                            {{ __('Your full name') }}
-                        </label>
-                        <input type="text" class="form-control w-75" id="full_name" name="full_name" required>
-                        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-                    </div>
-
-                    <div class="mb-3 xb-item--field">
-                        <label for="phone" class="form-label  w-100">
-                            {{ __('Phone number') }}
-                        </label>
-                        <input type="tel" class="form-control w-75" id="phone" name="phone" required>
-                        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_call.svg') }}" alt=""></span>
-                    </div>
-
-                    <div class="mb-3 xb-item--field">
-                        <label for="email" class="form-label  w-100">
-                            {{ __('Email address') }}
-                        </label>
-                        <input type="email" class="form-control w-75" id="email" name="email"
-                            placeholder="example@mail.com" required>
-                        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_mail.svg') }}" alt=""></span>
-                    </div>
                     <button type="button" class="btn btn-primary" id="next-1">
                         {{ __('Next') }}
                     </button>
                 </div>
 
-                <div id="step-2" class="form-step form-step-active1">
+                <div id="step-2" class="form-step form-step-active">
 
-                    <div class="card-traveler mt-25">
-
-                        <h3>{{ __('Traveler') }} #1</h3>
-
-                        <div class="mb-3 xb-item--field">
-                            <label class="form-label w-100">
-                                {{ __('First and middle name') }}
-                            </label>
-                            <input type="text" name="travelers[name][]" class="form-control w-75" required>
-                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-                        </div>
-
-                        <div class="mb-3 xb-item--field">
-                            <label class="form-label w-100">
-                                {{ __('Last name') }}
-                            </label>
-                            <input type="text" name="travelers[lastname][]" class="form-control w-75" required>
-                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-                        </div>
-
-                        <div class="mb-3 xb-item--field">
-                            <label for="birthday" class="form-label w-100">
-                                {{ __('Birthday') }}
-                            </label>
-                            <input type="text" class="form-control w-50 datepicker birthday-date" name="travelers[birthday][]" id="birthday-1"
-                                required>
-                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-                        </div>
-
-                        <div class="mb-3 xb-item--field">
-                            <label for="arrivalDate" class="form-label w-100">
-                                {{ __('Passport number') }}
-                            </label>
-                            <input type="text" name="travelers[passport][]" class="form-control w-75" id="arrivalDate"
-                                required>
-                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-                        </div>
-
-                        <div class="mb-3 xb-item--field">
-                            <label for="birthday" class="form-label w-100">
-                                {{ __('Passport expiration date') }}
-                            </label>
-                            <input type="text" class="form-control w-50 datepicker-min-today expiration-date" name="travelers[passport_expiration_date][]" id="expiration-1"
-                                required>
-                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-                        </div>
-
-
-                    </div>
+                    @include('web.country.partials.step-2')
 
                     <div class="mb-3 xb-item--field">
                         <button type="button" id="add_traveler" class="btn btn-primary w-100 mt-3">
@@ -153,25 +75,7 @@
                 <div id="step-3" class="form-step form-step form-step-active1">
                     <h3>{{ __('Choose your processing time') }}</h3>
 
-                    <ul class="list-group">
-                        @foreach($product->offers as $offer)
-                            <li class="list-group-item">
-                                <div class="form-check
-                                        @if($loop->first) active @endif">
-
-                                    <input class="form-check-input" type="radio" name="offer_id" id="offer-{{ $offer->id }}"
-                                        value="{{ $offer->id }}" data-price="{{ $offer->price }}" @if($loop->first)
-                                        checked @endif>
-
-                                    <label class="form-check label" for="offer-{{ $offer->id }}">
-                                        <h5>{{ $offer->name }}</h5>
-                                        <p>{{ $offer->description }}</p>
-                                        <p>{{ $offer->price }} {{ $currency }}</p>
-                                    </label>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @include('web.country.partials.step-3')
 
                     <br />
                     <button type="button" class="btn btn-secondary" id="prev-3">
@@ -303,13 +207,13 @@
             traveler.find('input').val('');
 
             // Birthday datepicker
-            traveler.find(".birthday-date").removeClass("hasDatepicker").attr('id', 'birthday-'+travelerCount).datepicker({});
+            traveler.find(".birthday-date").removeClass("hasDatepicker").attr('id', 'birthday-' + travelerCount).datepicker({});
 
             // Passport expiration date datepicker
-            traveler.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-'+travelerCount).datepicker({ minDate: new Date() });
+            traveler.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-' + travelerCount).datepicker({ minDate: new Date() });
 
 
-            
+
 
             // Update traveler count
             $('#traveler-count').text(travelerCount + ' travelers');
@@ -319,6 +223,15 @@
             calcTotals();
 
 
+        });
+
+        // Remove traveler logic
+        $(document).on('click', '.btn-remove-traveler', function () {
+            $(this).closest('.card-traveler').remove();
+            travelerCount--;
+            $('#traveler-count').text(travelerCount + ' travelers');
+            $('input[name="quantity"]').val(travelerCount);
+            calcTotals();
         });
 
         // Offer selection logic
@@ -520,6 +433,15 @@
 
     h3 {
         margin-bottom: 20px;
+    }
+    .btn-remove-traveler {
+        color: red;
+        cursor: pointer;
+        font-size: 15px;
+    }
+    /* Hide if it's the first traveller block */
+    .card-traveler:first-child .btn-remove-traveler {
+        display: none;
     }
 </style>
 
