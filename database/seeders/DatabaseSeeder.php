@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             TravelDirectionSeeder::class,
             LanguageSeeder::class,
             CurrencySeeder::class,
+            AirportSeeder::class,
 
             // Store products
             ProductSeeder::class,

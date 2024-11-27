@@ -52,6 +52,9 @@ class CountryController extends Controller
             $offer->price = $offer->price + $data['extrasPrice'];
         }
 
+        // Airports by country
+        $data['airports'] = $data['country']->airports;
+
         // Convert extras price
         $extras = $data['product']->extras;
         foreach ($extras as $extra) {
