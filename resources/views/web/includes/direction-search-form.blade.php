@@ -20,7 +20,7 @@
                                     <label for="fromCountry" class="form-label">
                                         {{ __('Where am I from?') }}
                                     </label>
-                                    <select class="nice-select1 form-control" name="country_from">
+                                    <select class="select2 form-control" name="country_from">
                                         <option selected disabled></option>
                                         @foreach($countries as $country)
                                             <option 
@@ -38,7 +38,7 @@
                                     <label for="toCountry" class="form-label">
                                         {{ __('Where am I going?') }}
                                     </label>
-                                    <select class="nice-select2 form-control" name="country_to">
+                                    <select class="select2 form-control" name="country_to">
                                         <option selected disabled></option>
                                         @foreach($countries as $country)
                                             <option value="{{ $country->id }}">

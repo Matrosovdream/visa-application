@@ -350,6 +350,15 @@
 	$('#nice-select').niceSelect();
 	$('.nice-select').niceSelect();
 
+	// Select
+	$(document).ready(function() {
+		$('.select2').select2({
+			dropdownCssClass: 'select2-dropdown',
+			containerCssClass: 'select2-container',
+			minimumResultsForSearch: 10
+		});
+	});
+
 	/* magnificPopup img view */
 	$('.popup-image').magnificPopup({
 		type: 'image',
@@ -393,14 +402,44 @@
 
 function updateDatePicker() {
 
-	$(".datepicker").datepicker({});
+	$(".datepicker").datepicker({
+		dateFormat: 'mm/dd/yy',
+	});
+
+	$(".datepicker-birthday").datepicker({
+		maxDate: "-0d",
+		yearRange: "-120:+0",
+		changeYear: true,
+		dateFormat: 'mm/dd/yy'
+	});
 
 	// Datepicker that takes today as minimum date
 	$(".datepicker-min-today").datepicker({
-		minDate: new Date()
+		minDate: new Date(),
+		dateFormat: 'mm/dd/yy',
+		onSelect: function (dateText, inst) {
+			// Show message alert
+			if( $(this).hasClass('min-5-alert') ) {
+
+				// If the value is less than 5 days from today, show alert $(this).closest('.alert.hidden').removeClass('hidden');
+				var date1 = new Date();
+				var date2 = new Date(dateText);
+				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+				if (diffDays < 5) { 
+					console.log(diffDays);
+					$(this).parent().find('.alert').removeClass('hidden');
+				} else {
+					$(this).parent().find('.alert').addClass('hidden');
+				}
+
+			}
+		}
 	});
 
 }
+
 
 
 

@@ -34,6 +34,7 @@
                                             {{ $document->document->filename }}
                                         </h5>
                                     </a>
+                                    @php /*
                                     <p class="card-text">Description: 
                                         @if( $document->document->description )
                                             {{ $document->document->description }}
@@ -41,6 +42,7 @@
                                             -
                                         @endif
                                     </p>
+                                    */ @endphp
 
                                     <form action="{{ route('web.account.order.applicant.document.delete', ['order_id' => $order->id, 'applicant_id' => $applicant->id, 'document_id' => $document->id]) }}" method="POST">
                                         @csrf
@@ -68,12 +70,14 @@
                     <div class="mb-3">
                         <input type="file" class="form-control" id="document" name="document">
                     </div>
+                    @php /*
                     <div class="mb-3">
                         <label for="description" class="form-label">
                             {{ __('Document Description') }}
                         </label>
                         <textarea class="form-control" id="description" name="description" rows="3"></textarea>
                     </div>
+                    */ @endphp
                     <button type="submit" class="btn btn-primary">
                         {{ __('Add file') }}
                     </button>

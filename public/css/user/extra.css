@@ -78,3 +78,50 @@
 .alert ul li {
     list-style: none;
 }
+
+.select2-container .select2-selection--single {
+    height: 50px!important;
+    line-height: 50px!important;
+}
+
+.select2-container .select2-selection--single .select2-selection__arrow {
+    height: 50px!important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 50px!important;
+}
+
+.select2-results__options:first-child {
+    padding-top: 0!important;
+}
+
+.alert.hidden {
+    display: none;
+}
+
+.form-note {
+    font-size: 14px;
+}
+
+.agree-updates input[type="checkbox"] {
+    margin-right: 5px!important;
+    padding: 0!important;
+    height: auto!important;
+    display: unset;
+    min-height: auto;
+}
+
+.ui-datepicker-year {
+    height: auto!important;
+}
+
+.remove-traveller-icon {
+    font-size: 22px;
+    color: red;
+    cursor: pointer;
+}
+
+.application-alert {
+    padding-left: 0;
+}
