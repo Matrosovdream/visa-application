@@ -1,8 +1,7 @@
 <ul class="list-group">
     @foreach($product->offers as $offer)
         <li class="list-group-item">
-            <div class="form-check
-                                                @if($loop->first) active @endif">
+            <div class="form-check  @if($loop->first) active @endif">
 
                 <input class="form-check-input" type="radio" name="offer_id" id="offer-{{ $offer->id }}"
                     value="{{ $offer->id }}" data-price="{{ $offer->price }}" @if($loop->first) checked @endif>

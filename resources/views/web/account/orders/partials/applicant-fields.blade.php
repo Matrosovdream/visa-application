@@ -55,7 +55,8 @@
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <select class="form-control w-75" id="field-{{ $code }}" name="fields[{{ $code }}]">
+            <div class="w-75">
+            <select class="select2 w-75" id="field-{{ $code }}" name="fields[{{ $code }}]">
                 <option selected disabled></option>
                 @foreach($field['options'] as $option)
                     <option value="{{ $option['value'] }}" @if( $option['value'] == $field['value'] ) selected @endif>
@@ -63,6 +64,7 @@
                     </option>
                 @endforeach
             </select>
+            </div>
         </div>
 
     @endif

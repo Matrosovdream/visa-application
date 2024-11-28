@@ -1,13 +1,17 @@
 <div class="card-traveler mt-25">
 
-    <h3>
-        {{ __('Traveler') }} #1
-
-    </h3>
-
-    <span class="btn-remove-traveler" style="cursor: pointer;">
-        ( Remove )
-    </span>
+    <div class="row">
+        <div class="col-md-6">
+            <h3>
+                {{ __('Traveler') }} #1
+            </h3>
+        </div>
+        <div class="col-md-6 text-end">
+            <span class="btn-remove-traveler">
+                <i class="bi bi-trash3 remove-traveller-icon"></i>
+            </span>
+        </div>
+    </div>
 
     <div class="mb-3 xb-item--field">
         <label class="form-label w-100">
@@ -29,7 +33,7 @@
         <label for="birthday" class="form-label w-100">
             {{ __('Birthday') }}
         </label>
-        <input type="text" class="form-control w-50 datepicker birthday-date" name="travelers[birthday][]"
+        <input type="text" class="form-control w-50 datepicker-birthday birthday-date" name="travelers[birthday][]"
             id="birthday-1" required>
         <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
     </div>

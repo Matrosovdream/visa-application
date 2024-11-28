@@ -40,7 +40,7 @@
                         <label for="nationality" class="form-label">
                             {{ __("What is your nationality?") }}
                         </label>
-                        <select class="form-select" name="nationality" id="nationality" aria-label="Nationality">
+                        <select class="select2" name="nationality" id="nationality" aria-label="Nationality">
                             @foreach($countries as $country)
                                 <option></option>
                                 <option value="{{ $country->slug }}" data-slug="{{ $country->slug }}"
@@ -58,7 +58,7 @@
                     @if( isset( $products ) && count($products) > 0 )
                         <div class="mb-4">
                             <label for="visaType" class="form-label">Applying for</label>
-                            <select class="form-select" id="visaType" aria-label="Visa Type" name="product_id">
+                            <select class="select2" id="visaType" aria-label="Visa Type" name="product_id">
                                 @foreach($products as $product)
                                     <option 
                                         value="{{ $product->id }}"

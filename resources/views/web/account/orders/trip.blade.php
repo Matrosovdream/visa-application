@@ -9,7 +9,7 @@
     <h2 class="mb-25">
         {{ $order->getProduct()->name }} - {{ __('Trip Details') }}
     </h2>
-    
+
     <div class="row">
         <div class="col-md-3">
             @include('web.account.orders.partials.sidebar')
@@ -20,11 +20,8 @@
             <div class="card p-4">
                 <h3 class="card-title mb-25">General Information</h3>
 
-                <form 
-                    method="POST" 
-                    action="{{ route('web.account.order.trip.update', $order->id) }}"
-                    class="xb-item--form contact-from w-75 apply-form"
-                    >
+                <form method="POST" action="{{ route('web.account.order.trip.update', $order->id) }}"
+                    class="xb-item--form contact-from w-75 apply-form">
                     @csrf
 
                     <div id="step-1" class="form-step form-step-active">
@@ -41,21 +38,24 @@
                                 {{ $order->countryTo()->name }}?</label>
                             <input type="text" class="form-control w-50 datepicker" name="time_arrival"
                                 value="{{ $order->getMeta('time_arrival') }}">
-                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/location-2.svg') }}" alt=""></span>
+                            <span class="icon"><img src="{{ asset('/user/assets/img/icon/location-2.svg') }}"
+                                    alt=""></span>
                         </div>
 
                         <div class="mb-3 xb-item--field">
 
                             <label for="fromCountry" class="form-label">What country are you departing from?</label>
-                            <select class="nice-select1 form-control w-75" name="country_from">
-                                <option selected disabled></option>
-                                @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" @if($order->countryFrom()->code == $country->code)
-                                    selected @endif>
-                                        {{ $country->name }} - {{ $country->code }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="w-75">
+                                <select class="select2" name="country_from">
+                                    <option selected disabled></option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->id }}" @if($order->countryFrom()->code == $country->code)
+                                        selected @endif>
+                                            {{ $country->name }} - {{ $country->code }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                         </div>
 
