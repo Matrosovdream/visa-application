@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->on('users')->nullable();
             $table->string('session_id')->nullable();
+            $table->string('hash')->nullable();
             $table->foreignId('order_id')->on('orders')->nullable();
             $table->string('status')->default('open');
             $table->string('currency')->default('USD');

@@ -10,6 +10,9 @@ use App\Models\Country;
 use App\Helpers\userSettingsHelper;
 use App\Services\CurrencyConverterService;
 use App\Services\GlobalsService;
+use App\Models\Cart;
+use App\Models\CartProduct;
+
 
 
 class CountryController extends Controller
@@ -28,6 +31,40 @@ class CountryController extends Controller
 
     public function apply(Request $request, GlobalsService $globalsService)
     {
+
+        
+
+        // Create cart
+        $cart = Cart::create(
+            [
+                'user_id' => auth()->user()->id ?? null,
+                'status' => 'open',
+                'currency' => $globalsService->getActiveCurrency()->code
+            ]
+        );
+
+        $countryFrom = $this->findCountry( $request->nationality );
+        $countryTo = $this->findCountry($request->country);
+
+        // Set meta
+        $cart->setMeta('country_from_id', $countryFrom->id);
+        $cart->setMeta('country_from_code', $countryFrom->code);
+        $cart->setMeta('country_to_id', $countryTo->id);
+        $cart->setMeta('country_to_code', $countryTo->code);
+
+        // Add products to the cart
+        CartProduct::create([
+            'cart_id' => $cart->id,
+            'order_id' => null,
+            'product_id' => $request->product_id,
+            'offer_id' => null,
+            'quantity' => 1,
+            'price' => 0,
+            'total' => 0,
+        ]);
+
+        dd($countryTo);
+
 
         $data = $this->getDirectionData( $request );
 
