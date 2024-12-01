@@ -19,6 +19,9 @@ Route::post('/', [IndexController::class, 'directionApply'])->name('web.directio
 Route::get('/country/{country}', [CountryController::class, 'index'])->name('web.country.index');
 Route::get('/country/{country}/apply-now', [CountryController::class, 'apply'])->name('web.country.apply');
 
+// Cart steps
+Route::get('/country/{country}/apply-now/{cart}', [CountryController::class, 'applyCart'])->name('web.country.apply.cart');
+
 // Orders processing
 Route::post('/orders/create-apply', [OrderController::class, 'createApply'])->name('web.order.create-apply');
 Route::get('/orders/{order_hash}', [OrderController::class, 'showPreview'])->name('web.order.show');
