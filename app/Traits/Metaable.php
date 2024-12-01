@@ -8,6 +8,10 @@ trait Metaable {
         return $this->meta->where('key', $key)->first()->value ?? null;
     }
 
+    public function getAllMeta() {
+        return $this->meta->pluck('value', 'key')->toArray();
+    }
+
     public function setMeta($key, $value)
     {
         $meta = $this->meta->where('key', $key)->first();
