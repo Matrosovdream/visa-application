@@ -1,58 +1,209 @@
-<div class="card-traveler mt-25">
+@if(isset($travellers) && count($travellers) > 0)
+    @foreach($travellers as $traveller)
 
-    <div class="row">
-        <div class="col-md-6">
-            <h3>
-                {{ __('Traveler') }} #1
-            </h3>
+        <div class="card-traveller mt-25">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>
+                        {{ __('Traveler') }} #{{ $loop->iteration }}
+                    </h3>
+                </div>
+                <div class="col-md-6 text-end">
+                    <span class="btn-remove-traveller @if($loop->iteration == 1) hidden @endif">
+                        <i class="bi bi-trash3 remove-traveller-icon"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div class="mb-3 xb-item--field">
+                <label class="form-label w-100">
+                    {{ __('First and middle name') }}
+                </label>
+                <input type="text" name="travellers[name][]" class="form-control w-75" value="{{ $traveller['name'] }}">
+                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+            </div>
+
+            <div class="mb-3 xb-item--field">
+                <label class="form-label w-100">
+                    {{ __('Last name') }}
+                </label>
+                <input type="text" name="travellers[lastname][]" class="form-control w-75" value="{{ $traveller['lastname'] }}">
+                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+            </div>
+
+            <div class="mb-3 xb-item--field">
+                <label for="birthday" class="form-label w-100">
+                    {{ __('Birthday') }}
+                </label>
+                <input type="text" class="form-control w-50 datepicker-birthday birthday-date" name="travellers[birthday][]"
+                    id="birthday-1" value="{{ $traveller['birthday'] }}">
+                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+            </div>
+
+            <div class="mb-3 xb-item--field">
+                <label for="arrivalDate" class="form-label w-100">
+                    {{ __('Passport number') }}
+                </label>
+                <input type="text" name="travellers[passport][]" class="form-control w-75" value="{{ $traveller['passport'] }}">
+                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+            </div>
+
+            <div class="mb-3 xb-item--field">
+                <label for="birthday" class="form-label w-100">
+                    {{ __('Passport expiration date') }}
+                </label>
+                <input type="text" class="form-control w-50 datepicker-min-today expiration-date"
+                    name="travellers[passport_expiration_date][]" value="{{ $traveller['passport_expiration_date'] }}">
+                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+            </div>
+
         </div>
-        <div class="col-md-6 text-end">
-            <span class="btn-remove-traveler">
-                <i class="bi bi-trash3 remove-traveller-icon"></i>
-            </span>
+
+    @endforeach
+
+@else
+
+
+    <div class="card-traveller mt-25">
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>
+                    {{ __('Traveler') }} #1
+                </h3>
+            </div>
+            <div class="col-md-6 text-end">
+                <span class="btn-remove-traveller">
+                    <i class="bi bi-trash3 remove-traveller-icon"></i>
+                </span>
+            </div>
         </div>
+
+        <div class="mb-3 xb-item--field">
+            <label class="form-label w-100">
+                {{ __('First and middle name') }}
+            </label>
+            <input type="text" name="travellers[name][]" class="form-control w-75">
+            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+        </div>
+
+        <div class="mb-3 xb-item--field">
+            <label class="form-label w-100">
+                {{ __('Last name') }}
+            </label>
+            <input type="text" name="travellers[lastname][]" class="form-control w-75">
+            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+        </div>
+
+        <div class="mb-3 xb-item--field">
+            <label for="birthday" class="form-label w-100">
+                {{ __('Birthday') }}
+            </label>
+            <input type="text" class="form-control w-50 datepicker-birthday birthday-date" name="travellers[birthday][]"
+                id="birthday-1">
+            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+        </div>
+
+        <div class="mb-3 xb-item--field">
+            <label for="arrivalDate" class="form-label w-100">
+                {{ __('Passport number') }}
+            </label>
+            <input type="text" name="travellers[passport][]" class="form-control w-75" id="arrivalDate">
+            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+        </div>
+
+        <div class="mb-3 xb-item--field">
+            <label for="birthday" class="form-label w-100">
+                {{ __('Passport expiration date') }}
+            </label>
+            <input type="text" class="form-control w-50 datepicker-min-today expiration-date"
+                name="travellers[passport_expiration_date][]" id="expiration-1">
+            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
+        </div>
+
     </div>
 
-    <div class="mb-3 xb-item--field">
-        <label class="form-label w-100">
-            {{ __('First and middle name') }}
-        </label>
-        <input type="text" name="travelers[name][]" class="form-control w-75" required>
-        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-    </div>
+@endif
 
-    <div class="mb-3 xb-item--field">
-        <label class="form-label w-100">
-            {{ __('Last name') }}
-        </label>
-        <input type="text" name="travelers[lastname][]" class="form-control w-75" required>
-        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-    </div>
-
-    <div class="mb-3 xb-item--field">
-        <label for="birthday" class="form-label w-100">
-            {{ __('Birthday') }}
-        </label>
-        <input type="text" class="form-control w-50 datepicker-birthday birthday-date" name="travelers[birthday][]"
-            id="birthday-1" required>
-        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-    </div>
-
-    <div class="mb-3 xb-item--field">
-        <label for="arrivalDate" class="form-label w-100">
-            {{ __('Passport number') }}
-        </label>
-        <input type="text" name="travelers[passport][]" class="form-control w-75" id="arrivalDate" required>
-        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-    </div>
-
-    <div class="mb-3 xb-item--field">
-        <label for="birthday" class="form-label w-100">
-            {{ __('Passport expiration date') }}
-        </label>
-        <input type="text" class="form-control w-50 datepicker-min-today expiration-date"
-            name="travelers[passport_expiration_date][]" id="expiration-1" required>
-        <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-    </div>
-
+<div class="mb-3 xb-item--field">
+    <button type="button" id="add_traveller" class="btn btn-primary w-100 mt-3">
+        {{ __('Add traveller') }}
+    </button>
 </div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        $('form.apply-form').submit(function (e) {
+            // Validate step 1
+            if (!validate_step2()) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    function validate_step2() {
+
+        // Check all traveller fields
+        var isValid = true;
+
+        $('label.error').remove();
+
+        // Check all fields and if not valid, show error label.error after the fields
+        $('input[name^="travellers[name]"]').each(function () {
+            if ($(this).val() == '') {
+                $(this).after('<label class="error">This field is required</label>');
+                isValid = false;
+            }
+        });
+
+        $('input[name^="travellers[lastname]"]').each(function () {
+            if ($(this).val() == '') {
+                $(this).after('<label class="error">This field is required</label>');
+                isValid = false;
+            }
+        });
+
+        $('input[name^="travellers[birthday]"]').each(function () {
+            if ($(this).val() == '') {
+                $(this).after('<label class="error">This field is required</label>');
+                isValid = false;
+            }
+        });
+
+        $('input[name^="travellers[passport]"]').each(function () {
+            if ($(this).val() == '') {
+                $(this).after('<label class="error">This field is required</label>');
+                isValid = false;
+            }
+        });
+
+        // time_arrival validation, if selected in the next 5 days show message: 
+        $('input[name="time_arrival"]').change(function () {
+
+            var arrivalDate = $(this).val();
+            var arrivalDateObj = new Date(arrivalDate);
+            var today = new Date();
+            var diffTime = arrivalDateObj - today;
+            var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 5) {
+                alert('You must select a date at least 5 days from today');
+                $(this).val('');
+            }
+
+        });
+
+        $('input[name="time_arrival"]').on('change', function () {
+            const selectedDate = $(this).val();
+            console.log("Selected date:", selectedDate);
+        });
+
+        return isValid;
+
+    }
+
+</script>

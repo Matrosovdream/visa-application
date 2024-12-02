@@ -40,6 +40,65 @@ class CartRepoStore {
 
     }
 
+    public static function updateMeta($cart_hash, array $data) {
+
+        $cart = Cart::where('hash', $cart_hash)->first();
+
+        if( isset($cart) ) {
+            foreach( $data as $key => $value ) {
+                
+                // Check if key is in meta list
+                if( 
+                    in_array($key, self::listMeta()) &&
+                    !empty($value)
+                    ) {
+
+                    if( $key == 'travellers' ) {
+                        $value = self::prepareMultiple($value);
+                    } 
+                    
+                    if( is_array( $value ) ) {
+                        $value = json_encode($value);
+                    }
+
+                    $cart->setMeta($key, $value);
+                }
+
+            }
+        }
+        
+    }    
+
+    public static function prepareMultiple( $data ) {
+
+        $res = [];
+        foreach ($data as $key => $values) {
+            foreach ($values as $index => $value) {
+                $res[$index][$key] = $value;
+            }
+        }
+
+        return $res;
+
+    }
+
+    public static function listMeta() {
+
+        return [
+            'country_from_id',
+            'country_from_code',
+            'country_to_id',
+            'country_to_code',
+            'time_arrival',
+            'dest_airport_id',
+            'full_name',
+            'email',
+            'phone',
+            'travellers'
+        ];
+
+    }
+
 
 
 

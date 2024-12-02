@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cart_id')->on('carts');
             $table->string('key');
-            $table->string('value');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }

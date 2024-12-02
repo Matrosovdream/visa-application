@@ -12,6 +12,7 @@ use App\Services\CurrencyConverterService;
 use App\Services\GlobalsService;
 use App\Repositories\Cart\CartRepoStore;
 use App\Repositories\Cart\CartRepo;
+use App\Helpers\TravellerHelper;
 
 
 
@@ -30,16 +31,108 @@ class CountryController extends Controller
 
     }
 
-    public function applyCart(Request $request) {
+    public function applyCartStep1(Request $request) {
 
-        $countryFrom = $this->findCountry( $request->country );
+        $data = $this->collectCartData( $request );
+
+        $data['template'] = 'step-1';
+        $data['subtitle'] = 'Trip Details';
+        $data['prev_page'] = route('web.country.index', [$data['country']->slug]);
+        $data['next_page'] = route('web.country.apply.cart.step2', [$data['country']->slug, $request->cart]);
+        $data['action'] = route('web.country.apply.cart.update', [$data['country']->slug, $request->cart]);
+
+        return view('web.country.cart', $data);
+
+    }
+
+    public function applyCartStep2(Request $request) {
+
+        $data = $this->collectCartData( $request );
+
+        // Prepare travellers
+        if( isset($data['cart']['meta']['travellers']) ) {
+            $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
+        }
+
+        $data['template'] = 'step-2';
+        $data['subtitle'] = 'Your information';
+        $data['prev_page'] = route('web.country.apply.cart.step1', [$data['country']->slug, $request->cart]);
+        $data['next_page'] = route('web.country.apply.cart.step3', [$data['country']->slug, $request->cart]);
+        $data['action'] = route('web.country.apply.cart.update', [$data['country']->slug, $request->cart]);
+
+        return view('web.country.cart', $data);
+
+    }
+
+    public function applyCartStep3(Request $request) {
+
+        $data = $this->collectCartData( $request );
+
+        // Prepare travellers
+        if( isset($data['cart']['meta']['travellers']) ) {
+            $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
+        }
+
+        $data['template'] = 'step-3';
+        $data['subtitle'] = 'Passport details';
+        $data['prev_page'] = route('web.country.apply.cart.step2', [$data['country']->slug, $request->cart]);
+        $data['next_page'] = route('web.country.apply.cart.confirm', [$data['country']->slug, $request->cart]);
+        $data['action'] = route('web.country.apply.cart.update', [$data['country']->slug, $request->cart]);
+
+        return view('web.country.cart', $data);
+
+    }
+
+    public function applyCartStepConfirm(Request $request) {
+
+        $data = $this->collectCartData( $request );
+
+        $data['template'] = 'confirm';
+        $data['subtitle'] = 'Checkout';
+        $data['prev_page'] = route('web.country.apply.cart.step3', [$data['country']->slug, $request->cart]);
+        $data['next_page'] = '';
+        $data['action'] = route('web.country.apply.cart.update', [$data['country']->slug, $request->cart]);
+
+        return view('web.country.cart', $data);
+
+    }
+
+    public function updateCart(Request $request) {
+
+        $data = $this->collectCartData( $request );
+
+        //dd($request->all());
+
+        // Update cart meta
+        CartRepoStore::updateMeta( $request->cart, $request->all() );
+
+        // Return to $request->next_page
+        return redirect( $request->next_page );
+        
+
+    }
+
+    public function collectCartData( $request ) {
+        
         $cart = CartRepo::getCartBy($request->cart, 'hash');
 
-        $data = $this->getDirectionData( $request );
+        //$data = $this->getDirectionData( $request );
 
-        return view('web.country.apply', $data);
+        $data['country'] = Country::find($cart['meta']['country_to_id']);
+        $data['countryFrom'] = Country::find( $cart['meta']['country_from_id'] );
 
-        dd( $cart);
+        $data['cart'] = $cart;
+
+        // Airports by country
+        $data['airports'] = $data['country']->airports;
+
+        $data['product'] = $cart['products'][0];
+
+        $data['currency'] = $cart['fields']['currency'];
+
+        $data['totals'] = $cart['totals'];
+
+        return $data;
 
     }
 
@@ -62,45 +155,7 @@ class CountryController extends Controller
         ];
         $cart = CartRepoStore::create( $data );
 
-        return redirect()->route('web.country.apply.cart', [$countryTo->slug, $cart['model']->hash, 'step' => 1]);
-
-
-        $data = $this->getDirectionData( $request );
-
-        $data['product'] = Product::find($request->product_id);
-        $data['totalPrice'] = $data['product']->offers->first()->price;
-        $data['currency'] = $globalsService->getActiveCurrency()->code;
-        $data['extrasPrice'] = $data['product']->extras->sum('price');
-
-        // Convert currency
-        $data['totalPrice'] = CurrencyConverterService::convert('USD', $data['currency'], $data['totalPrice']);
-        $data['extrasPrice'] = CurrencyConverterService::convert('USD', $data['currency'], $data['extrasPrice']);
-
-        // Convert offers price
-        $offers = $data['product']->offers;
-        foreach ($offers as $offer) {
-            $offer->price = CurrencyConverterService::convert('USD', $data['currency'], $offer->price);
-        }
-        $data['product']->offers = $offers;
-
-        // Calculate price for every offer
-        foreach ($data['product']->offers as $offer) {
-            $offer->price = $offer->price + $data['extrasPrice'];
-        }
-
-        // Airports by country
-        $data['airports'] = $data['country']->airports;
-
-        // Convert extras price
-        $extras = $data['product']->extras;
-        foreach ($extras as $extra) {
-            $extra->price = CurrencyConverterService::convert('USD', $data['currency'], $extra->price);
-        }
-        $data['product']->extras = $extras;
-
-        if ( $data['country'] ) {
-            return view('web.country.apply', $data);
-        }
+        return redirect()->route('web.country.apply.cart.step1', [$countryTo->slug, $cart['Model']->hash]);
 
     }
 
