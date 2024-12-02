@@ -2,7 +2,7 @@
 <script>
     $(document).ready(function () {
 
-        calcTotals();
+        //calcTotals();
 
         // Step navigation logic
         function updateStepIndicator(step) {
@@ -43,44 +43,44 @@
             updateStepIndicator(2);
         });
 
-        // Add traveler logic
-        var travelerCount = 1;
-        $('#add_traveler').click(function () {
+        // Add traveller logic
+        var travellerCount = 1;
+        $('#add_traveller').click(function () {
 
             // Clone the element and append it to the form
-            var traveler = $('.card-traveler').first().clone();
-            travelerCount++;
-            traveler.find('h3').text('Traveler #' + travelerCount);
-            $('.card-traveler').last().after(traveler);
+            var traveller = $('.card-traveller').first().clone();
+            travellerCount++;
+            traveller.find('h3').text('Traveler #' + travellerCount);
+            $('.card-traveller').last().after(traveller);
 
             // clean the fields
-            traveler.find('input').val('');
+            traveller.find('input').val('');
 
             
 
             // Birthday datepicker
-            traveler.find(".birthday-date").removeClass("hasDatepicker").attr('id', 'birthday-' + travelerCount);
+            traveller.find(".birthday-date").removeClass("hasDatepicker").attr('id', 'birthday-' + travellerCount);
 
             // Passport expiration date datepicker
-            traveler.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-' + travelerCount);
+            traveller.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-' + travellerCount);
 
             updateDatePicker();
 
-            // Update traveler count
-            $('#traveler-count').text(travelerCount + ' travelers');
-            $('input[name="quantity"]').val(travelerCount);
+            // Update traveller count
+            $('#traveller-count').text(travellerCount + ' travellers');
+            $('input[name="quantity"]').val(travellerCount);
 
             // Update price with currency
             calcTotals();
 
         });
 
-        // Remove traveler logic
-        $(document).on('click', '.btn-remove-traveler', function () {
-            $(this).closest('.card-traveler').remove();
-            travelerCount--;
-            $('#traveler-count').text(travelerCount + ' travelers');
-            $('input[name="quantity"]').val(travelerCount);
+        // Remove traveller logic
+        $(document).on('click', '.btn-remove-traveller', function () {
+            $(this).closest('.card-traveller').remove();
+            travellerCount--;
+            $('#traveller-count').text(travellerCount + ' travellers');
+            $('input[name="quantity"]').val(travellerCount);
             calcTotals();
         });
 
@@ -98,120 +98,6 @@
 
     });
 
-    function validate_step1() {
-
-        // Manual validation
-        var arrivalDate = $('#arrivalDate').val();
-        var fullName = $('#full_name').val();
-        var phone = $('#phone').val();
-        var email = $('#email').val();
-        var country_to = $('#country_to').val();
-
-
-        var isValid = true;
-
-        $('label.error').remove();
-
-        // Check all fields and if not valid, show error label.error after the fields
-        if (arrivalDate == '') {
-            $('#arrivalDate').after('<label class="error">This field is required</label>');
-            isValid = false;
-        }
-
-        if (fullName == '') {
-            $('#full_name').after('<label class="error">This field is required</label>');
-            isValid = false;
-        }
-
-        if (phone == '') {
-            $('#phone').after('<label class="error">This field is required</label>');
-            isValid = false;
-        }
-
-        if (email == '' || !check_email(email)) {
-            $('#email').after('<label class="error">Check email</label>');
-            isValid = false;
-        }
-
-        if (country_to == null) {
-            $('#country_to').after('<label class="error">This field is required</label>');
-            isValid = false;
-        }
-
-        // Validate phone
-        if (!validatePhone(phone)) {
-            //$('#phone').after('<label class="error">Check phone</label>');
-            //isValid = false;
-        }
-
-        return isValid;
-
-    }
-
-    function validate_step2() {
-
-        // Check all traveller fields
-        var isValid = true;
-
-        $('label.error').remove();
-
-        // Check all fields and if not valid, show error label.error after the fields
-        $('input[name^="travelers[name]"]').each(function () {
-            if ($(this).val() == '') {
-                $(this).after('<label class="error">This field is required</label>');
-                isValid = false;
-            }
-        });
-
-        $('input[name^="travelers[lastname]"]').each(function () {
-            if ($(this).val() == '') {
-                $(this).after('<label class="error">This field is required</label>');
-                isValid = false;
-            }
-        });
-
-        $('input[name^="travelers[birthday]"]').each(function () {
-            if ($(this).val() == '') {
-                $(this).after('<label class="error">This field is required</label>');
-                isValid = false;
-            }
-        });
-
-        $('input[name^="travelers[passport]"]').each(function () {
-            if ($(this).val() == '') {
-                $(this).after('<label class="error">This field is required</label>');
-                isValid = false;
-            }
-        });
-
-        // time_arrival validation, if selected in the next 5 days show message: 
-        $('input[name="time_arrival"]').change(function() {
-
-            var arrivalDate = $(this).val();
-            var arrivalDateObj = new Date(arrivalDate);
-            var today = new Date();
-            var diffTime = arrivalDateObj - today;
-            var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            if (diffDays < 5) {
-                alert('You must select a date at least 5 days from today');
-                $(this).val('');
-            }
-
-        });
-
-        $('input[name="time_arrival"]').on('change', function() {
-            const selectedDate = $(this).val();
-            console.log("Selected date:", selectedDate);
-        });
-
-
-
-
-        return isValid;
-
-    }
-
     function check_email(email) {
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
@@ -222,11 +108,11 @@
         var price = parseFloat($('input[name="product_price"]').val());
         var extras_price = parseFloat($('input[name="product_extras_price"]').val());
         var currency = '{{ $currency }}';
-        var travelerCount = $('input[name="quantity"]').val();
+        var travellerCount = $('input[name="quantity"]').val();
 
         // Update price with currency
-        $('#price-span').text(price * travelerCount + ' ' + currency);
-        $('#extras-price-span').text(extras_price * travelerCount + ' ' + currency);
+        $('#price-span').text(price * travellerCount + ' ' + currency);
+        $('#extras-price-span').text(extras_price * travellerCount + ' ' + currency);
 
     }
 
@@ -240,88 +126,4 @@
 
 
 
-<style>
-    label.error {
-        color: red;
-        font-size: 14px;
-    }
 
-    .pay-button {
-        display: none;
-    }
-
-    .summary-table {
-        --tw-bg-opacity: 1;
-        background-color: rgb(248 249 249 / var(--tw-bg-opacity));
-    }
-
-    .step-indicator {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 30px;
-        padding: 10px;
-    }
-
-    .step-indicator div {
-        text-align: center;
-        width: 23%;
-        padding: 5px 0;
-        border: 1px solid #d4d4d4;
-        border-radius: 30px;
-        background-color: #f8f9fa;
-        color: #6c757d;
-        font-weight: bold;
-    }
-
-    .step-indicator .active {
-        background-color: #0d6efd;
-        color: white;
-        border: 1px solid #0d6efd;
-    }
-
-    /* Form Styling */
-    .form-step {
-        display: none;
-    }
-
-    .form-step-active {
-        display: block;
-    }
-
-    .form-label {
-        font-weight: 500;
-    }
-
-    .btn-primary {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #004080;
-    }
-
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
-
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-    }
-
-    h3 {
-        margin-bottom: 20px;
-    }
-    .btn-remove-traveler {
-        color: red;
-        cursor: pointer;
-        font-size: 15px;
-    }
-    /* Hide if it's the first traveller block */
-    .card-traveler:first-child .btn-remove-traveler {
-        display: none;
-    }
-</style>

@@ -2,6 +2,8 @@
 namespace App\Repositories\Cart;
 
 use App\Models\Cart;
+use App\Models\Product;
+use App\Models\ProductOffers;
 
 class CartRepo {
 
@@ -37,7 +39,7 @@ class CartRepo {
         // To array data if not null
         if ($model) {
             $data['fields'] = $model->toArray();
-            $data['model'] = $model;
+            $data['Model'] = $model;
         }
 
         // Attach all meta data from ->meta 
@@ -46,8 +48,44 @@ class CartRepo {
         // Get products from cart
         $products = $model->products;
         foreach( $products as $product ) {
-            $data['products'][] = array_merge( $product->toArray(), ['model' => $product] ); 
+
+            $productModel = Product::find($product->product_id);
+
+            $data['products'][] = array_merge( 
+                $product->toArray(), 
+                ['Model' => $productModel]
+
+            ); 
         }    
+
+        // We work just with one product
+        $product = $data['products'][0];
+
+        // Calculate totals
+        $totals = [];
+
+        // Offer id can null
+        if( $product['offer_id'] ) {
+            $totals['offer_price'] = ProductOffers::find( $product['offer_id'] )->price;
+        } else {
+            $totals['offer_price'] = $product['Model']->offers->first()->price;
+        }
+
+        $totals['extras_price'] = $product['Model']->extras->sum('price');
+
+        $totals['offer_price_total'] = $totals['offer_price'] * $product['quantity'];
+        $totals['extras_price_total'] = $totals['extras_price'] * $product['quantity'];
+        
+        $totals['price'] = $totals['offer_price'] + $totals['extras_price'];
+        $totals['total_price'] = $totals['price'] * $product['quantity'];
+
+        $data['totals'] = $totals;
+
+        //sdd($totals);
+
+        // Convert currency
+        //$data['totalPrice'] = CurrencyConverterService::convert('USD', $data['currency'], $data['totalPrice']);
+        //$data['extrasPrice'] = CurrencyConverterService::convert('USD', $data['currency'], $data['extrasPrice']);
 
         return $data;
 

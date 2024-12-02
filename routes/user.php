@@ -15,12 +15,24 @@ use App\Http\Controllers\FileController;
 Route::get('/', [IndexController::class, 'index'])->name('web.index');
 Route::post('/', [IndexController::class, 'directionApply'])->name('web.direction.apply');
 
-// Countries
-Route::get('/country/{country}', [CountryController::class, 'index'])->name('web.country.index');
-Route::get('/country/{country}/apply-now', [CountryController::class, 'apply'])->name('web.country.apply');
+// Country group
+Route::group(['as' => '','prefix' =>'country','namespace' => ''],function(){
 
-// Cart steps
-Route::get('/country/{country}/apply-now/{cart}', [CountryController::class, 'applyCart'])->name('web.country.apply.cart');
+    // Cart steps
+    Route::get('/{country}/apply-now/{cart}/step1', [CountryController::class, 'applyCartStep1'])->name('web.country.apply.cart.step1');
+    Route::get('/{country}/apply-now/{cart}/step2', [CountryController::class, 'applyCartStep2'])->name('web.country.apply.cart.step2');
+    Route::get('/{country}/apply-now/{cart}/step3', [CountryController::class, 'applyCartStep3'])->name('web.country.apply.cart.step3');
+    Route::get('/{country}/apply-now/{cart}/confirm', [CountryController::class, 'applyCartStepConfirm'])->name('web.country.apply.cart.confirm');
+
+    Route::post('/{country}/apply-now/{cart}/', [CountryController::class, 'updateCart'])->name('web.country.apply.cart.update');
+
+    // Countries
+    Route::get('/{country}/', [CountryController::class, 'index'])->name('web.country.index');
+    Route::get('/{country}/apply-now', [CountryController::class, 'apply'])->name('web.country.apply');
+
+});
+
+
 
 // Orders processing
 Route::post('/orders/create-apply', [OrderController::class, 'createApply'])->name('web.order.create-apply');
