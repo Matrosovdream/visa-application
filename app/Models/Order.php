@@ -136,7 +136,7 @@ class Order extends Model
 
     public function getCurrency()
     {
-        return $this->meta->where('key', 'currency')->first()->value;
+        return $this->currency;
     }
 
     public function getProgress() {

@@ -12,7 +12,7 @@ use App\Services\CurrencyConverterService;
 use App\Services\GlobalsService;
 use App\Repositories\Cart\CartRepoStore;
 use App\Repositories\Cart\CartRepo;
-use App\Helpers\TravellerHelper;
+use App\Models\Cart;
 
 
 
@@ -49,11 +49,6 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
-        // Prepare travellers
-        if( isset($data['cart']['meta']['travellers']) ) {
-            $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
-        }
-
         $data['template'] = 'step-2';
         $data['subtitle'] = 'Your information';
         $data['prev_page'] = route('web.country.apply.cart.step1', [$data['country']->slug, $request->cart]);
@@ -67,11 +62,6 @@ class CountryController extends Controller
     public function applyCartStep3(Request $request) {
 
         $data = $this->collectCartData( $request );
-
-        // Prepare travellers
-        if( isset($data['cart']['meta']['travellers']) ) {
-            $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
-        }
 
         $data['template'] = 'step-3';
         $data['subtitle'] = 'Passport details';
@@ -91,7 +81,7 @@ class CountryController extends Controller
         $data['subtitle'] = 'Checkout';
         $data['prev_page'] = route('web.country.apply.cart.step3', [$data['country']->slug, $request->cart]);
         $data['next_page'] = '';
-        $data['action'] = route('web.country.apply.cart.update', [$data['country']->slug, $request->cart]);
+        $data['action'] = route('web.order.create-apply', [$data['country']->slug, $request->cart]);
 
         return view('web.country.cart', $data);
 
@@ -103,20 +93,34 @@ class CountryController extends Controller
 
         //dd($request->all());
 
+        $cart = Cart::where('hash', $request->cart)->first();
+
+        /*if( isset( $request->travellers ) ) {
+            $fields['product'] = [
+                //'quantity' => count(  )
+            ];
+
+            CartRepoStore::update( $cart->id, $fields );
+        }*/
+
         // Update cart meta
-        CartRepoStore::updateMeta( $request->cart, $request->all() );
+        CartRepoStore::updateMeta( $cart->id, $request->all() );
 
         // Return to $request->next_page
         return redirect( $request->next_page );
         
-
     }
 
     public function collectCartData( $request ) {
         
         $cart = CartRepo::getCartBy($request->cart, 'hash');
+        if( !$cart ) {
+            abort(404);
+        }
 
         //$data = $this->getDirectionData( $request );
+
+        $data['cart'] = $cart;
 
         $data['country'] = Country::find($cart['meta']['country_to_id']);
         $data['countryFrom'] = Country::find( $cart['meta']['country_from_id'] );
@@ -131,6 +135,11 @@ class CountryController extends Controller
         $data['currency'] = $cart['fields']['currency'];
 
         $data['totals'] = $cart['totals'];
+
+        // Prepare travellers
+        if( isset($data['cart']['meta']['travellers']) ) {
+            $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
+        }
 
         return $data;
 

@@ -166,7 +166,7 @@ class OrderController extends Controller
     public function createApply(Request $request)
     {
 
-        $order = OrderActions::createOrder($request);
+        $order = OrderActions::createOrderNew($request);
         if( isset($order) ) {
             return redirect()->route('web.order.show', $order->hash);
         } else {
