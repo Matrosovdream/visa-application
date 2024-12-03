@@ -2,47 +2,6 @@
 <script>
     $(document).ready(function () {
 
-        //calcTotals();
-
-        // Step navigation logic
-        function updateStepIndicator(step) {
-            $('.step-indicator div').removeClass('active');
-            $('#step-indicator-' + step).addClass('active');
-            if (step == 3) {
-                $('.pay-button').show();
-            } else {
-                $('.pay-button').hide();
-            }
-        }
-
-        $('#next-1').click(function () {
-            if (validate_step1()) {
-                $('#step-1').removeClass('form-step-active');
-                $('#step-2').addClass('form-step-active');
-                updateStepIndicator(2);
-            }
-        });
-
-        $('#next-2').click(function () {
-            if (validate_step2()) {
-                $('#step-2').removeClass('form-step-active');
-                $('#step-3').addClass('form-step-active');
-                updateStepIndicator(3);
-            }
-        });
-
-        $('#prev-2').click(function () {
-            $('#step-2').removeClass('form-step-active');
-            $('#step-1').addClass('form-step-active');
-            updateStepIndicator(1);
-        });
-
-        $('#prev-3').click(function () {
-            $('#step-3').removeClass('form-step-active');
-            $('#step-2').addClass('form-step-active');
-            updateStepIndicator(2);
-        });
-
         // Add traveller logic
         var travellerCount = 1;
         $('#add_traveller').click(function () {
@@ -55,8 +14,6 @@
 
             // clean the fields
             traveller.find('input').val('');
-
-            
 
             // Birthday datepicker
             traveller.find(".birthday-date").removeClass("hasDatepicker").attr('id', 'birthday-' + travellerCount);
@@ -71,7 +28,7 @@
             $('input[name="quantity"]').val(travellerCount);
 
             // Update price with currency
-            calcTotals();
+            //calcTotals();
 
         });
 
@@ -87,7 +44,7 @@
         // Offer selection logic
         $('input[name="offer_id"]').change(function () {
             var price = $(this).data('price');
-            $('input[name="product_price"]').val(price);
+            $('input[name="offer_price_total"]').val(price);
             calcTotals();
         });
 
@@ -105,14 +62,14 @@
 
     function calcTotals() {
 
-        var price = parseFloat($('input[name="product_price"]').val());
-        var extras_price = parseFloat($('input[name="product_extras_price"]').val());
+        var price = parseFloat($('input[name="offer_price_total"]').val());
+        var extras_price = parseFloat($('input[name="extras_price_total"]').val());
         var currency = '{{ $currency }}';
         var travellerCount = $('input[name="quantity"]').val();
 
         // Update price with currency
         $('#price-span').text(price * travellerCount + ' ' + currency);
-        $('#extras-price-span').text(extras_price * travellerCount + ' ' + currency);
+        //$('#extras-price-span').text(extras_price * travellerCount + ' ' + currency);
 
     }
 

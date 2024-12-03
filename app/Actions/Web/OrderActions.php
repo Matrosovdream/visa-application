@@ -12,10 +12,63 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Traveller;
 use App\Helpers\TravellerHelper;
+use App\Repositories\Cart\CartRepo;
 
 
 
 class OrderActions {
+
+    public static function createOrderNew( Request $request, $user_id=null ) {
+
+        $cart = CartRepo::find( $request->cart_id );
+
+        // Create or find user by email
+        if( $user_id ) {
+            $USER = User::find($user_id);
+        } elseif( auth()->user() ) {
+            $USER = auth()->user();
+        } else {
+            // Create user
+            $USER = self::createUserNew($cart['meta'], $role = 'user');
+
+            // Log in user
+            auth()->login($USER);
+        }
+
+        // Create order
+        $order = Order::create([
+            'user_id' => $USER->id,
+            'status_id' => 1,
+            'payment_method_id' => 1,
+            'total_price' => $cart['totals']['total_price'],
+        ]);
+
+        // Set cart Order ID
+        $cart['Model']->order_id = $order->id;
+        $cart['Model']->save();
+
+        // Add order meta fields
+        self::addOrderMetaNew($order, $cart['meta']);
+
+        // Add travellers
+        $travellers = json_decode($cart['meta']['travellers'], true);
+        if( isset($travellers) ) {
+            self::addTravellersNew($order, $travellers);
+        } 
+
+        // Add to history
+        $order->history()->create([
+            'user_id' => $USER->id,
+            'action' => 'create',
+            'comment' => 'Order created',
+        ]);
+
+        return $order;
+
+
+        dd($cart);
+
+    }
 
     public static function createOrder( Request $request, $user_id=null ) {
 
@@ -33,7 +86,7 @@ class OrderActions {
         }
 
         // Calculate product price
-        $price = self::getProductPrice($request->product_id, $request->offer_id);
+        //$price = self::getProductPrice($request->product_id, $request->offer_id);
 
         // Calculate total price
         $totalPrice = $price * $request->quantity;
@@ -112,6 +165,23 @@ class OrderActions {
         ]);
 
         // Set role
+        $user->setRole( $role );
+
+        return $user;
+
+    }
+
+    public static function createUserNew( $data, $role = 'user' ) {
+
+        $user = User::firstOrCreate([
+            'email' => $data['email'],
+        ], [
+            'name' => $data['full_name'],
+            'email' => $data['email'],
+            'password' => bcrypt(Str::random(16)),
+        ]);
+
+        // Set role
         $user->setRole('user');
 
         return $user;
@@ -151,6 +221,26 @@ class OrderActions {
                     'value' => $value,
                 ]);
             }
+        }
+
+    }
+
+    public static function addTravellersNew( $order, $travellers ) {
+
+        foreach ($travellers as $traveller) {
+
+            $data = [
+                'name' => $traveller['name'],
+                'lastname' => $traveller['lastname'],
+                'birthday' => $traveller['birthday'],
+                'passport' => $traveller['passport'],
+            ];
+
+            $travellerSet = $order->travellers()->create( $data );
+            foreach( $data as $key=>$value ) {
+                $travellerSet->setMeta($key, $value);
+            }
+
         }
 
     }

@@ -37,6 +37,12 @@
         @csrf
 
         <input type="hidden" name="next_page" value="{{ $next_page }}">
+        <input type="hidden" name="cart_id" value="{{ $cart['fields']['id'] }}">
+
+        <input type="hidden" name="extras_price_total" value="{{ $totals['extras_price_total'] }}" />
+        <input type="hidden" name="offer_price_total" value="{{ $totals['offer_price_total'] }}" />
+        <input type="hidden" name="quantity" value="{{ $cart['meta']['travellers_count'] ?? 1 }}" />
+
 
         <div class="row">
 
@@ -80,7 +86,7 @@
                         <h5>{{ $product['Model']->name }}</h5>
                     </td>
                     <td>
-                        <p id="traveler-count">1 {{ __('traveler') }}</p>
+                        <p id="traveler-count">{{ $cart['meta']['travellers_count'] ?? 1 }} {{ __('traveler(s)') }}</p>
                     </td>
                 </tr>
 
@@ -106,9 +112,15 @@
             </tbody>
         </table>
 
-        <button type="submit" class="btn btn-primary w-100 mt-3">
-            {{ __('Save and continue') }}
-        </button>
+        @if( !$next_page )
+            <button type="submit" class="btn btn-primary w-100 mt-3">
+                {{ __('Continue to Payment') }}
+            </button>
+        @else 
+            <button type="submit" class="btn btn-primary w-100 mt-3">
+                {{ __('Save and continue') }}
+            </button>
+        @endif
 
     </div>
 </div>

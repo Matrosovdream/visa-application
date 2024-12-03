@@ -22,6 +22,7 @@ class CartRepoStore {
         $cart->setMeta('country_from_code', $data['country_from']->code);
         $cart->setMeta('country_to_id', $data['country_to']->id);
         $cart->setMeta('country_to_code', $data['country_to']->code);
+        $cart->setMeta('travellers_count', 1);
 
         // Add products to the cart
         CartProduct::create([
@@ -40,9 +41,42 @@ class CartRepoStore {
 
     }
 
-    public static function updateMeta($cart_hash, array $data) {
+    
+    public static function update( $cart_id, $data ) {
 
-        $cart = Cart::where('hash', $cart_hash)->first();
+        $cart = Cart::find( $cart_id );
+
+        // Retrieve product
+        $product = $cart->products[0];
+
+        if( isset( $data['product']['quantity'] ) ) {
+
+            // Update cart product
+            $product->quantity = $data['product']['quantity'];
+            $product->save();
+
+        }
+
+        // Calculate totals
+        self::calcCartTotals( $cart_id );
+
+    }
+
+    public static function calcCartTotals( $cart_id ) {
+
+        $cart = CartRepo::find( $cart_id );
+
+        $cartProduct = CartProduct::find( $cart['products'][0]['id'] ); 
+        $cartProduct->price = $cart['totals']['price'];
+        $cartProduct->total = $cart['totals']['total_price'];
+        $cartProduct->save();
+
+        //dd($cart);
+    }
+
+    public static function updateMeta($cart_id, array $data) {
+
+        $cart = Cart::find( $cart_id );
 
         if( isset($cart) ) {
             foreach( $data as $key => $value ) {
@@ -55,6 +89,9 @@ class CartRepoStore {
 
                     if( $key == 'travellers' ) {
                         $value = self::prepareMultiple($value);
+                        $value = self::prepareTraveller($value, $cart->getMeta('travellers'));
+
+                        $cart->setMeta( 'travellers_count', count($value) );
                     } 
                     
                     if( is_array( $value ) ) {
@@ -68,6 +105,28 @@ class CartRepoStore {
         }
         
     }    
+
+    public static function prepareTraveller($values, $old_values) {
+
+        $old_values = json_decode( $old_values, true );
+
+        // Iterate over the values array to update corresponding old values
+        foreach ($values as $index => $new_data) {
+            // Merge the old data with the new data for the corresponding index
+            if (isset($old_values[$index])) {
+                $old_values[$index] = array_merge($old_values[$index], $new_data);
+            } else {
+                // If the index doesn't exist in old_values, just add the new data
+                $old_values[$index] = $new_data;
+            }
+        }
+        
+        //dd($old_values, $values);
+
+        return $old_values;
+
+    }
+
 
     public static function prepareMultiple( $data ) {
 
@@ -98,8 +157,5 @@ class CartRepoStore {
         ];
 
     }
-
-
-
 
 }

@@ -36,6 +36,10 @@ class CartRepo {
                 break;
         }
 
+        if( !$model ) {
+            return null;
+        }
+
         // To array data if not null
         if ($model) {
             $data['fields'] = $model->toArray();
