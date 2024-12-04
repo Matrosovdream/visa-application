@@ -95,16 +95,16 @@ class CountryController extends Controller
 
         $cart = Cart::where('hash', $request->cart)->first();
 
-        /*if( isset( $request->travellers ) ) {
-            $fields['product'] = [
-                //'quantity' => count(  )
-            ];
-
-            CartRepoStore::update( $cart->id, $fields );
-        }*/
-
         // Update cart meta
         CartRepoStore::updateMeta( $cart->id, $request->all() );
+
+        // Update cart product
+        $cartRepo = CartRepo::find($cart->id);
+
+        $fields['product'] = [
+            'quantity' => count( $cartRepo['travellers'] )
+        ];
+        CartRepoStore::update( $cart->id, $fields );
 
         // Return to $request->next_page
         return redirect( $request->next_page );
