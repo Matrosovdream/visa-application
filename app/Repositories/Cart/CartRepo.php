@@ -49,6 +49,13 @@ class CartRepo {
         // Attach all meta data from ->meta 
         $data['meta'] = $model->getAllMeta();
 
+        // Travellers
+        if( isset( $data['meta']['travellers'] ) ) {
+            $data['travellers'] = json_decode($data['meta']['travellers'], true);
+        } else {
+            $data['travellers'] = [];
+        }
+
         // Get products from cart
         $products = $model->products;
         foreach( $products as $product ) {

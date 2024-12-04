@@ -22,6 +22,15 @@ class OrderActions {
 
         $cart = CartRepo::find( $request->cart_id );
 
+        // Set cart product
+        $product = $cart['products'][0];
+        $cartProduct = CartProduct::find( $product['id'] );
+
+        $cartProduct->offer_id = $request->offer_id;
+        $cartProduct->save();
+
+        $cart = CartRepo::find( $request->cart_id );
+
         // Create or find user by email
         if( $user_id ) {
             $USER = User::find($user_id);
@@ -56,6 +65,10 @@ class OrderActions {
             self::addTravellersNew($order, $travellers);
         } 
 
+        // Set cart product order ID
+        $cartProduct->order_id = $order->id;
+        $cartProduct->save();
+
         // Add to history
         $order->history()->create([
             'user_id' => $USER->id,
@@ -64,7 +77,6 @@ class OrderActions {
         ]);
 
         return $order;
-
 
         dd($cart);
 
