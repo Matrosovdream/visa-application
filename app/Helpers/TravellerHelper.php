@@ -5,6 +5,7 @@ use App\Models\Traveller;
 use App\Models\File;
 use App\Models\Country;
 use Illuminate\Support\Facades\Storage;
+use App\Helpers\TravellerRefs;
 
 class TravellerHelper
 {
@@ -117,40 +118,7 @@ class TravellerHelper
 
         $cats = self::getTravellerFieldCategories();
 
-        $fields = [
-            'personal' => [
-                'residence_country' => [
-                    'title' => 'Country of Residence', 'type' => 'select', 'required' => true, 'options' => self::getReference('countries'), 'relate' => 'meta'],
-                'gender' => ['title' => 'Gender', 'type' => 'select', 'required' => true,'options' => self::getReference('gender'), 'relate' => 'meta'],
-                //'nationality' => ['title' => 'Nationality', 'type' => 'boolean', 'relate' => 'meta'],
-                'residence_address' => ['icon' => 'location-2.svg','title' => 'Residence address', 'type' => 'text', 'required' => true, 'relate' => 'meta'],
-                'residence_city' => ['icon' => 'location-2.svg','title' => 'Residence city or Town', 'type' => 'text', 'required' => true, 'relate' => 'meta'],
-                'residence_state' => ['icon' => 'location-2.svg','title' => 'Residence state or province', 'type' => 'text', 'required' => true, 'relate' => 'meta'],
-                'residence_zip' => ['icon' => 'location-2.svg','title' => 'Residence ZIP code', 'type' => 'text', 'required' => true, 'relate' => 'meta'],
-                'occupation' => ['icon' => 'user.svg','title' => 'Occupation', 'type' => 'text', 'required' => true, 'relate' => 'meta'],
-            ],
-            'passport' => [
-                'name' => ['icon' => 'user.svg','title' => 'Name', 'type' => 'text', 'required' => true, 'relate' => 'entity'],
-                'lastname' => ['icon' => 'user.svg','title' => 'Last name', 'type' => 'text', 'required' => true, 'relate' => 'entity'],
-                'birthday' => ['icon' => 'user.svg','title' => 'Birthday', 'type' => 'date', 'required' => true, 'relate' => 'entity'],
-                'passport' => ['icon' => 'user.svg','title' => 'Passport', 'type' => 'text', 'required' => true, 'relate' => 'entity'],
-                'passport_issue_date' => ['icon' => 'user.svg','title' => 'Passport Issue Date', 'type' => 'date', 'required' => true, 'relate' => 'meta'],
-                'passport_expiration_date' => ['icon' => 'user.svg','title' => 'Passport Expiration Date', 'type' => 'date', 'required' => true, 'relate' => 'meta'],
-                'birth_country' => ['title' => 'Country of Birth', 'type' => 'select', 'required' => true, 'options' => self::getReference('countries'), 'relate' => 'meta'],
-                'passport_issue_country' => ['title' => 'Which country issued your passport', 'type' => 'select', 'required' => true, 'options' => self::getReference('countries'), 'relate' => 'meta'],
-            ],
-            'family' => [
-                'marital_status' => ['title' => 'Marital status', 'type' => 'select', 'required' => true, 'options' => self::getReference('marital_status'), 'relate' => 'meta'],
-            ],
-            'past_travel' => [
-                'past_travel_country' => ['title' => 'Have you previously visited country?', 'type' => 'select', 'required' => true, 'options' => self::getReference('boolean'), 'relate' => 'meta'],
-                'past_travel_date' => ['icon' => 'location-2.svg','title' => 'When did you arrive?', 'type' => 'date', 'required' => false, 'relate' => 'meta'],
-                'past_travel_departure' => ['icon' => 'location-2.svg','title' => 'When did you depart?', 'type' => 'date', 'required' => false, 'relate' => 'meta'],
-            ],
-            'declarations' => [
-                'is_previous_country_deport' => ['icon' => 'location-2.svg','title' => 'Have you ever been deported from country or another country?', 'type' => 'select', 'required' => true, 'options' => self::getReference('boolean'), 'relate' => 'meta'],
-            ],
-        ];
+        $fields = TravellerRefs::travellerFields();
 
         // Set an empty value for all
         foreach ($fields as $cat => $field) {
@@ -211,17 +179,6 @@ class TravellerHelper
 
     }
 
-    public static function prepareBooleanRef()
-    {
-
-        $boolean = [
-            ['value' => 'yes', 'title' => 'Yes'],
-            ['value' => 'no', 'title' => 'No'],
-        ];
-        return $boolean;
-
-    }
-
     public static function prepareCountryRef()
     {
 
@@ -237,31 +194,6 @@ class TravellerHelper
         return $countriesRef;
 
     }
-
-    public static function prepareGenderRef()
-    {
-
-        $genders = [
-            ['value' => 'male', 'title' => 'Male'],
-            ['value' => 'female', 'title' => 'Female'],
-        ];
-        return $genders;
-
-    }
-
-    public static function prepareMaritalStatusRef()
-    {
-
-        $statuses = [
-            ['value' => 'single', 'title' => 'Single'],
-            ['value' => 'married', 'title' => 'Married'],
-            ['value' => 'divorced', 'title' => 'Divorced'],
-            ['value' => 'widowed', 'title' => 'Widowed'],
-        ];
-        return $statuses;
-
-    }
-
 
     public static function getTravellerFieldListAll()
     {
@@ -282,10 +214,8 @@ class TravellerHelper
 
     public static function getTravellerField($field_code)
     {
-
         $fields = self::getTravellerFieldListAll();
         return $fields[$field_code];
-
     }
 
     public static function updateTravellerField($applicant_id, $field, $value)
@@ -376,6 +306,27 @@ class TravellerHelper
         $traveller->documents()->create([
             'file_id' => $file->id,
         ]);
+
+    }
+
+    public static function prepareGenderRef()
+    {
+        return TravellerRefs::Genders();
+    }
+
+    public static function prepareMaritalStatusRef()
+    {
+        return TravellerRefs::MaritalStatuses();
+    }
+
+    public static function prepareBooleanRef()
+    {
+
+        $boolean = [
+            ['value' => 'yes', 'title' => 'Yes'],
+            ['value' => 'no', 'title' => 'No'],
+        ];
+        return $boolean;
 
     }
 

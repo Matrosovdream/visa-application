@@ -58,6 +58,17 @@ class OrderController extends Controller
             'travellerFieldCategories' => TravellerHelper::getTravellerFieldCategories(),
             'travellerFields' => TravellerHelper::getTravellerFieldList()
         );
+
+        // Set next page
+        if( isset($data['order']->travellers) ) {
+            $params = [
+                'order_id' => $order_id, 
+                'applicant_id' => $data['order']->travellers[0]->id, 
+                'category' => 'personal'
+            ];
+            $data['next_page'] = route('web.account.order.applicant.personal', $params);
+        }
+
         return view('web.account.orders.trip', $data);
     }
 
@@ -73,7 +84,12 @@ class OrderController extends Controller
         // Check if is completed then update status
         orderHelper::checkUpdateStatus( $order_id );
 
-        return redirect()->route('web.account.order.trip', $order_id);
+        if( isset( $request->next_page ) ) {
+            return redirect($request->next_page );
+        } else {
+            return redirect()->route('web.account.order.trip', $order_id);
+        }
+        
     }
 
     public function applicantDocuments($order_id, $applicant_id)
@@ -142,8 +158,14 @@ class OrderController extends Controller
         
         // Check if is completed then update status
         orderHelper::checkUpdateStatus( $order_id );
+
+        if( isset($request->next_page) ) {
+            return redirect( $request->next_page );
+        } else {
+            return redirect()->back();
+        }
         
-        return redirect()->back();
+        
     }
 
     public function getApplicantData($order_id, $applicant_id) {
@@ -157,6 +179,41 @@ class OrderController extends Controller
 
         if( isset( request()->category ) ) {
             $fields['fields'] = TravellerHelper::getTravellerFieldList($applicant_id)[ request()->category ];
+        }
+
+        // Set next page
+        $category = request()->category ?? '';
+
+        if( $category == 'personal' ) {
+            $params = [
+                'order_id' => $order_id, 
+                'applicant_id' => $applicant_id, 
+                'category' => 'passport'
+            ];
+            $fields['next_page'] = route('web.account.order.applicant.passport', $params);
+        }
+        if( $category == 'passport' ) {
+            $params = [
+                'order_id' => $order_id, 
+                'applicant_id' => $applicant_id, 
+                'category' => 'family'
+            ];
+            $fields['next_page'] = route('web.account.order.applicant.family', $params);
+        }
+        if( $category == 'family' ) {
+            $params = [
+                'order_id' => $order_id, 
+                'applicant_id' => $applicant_id, 
+                'category' => 'past_travel'
+            ];
+            $fields['next_page'] = route('web.account.order.applicant.past-travel', $params);
+        }
+        if( $category == 'past_travel' ) {
+            $params = [
+                'order_id' => $order_id, 
+                'applicant_id' => $applicant_id, 
+            ];
+            $fields['next_page'] = route('web.account.order.applicant.documents', $params);
         }
 
         return $fields;
