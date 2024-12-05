@@ -2,6 +2,14 @@
 
     @foreach($travellers as $traveller)
 
+        @php
+        
+        if( !isset( $traveller['passport_issue_country'] ) ) {
+            $traveller['passport_issue_country'] = $countryFrom->slug;
+        }
+
+        @endphp
+
         <div class="card-traveller mt-25">
 
             <div class="row">
@@ -25,8 +33,10 @@
                     {{ __("Nationality on passport") }}
                 </label>
                 <select class="select2" name="travellers[passport_issue_country][]">
+                    <option>
+                        {{ __("Choose country") }}
+                    </option>
                     @foreach($countries as $country)
-                        <option></option>
                         <option 
                             value="{{ $country->slug }}" 
                             data-slug="{{ $country->slug }}" 
@@ -45,8 +55,9 @@
                     type="checkbox" 
                     name="travellers[skip_pass][]" 
                     class="form-control-checkbox" 
-                    @if( isset($traveller['skip_pass']) && $traveller['skip_pass'] == 'on' ) checked @endif
+                    @if( isset($traveller['skip_pass']) && $traveller['skip_pass'] == 'true' ) checked @endif
                     id="traveller-skip-pass-{{ $loop->iteration }}"
+                    value="true"
                     />
                 <label class="form-label w-75" for="traveller-skip-pass-{{ $loop->iteration }}">
                     {{ __('Skip entering passport information for now') }}
@@ -85,8 +96,10 @@
                     {{ __("Country of birth") }}
                 </label>
                 <select class="select2" name="travellers[birth_country][]">
+                    <option>
+                        {{ __("Choose country") }}
+                    </option>
                     @foreach($countries as $country)
-                        <option></option>
                         <option 
                             value="{{ $country->slug }}" 
                             data-slug="{{ $country->slug }}" 
@@ -121,6 +134,7 @@
                 $('.traveller-pass-' + index).hide();
             } else {
                 $('.traveller-pass-' + index).show();
+                $('.select2-container').css('display', 'block'); // Fix Select2 bug
             }
         });
 
@@ -133,6 +147,19 @@
         });
 
 
+    });
+
+    $('#multiStepForm').on('submit', function () {
+        $(this).find('input[type="checkbox"]').each(function () {
+            if (!$(this).is(':checked')) {
+                // Add a hidden input with the same name and value "false"
+                $('<input>')
+                    .attr('type', 'hidden')
+                    .attr('name', $(this).attr('name'))
+                    .val('false')
+                    .insertAfter($(this));
+            }
+        });
     });
 
 </script>

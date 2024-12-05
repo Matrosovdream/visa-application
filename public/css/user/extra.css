@@ -234,3 +234,7 @@ h3 {
     border: 1px solid #d4d4d4;
     padding: 15px;
 }
+
+.non-active-status-block {
+    opacity: 0.3!important;
+}
