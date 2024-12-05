@@ -8,7 +8,6 @@ use App\Models\TravelDirection;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Helpers\userSettingsHelper;
-use App\Services\CurrencyConverterService;
 use App\Services\GlobalsService;
 use App\Repositories\Cart\CartRepoStore;
 use App\Repositories\Cart\CartRepo;
@@ -35,9 +34,11 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
+        //dd($data);
+
         $data['template'] = 'step-1';
         $data['subtitle'] = 'Trip Details';
-        $data['prev_page'] = route('web.country.index', [$data['country']->slug]);
+        $data['prev_page'] = route('web.country.index', ['country' => $data['country']->slug, 'nationality' => $data['countryFrom']->slug]);
         $data['next_page'] = route('web.country.apply.cart.step2', [$data['country']->slug, $request->cart]);
         $data['action'] = route('web.country.apply.cart.update', [$data['country']->slug, $request->cart]);
 
@@ -62,6 +63,8 @@ class CountryController extends Controller
     public function applyCartStep3(Request $request) {
 
         $data = $this->collectCartData( $request );
+
+        //dd($data['travellers']);
 
         $data['template'] = 'step-3';
         $data['subtitle'] = 'Passport details';
@@ -101,10 +104,15 @@ class CountryController extends Controller
         // Update cart product
         $cartRepo = CartRepo::find($cart->id);
 
-        $fields['product'] = [
-            'quantity' => count( $cartRepo['travellers'] )
-        ];
-        CartRepoStore::update( $cart->id, $fields );
+        // Update travellers count
+        if( count( $cartRepo['travellers'] ) > 0 ) {
+
+            $fields['product'] = [
+                'quantity' => count( $cartRepo['travellers'] )
+            ];
+            CartRepoStore::update( $cart->id, $fields );
+
+        }
 
         // Return to $request->next_page
         return redirect( $request->next_page );
@@ -112,7 +120,7 @@ class CountryController extends Controller
     }
 
     public function collectCartData( $request ) {
-        
+
         $cart = CartRepo::getCartBy($request->cart, 'hash');
         if( !$cart ) {
             abort(404);
@@ -163,6 +171,9 @@ class CountryController extends Controller
             'country_to' => $countryTo,
         ];
         $cart = CartRepoStore::create( $data );
+
+        // Add cart hash to Cookie
+        GlobalsService::setCart( $cart['fields']['id'] );
 
         return redirect()->route('web.country.apply.cart.step1', [$countryTo->slug, $cart['Model']->hash]);
 

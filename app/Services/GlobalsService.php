@@ -7,6 +7,7 @@ use App\Services\LocationService;
 use App\Models\Country;
 use App\Services\SiteSettingsService;
 use App\Helpers\userSettingsHelper;
+use App\Repositories\Cart\CartRepo;
 
 
 class GlobalsService {
@@ -85,6 +86,40 @@ class GlobalsService {
 
     public static function setLanguage($code) {
         setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/');
+    }
+
+    public static function setCart( $cart_id ) {
+
+        $cart = CartRepo::find( $cart_id );
+
+        // Get all carts
+        $carts = self::getCarts();
+
+        // Prepare cart data
+        $cartData = [
+            'id' => $cart['fields']['id'],
+            'hash' => $cart['fields']['hash'],    
+        ];
+        $cartData = json_encode( $cartData );
+
+        // Add or update cart
+        $carts[ $cart['fields']['hash'] ] = $cartData;
+
+        // Encode array and set cookie
+        $carts = json_encode( $carts );
+        setcookie('carts', $carts, time() + 60 * 60 * 24 * 30, '/');
+
+    }
+
+    public static function getCarts() {
+
+        $carts = $_COOKIE['carts'] ?? null;
+
+        if( isset( $carts ) ) {
+            return json_decode( $carts, true );
+        }
+        return [];
+
     }
 
 }

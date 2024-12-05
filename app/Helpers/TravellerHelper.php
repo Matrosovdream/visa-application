@@ -331,10 +331,11 @@ class TravellerHelper
     {
 
         $cats = [
-            'personal' => ['title' => __('Personal'), 'slug' => 'personal', 'route' => 'web.account.order.applicant.personal'],
-            'passport' => ['title' => __('Passport'), 'slug' => 'passport', 'route' => 'web.account.order.applicant.passport'],
+            'personal' => ['title' => __('Personal Information'), 'slug' => 'personal', 'route' => 'web.account.order.applicant.personal'],
+            'passport' => ['title' => __('Passport Information'), 'slug' => 'passport', 'route' => 'web.account.order.applicant.passport'],
             'family' => ['title' => __('Family'), 'slug' => 'family', 'route' => 'web.account.order.applicant.family'],
             'past_travel' => ['title' => __('Past Travel'), 'slug' => 'past_travel', 'route' => 'web.account.order.applicant.past-travel'],
+            //'documents' => ['title' => __('Documents'), 'slug' => 'documents', 'route' => 'web.account.order.applicant.documents'],
             'declarations' => ['title' => __('Declarations'), 'slug' => 'declarations', 'route' => 'web.account.order.applicant.declarations'],
         ];
 

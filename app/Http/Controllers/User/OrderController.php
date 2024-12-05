@@ -46,7 +46,6 @@ class OrderController extends Controller
             dd( Order::getByHash($order_hash)->getCart() );
         }
         
-
         $data = array('title' => 'Order Preview', 'order' => Order::getByHash($order_hash));
         return view('web.order.show', $data);
     }

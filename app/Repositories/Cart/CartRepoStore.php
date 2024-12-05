@@ -88,9 +88,11 @@ class CartRepoStore {
                     ) {
 
                     if( $key == 'travellers' ) {
+                        
                         $value = self::prepareMultiple($value);
+                        
                         $value = self::prepareTraveller($value, $cart->getMeta('travellers'));
-
+//dd($value);
                         $cart->setMeta( 'travellers_count', count($value) );
                     } 
                     

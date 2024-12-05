@@ -19,12 +19,16 @@ Route::post('/', [IndexController::class, 'directionApply'])->name('web.directio
 Route::group(['as' => '','prefix' =>'country','namespace' => ''],function(){
 
     // Cart steps
-    Route::get('/{country}/apply-now/{cart}/step1', [CountryController::class, 'applyCartStep1'])->name('web.country.apply.cart.step1');
-    Route::get('/{country}/apply-now/{cart}/step2', [CountryController::class, 'applyCartStep2'])->name('web.country.apply.cart.step2');
-    Route::get('/{country}/apply-now/{cart}/step3', [CountryController::class, 'applyCartStep3'])->name('web.country.apply.cart.step3');
-    Route::get('/{country}/apply-now/{cart}/confirm', [CountryController::class, 'applyCartStepConfirm'])->name('web.country.apply.cart.confirm');
+    Route::group(['as' => '','prefix' =>'{country}/apply-now/{cart}', 'middleware' => ['isUserCart'], 'namespace' => ''],function(){
 
-    Route::post('/{country}/apply-now/{cart}/', [CountryController::class, 'updateCart'])->name('web.country.apply.cart.update');
+        Route::get('/step1', [CountryController::class, 'applyCartStep1'])->name('web.country.apply.cart.step1');
+        Route::get('/step2', [CountryController::class, 'applyCartStep2'])->name('web.country.apply.cart.step2');
+        Route::get('/step3', [CountryController::class, 'applyCartStep3'])->name('web.country.apply.cart.step3');
+        Route::get('/confirm', [CountryController::class, 'applyCartStepConfirm'])->name('web.country.apply.cart.confirm');
+
+        Route::post('/', [CountryController::class, 'updateCart'])->name('web.country.apply.cart.update');
+
+    });
 
     // Countries
     Route::get('/{country}/', [CountryController::class, 'index'])->name('web.country.index');

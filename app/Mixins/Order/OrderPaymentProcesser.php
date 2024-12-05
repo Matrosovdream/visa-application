@@ -60,7 +60,7 @@ class OrderPaymentProcesser
             'payment_gateway_id' => $this->order->payment_method_id,
             'transaction_id' => $this->paymentProcessor->transaction_id,
             'amount' => $this->order->getTotal(),
-            'currency' => $this->order->getMeta('currency'),
+            'currency' => $this->order->currency,
             'status' => $status,
             'payment_response' => $this->paymentProcessor->getResponse(),
             'order_id' => $this->order_id,
