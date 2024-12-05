@@ -1,3 +1,6 @@
+<input type="hidden" name="next_page" value="{{ $next_page ?? '' }}">
+
+
 @foreach($fields as $code => $field)
 
     @if($field['type'] == 'text')
@@ -39,7 +42,7 @@
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input type="text" class="form-control w-75 datepicker" id="field-{{ $code }}" name="fields[{{ $code }}]" value="{{ $field['value'] }}">
+            <input type="text" class="form-control w-75 {{ $field['classes'] ?? '' }}" id="field-{{ $code }}" name="fields[{{ $code }}]" value="{{ $field['value'] }}">
             @if( isset($field['icon']) ) 
                 <span class="icon">
                     <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">

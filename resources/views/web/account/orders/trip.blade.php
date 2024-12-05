@@ -24,6 +24,8 @@
                     class="xb-item--form contact-from w-75 apply-form">
                     @csrf
 
+                    <input type="hidden" name="next_page" value="{{ $next_page ?? '' }}">
+
                     <div id="step-1" class="form-step form-step-active">
 
                         <div class="mb-3 xb-item--field">
@@ -36,7 +38,7 @@
                         <div class="mb-3 xb-item--field">
                             <label for="arrivalDate" class="form-label w-100">When do you arrive in
                                 {{ $order->countryTo()->name }}?</label>
-                            <input type="text" class="form-control w-50 datepicker" name="time_arrival"
+                            <input type="text" class="form-control w-50 datepicker-min-today" name="time_arrival"
                                 value="{{ $order->getMeta('time_arrival') }}">
                             <span class="icon"><img src="{{ asset('/user/assets/img/icon/location-2.svg') }}"
                                     alt=""></span>
