@@ -1,3 +1,4 @@
+
 <input type="hidden" name="next_page" value="{{ $next_page ?? '' }}">
 
 
@@ -5,12 +6,17 @@
 
     @if($field['type'] == 'text')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input type="text" class="form-control w-75" id="field-{{ $code }}" name="fields[{{ $code }}]"
-                value="{{ $field['value'] }}">
+            <input 
+                type="text" 
+                class="form-control w-75" 
+                id="field-{{ $code }}" name="fields[{{ $code }}]"
+                value="{{ $field['value'] }}"
+                placeholder="{{ $field['placeholder'] }}"
+                >
             @if( isset($field['icon']) ) 
                 <span class="icon">
                     <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
@@ -22,11 +28,16 @@
 
     @if($field['type'] == 'textarea')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <textarea class="form-control w-75" id="field-{{ $code }}" name="fields[{{ $code }}]">{{ $field['value'] }}</textarea>
+            <textarea 
+                class="form-control w-75" 
+                id="field-{{ $code }}" 
+                name="fields[{{ $code }}]"
+                placeholder="{{ $field['placeholder'] }}"
+                >{{ $field['value'] }}</textarea>
             @if( isset($field['icon']) ) 
                 <span class="icon">
                     <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
@@ -38,7 +49,7 @@
 
     @if($field['type'] == 'date')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -54,13 +65,13 @@
 
     @if($field['type'] == 'select')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="w-75">
             <select class="select2 w-75" id="field-{{ $code }}" name="fields[{{ $code }}]">
-                <option selected disabled></option>
+                <option selected disabled>{{ $field['placeholder'] }}</option>
                 @foreach($field['options'] as $option)
                     <option value="{{ $option['value'] }}" @if( $option['value'] == $field['value'] ) selected @endif>
                         {{ $option['title'] }}
@@ -74,7 +85,7 @@
 
     @if($field['type'] == 'file')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -91,7 +102,7 @@
 
     @if($field['type'] == 'radio')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -112,7 +123,7 @@
 
     @if($field['type'] == 'checkbox')
 
-        <div class="mb-3 xb-item--field">
+        <div class="mb-3 xb-item--field field-block-{{ $code }}">
             <label for="field-{{ $code }}" class="form-label">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
