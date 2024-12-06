@@ -46,6 +46,52 @@
     </div>
 
 
+    <script>
+
+        $(document).ready(function () {
+
+            $('#field-is_previous_country_deport').on('change.select2', function () {
+
+                if ($(this).val() == 'yes') {
+                    $('.field-block-dual_nationality_country').show();
+                    $('.field-block-dual_nationality_country select').select2();
+                } else {
+                    $('.field-block-dual_nationality_country select').select2('destroy');
+                    $('.field-block-dual_nationality_country').hide();
+                }
+
+            });
+
+        });
+
+
+
+    </script>
+
+    @php 
+
+        //dd($fields);
+    @endphp
+
+    @if($fields['is_previous_country_deport']['value'] == 'yes')
+        <style>
+            .field-block-previous_country_deport_country,
+            .field-block-previous_country_deport_date,
+            .field-block-previous_country_deport_details {
+                display: block;
+            }
+        </style>
+    @else
+        <style>
+            .field-block-previous_country_deport_country,
+            .field-block-previous_country_deport_date,
+            .field-block-previous_country_deport_details {
+                display: none;
+            }
+        </style>
+    @endif
+
+
     <style>
         .card-body {
             background-color: rgb(248 249 249);

@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('travellers', function (Blueprint $table) {
             $table->id();
-            $table->string('full_name');
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('birthday');
-            $table->string('passport');
+            $table->string('full_name')->nullable();
+            $table->string('name')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('birthday')->nullable();
+            $table->string('passport')->nullable();
             $table->timestamps();
         });
     }

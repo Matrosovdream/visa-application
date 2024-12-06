@@ -45,6 +45,62 @@
 </div>
 
 
+<script>
+
+$(document).ready(function() {
+
+    $('#field-past_travel_country').on('change.select2', function () {
+        
+        if( $(this).val() == 'yes' ) {
+            $('.field-block-past_travel_date').show();
+            $('.field-block-past_travel_date select').select2();
+
+            $('.field-block-past_travel_departure').show();
+            $('.field-block-past_travel_departure select').select2();
+
+            $('.field-block-past_travel_cities').show();
+        } else {
+            $('.field-block-past_travel_date select').select2('destroy');
+            $('.field-block-past_travel_date').hide();
+
+            $('.field-block-past_travel_departure select').select2('destroy');
+            $('.field-block-past_travel_departure').hide();
+
+            $('.field-block-past_travel_cities').hide();
+        }
+
+    });
+
+});
+
+
+
+</script>
+
+@php 
+
+//dd($fields);
+@endphp
+
+@if( $fields['past_travel_country']['value'] == 'yes' )
+    <style>
+        .field-block-past_travel_date,
+        .field-block-past_travel_departure,
+        .field-block-past_travel_cities {
+            display: block;
+        }
+    </style>
+@else 
+    <style>
+        .field-block-past_travel_date,
+        .field-block-past_travel_departure,
+        .field-block-past_travel_cities {
+            display: none;
+        }
+    </style>
+@endif
+
+
 <style>
     .card-body {
         background-color: rgb(248 249 249);

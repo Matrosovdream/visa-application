@@ -109,6 +109,13 @@
                     </td>
                 </tr>
 
+                <tr>
+                    <td>{{ __('Total price') }}</td>
+                    <td>
+                        <span id="price-span">{{ $totals['total_price'] }} {{ $currency }}</span>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
 

@@ -13,7 +13,7 @@
 
             </div>
             <div class="card-footer bg-white mb-10 mt-10 border-0 d-flex justify-content-between align-items-center">
-                <a href="{{ route('web.account.order.applicant.documents', ['order_id' => $order->id, 'applicant_id' => $traveller->id]) }}"
+                <a href="{{ route('web.account.order.applicant.personal', ['order_id' => $order->id, 'applicant_id' => $traveller->id, 'category' => 'personal']) }}"
                     class="text-decoration-none">
                     @if(!$traveller->isCompletedForm())
                         {{ __('Complete form now') }}
@@ -21,7 +21,7 @@
                         {{ __('View details') }}
                     @endif
                 </a>
-                <a href="{{ route('web.account.order.applicant.documents', ['order_id' => $order->id, 'applicant_id' => $traveller->id]) }}"
+                <a href="{{ route('web.account.order.applicant.personal', ['order_id' => $order->id, 'applicant_id' => $traveller->id, 'category' => 'personal']) }}"
                     class="btn-arrow">➔</a>
             </div>
         </div>

@@ -80,6 +80,8 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
+        //dd($data);
+
         $data['template'] = 'confirm';
         $data['subtitle'] = 'Checkout';
         $data['prev_page'] = route('web.country.apply.cart.step3', [$data['country']->slug, $request->cart]);
