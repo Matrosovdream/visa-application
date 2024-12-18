@@ -21,6 +21,16 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('payment_gateway_settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('gateway_id')->on('payment_gateways');
+            $table->string('key');
+            $table->text('value');
+            $table->timestamps();
+        });
+
+
     }
 
     /**
@@ -29,5 +39,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('payment_gateways');
+        Schema::dropIfExists('payment_gateway_settings');
     }
 };

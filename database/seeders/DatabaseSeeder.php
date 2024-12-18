@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             AirportSeeder::class,
 
+            // Order fields
+            OrderFieldsSeeder::class,
+
             // Store products
             ProductSeeder::class,
             ProductOffersSeeder::class,

@@ -4,8 +4,8 @@ namespace App\Helpers;
 use App\Models\Traveller;
 use App\Models\File;
 use App\Models\Country;
-use Illuminate\Support\Facades\Storage;
 use App\Helpers\TravellerRefs;
+use App\References\TravellerReferences;
 
 class TravellerHelper
 {
@@ -259,18 +259,7 @@ class TravellerHelper
 
     public static function getTravellerFieldCategories()
     {
-
-        $cats = [
-            'personal' => ['title' => __('Personal Information'), 'slug' => 'personal', 'route' => 'web.account.order.applicant.personal'],
-            'passport' => ['title' => __('Passport Information'), 'slug' => 'passport', 'route' => 'web.account.order.applicant.passport'],
-            'family' => ['title' => __('Family'), 'slug' => 'family', 'route' => 'web.account.order.applicant.family'],
-            'past_travel' => ['title' => __('Past Travel'), 'slug' => 'past_travel', 'route' => 'web.account.order.applicant.past-travel'],
-            //'documents' => ['title' => __('Documents'), 'slug' => 'documents', 'route' => 'web.account.order.applicant.documents'],
-            'declarations' => ['title' => __('Declarations'), 'slug' => 'declarations', 'route' => 'web.account.order.applicant.declarations'],
-        ];
-
-        return $cats;
-
+        return TravellerReferences::TravellerFieldCategories();
     }
 
     public static function uploadDocument($applicant_id, $request_file, $data = [])

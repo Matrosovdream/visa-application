@@ -11,12 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('order_fields', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
+            $table->string('type');
+            $table->string('placeholder')->nullable();
+            $table->text('tooltip')->nullable();
             $table->text('description')->nullable();
-            $table->boolean('is_default')->default(false);
+            $table->text('default_value')->nullable();
+            $table->string('reference_code')->nullable();
+            $table->boolean('default')->default(false);
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('order_fields');
     }
 };

@@ -24,6 +24,21 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('article_translations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('article_id')->on('articles')->onDelete('cascade');
+            $table->string('locale')->index();
+            $table->string('title')->nullable();
+            $table->text('short_description')->nullable();
+            $table->text('content')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+         
+            $table->unique(['article_id','locale']);
+            
+        });
+
     }
 
     /**
@@ -32,5 +47,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('articles');
+        Schema::dropIfExists('article_translations');
     }
 };
