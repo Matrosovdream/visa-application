@@ -1,6 +1,7 @@
 <?php
 namespace App\Providers;
 
+use App\Models\Product;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use App\Services\GlobalsService;
@@ -8,6 +9,7 @@ use App\Models\User;
 use App\Models\Order;
 use App\Observers\UserObserver;
 use App\Observers\OrderObserver;
+use App\Observers\ProductObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         // Observers
         User::observe(UserObserver::class);
         Order::observe(OrderObserver::class);
+        Product::observe(ProductObserver::class);
 
     }
 }

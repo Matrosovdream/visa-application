@@ -20,6 +20,29 @@ return new class extends Migration
             $table->string('passport')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('traveller_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('traveller_id')->on('travellers');
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('traveller_documents', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('traveller_id')->on('travellers');
+            $table->foreignId('file_id')->on('files');
+            $table->timestamps();
+        });
+
+        Schema::create('traveller_orders', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('traveller_id')->on('travellers');
+            $table->foreignId('order_id')->on('orders');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -28,5 +51,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('travellers');
+        Schema::dropIfExists('traveller_meta');
+        Schema::dropIfExists('traveller_documents');
+        Schema::dropIfExists('traveller_orders');
     }
 };

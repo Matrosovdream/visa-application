@@ -21,6 +21,27 @@ return new class extends Migration
             $table->string('currency')->default('USD');
             $table->timestamps();
         });
+
+        Schema::create('cart_products', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('cart_id')->on('carts');
+            $table->foreignId('order_id')->on('orders')->nullable();
+            $table->foreignId('product_id')->on('products');
+            $table->foreignId('offer_id')->on('product_offers')->nullable();
+            $table->integer('quantity')->default(1);
+            $table->decimal('price', 10, 2);
+            $table->decimal('total', 10, 2);
+            $table->timestamps();
+        });
+
+        Schema::create('cart_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('cart_id')->on('carts');
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -29,5 +50,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('carts');
+        Schema::dropIfExists('cart_products');
+        Schema::dropIfExists('cart_meta');
     }
 };

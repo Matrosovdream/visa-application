@@ -63,6 +63,14 @@
 			</li>
 			<li class="nav-item" role="presentation">
 				<a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+					href="#kt_ecommerce_add_product_orderfields" aria-selected="true" role="tab">Order fields</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+					href="#kt_ecommerce_add_product_travellerfields" aria-selected="true" role="tab">Traveller fields</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
 					href="#kt_ecommerce_add_product_offers" aria-selected="true" role="tab">Offers</a>
 			</li>
 			<li class="nav-item" role="presentation">
@@ -158,6 +166,44 @@
 								</div>
 
 							@endforeach
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="kt_ecommerce_add_product_orderfields" role="tab-panel">
+				<div class="d-flex flex-column gap-7 gap-lg-10">
+
+					<div class="card card-flush py-4">
+						<div class="card-header">
+							<div class="card-title">
+								<h2>Order fields</h2>
+							</div>
+						</div>
+						<div class="card-body pt-0">
+
+							
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="kt_ecommerce_add_product_travellerfields" role="tab-panel">
+				<div class="d-flex flex-column gap-7 gap-lg-10">
+
+					<div class="card card-flush py-4">
+						<div class="card-header">
+							<div class="card-title">
+								<h2>Traveller fields</h2>
+							</div>
+						</div>
+						<div class="card-body pt-0">
+
+							
 
 						</div>
 					</div>

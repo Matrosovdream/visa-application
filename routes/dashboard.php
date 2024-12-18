@@ -15,6 +15,8 @@ use App\Http\Controllers\Dashboard\DashboardProfileController;
 use App\Http\Controllers\Dashboard\DashboardOrderCertificatesController;
 use App\Http\Controllers\Dashboard\ProductOffersController;
 use App\Http\Controllers\Dashboard\ProductExtrasController;
+use App\Http\Controllers\Dashboard\DashboardOrderFieldsController;
+use App\Http\Controllers\Dashboard\DashboardTravellerFieldsController;
 
 
 
@@ -109,6 +111,28 @@ Route::group(['as' => '','prefix' =>'dashboard','namespace' => '', 'middleware' 
         // Settings
         Route::get('settings', [DashboardSettingsController::class, 'index'])->name('dashboard.settings.index');
         Route::post('settings', [DashboardSettingsController::class, 'store'])->name('dashboard.settings.store');
+
+        // Order fields
+        Route::group(['as' => '','prefix' =>'order-fields','namespace' => '', 'middleware' => []],function(){
+            Route::get('/', [DashboardOrderFieldsController::class, 'index'])->name('dashboard.orderfields.index');
+            Route::get('create', [DashboardOrderFieldsController::class, 'create'])->name('dashboard.orderfields.create');
+            Route::post('/', [DashboardOrderFieldsController::class, 'store'])->name('dashboard.orderfields.store');
+            Route::get('{field_id}', [DashboardOrderFieldsController::class, 'show'])->name('dashboard.orderfields.show');
+            Route::get('{field_id}/edit', [DashboardOrderFieldsController::class, 'edit'])->name('dashboard.orderfields.edit');
+            Route::post('{field_id}', [DashboardOrderFieldsController::class, 'update'])->name('dashboard.orderfields.update');
+            Route::delete('{field_id}', [DashboardOrderFieldsController::class, 'destroy'])->name('dashboard.orderfields.destroy');
+        });
+
+        // Traveller fields
+        Route::group(['as' => '','prefix' =>'traveller-fields','namespace' => '', 'middleware' => []],function(){
+            Route::get('/', [DashboardTravellerFieldsController::class, 'index'])->name('dashboard.travellerfields.index');
+            Route::get('create', [DashboardTravellerFieldsController::class, 'create'])->name('dashboard.travellerfields.create');
+            Route::post('/', [DashboardTravellerFieldsController::class, 'store'])->name('dashboard.travellerfields.store');
+            Route::get('{field_id}', [DashboardTravellerFieldsController::class, 'show'])->name('dashboard.travellerfields.show');
+            Route::get('{field_id}/edit', [DashboardTravellerFieldsController::class, 'edit'])->name('dashboard.travellerfields.edit');
+            Route::post('{field_id}', [DashboardTravellerFieldsController::class, 'update'])->name('dashboard.travellerfields.update');
+            Route::delete('{field_id}', [DashboardTravellerFieldsController::class, 'destroy'])->name('dashboard.travellerfields.destroy');
+        });
 
     });
 

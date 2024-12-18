@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_offers', function (Blueprint $table) {
+        Schema::create('product_fields_reference', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('field_id')->on('order_fields');
             $table->foreignId('product_id')->on('products');
-            $table->string('name');
-            $table->string('type')->nullable();
-            $table->decimal('price', 10, 2);
-            $table->string('description')->nullable();
+            $table->string('entity');
+            $table->string('section')->nullable();
+            $table->boolean('required')->default(false);
+            $table->string('default_value')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_offers');
+        Schema::dropIfExists('product_fields_reference');
     }
 };
