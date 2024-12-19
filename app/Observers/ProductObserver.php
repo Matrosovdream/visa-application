@@ -3,8 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Product;
-use App\Models\OrderField;
 use App\Models\ProductFieldReference;
+use App\Models\ReferenceFormField;
 
 
 class ProductObserver
@@ -13,7 +13,7 @@ class ProductObserver
     {
 
         // Get default fields
-        $defaultFields = OrderField::where('default', true)->get();
+        $defaultFields = ReferenceFormField::where('default', true)->get();
 
         // Loop through
         foreach ($defaultFields as $field) {
@@ -21,8 +21,8 @@ class ProductObserver
             ProductFieldReference::create([
                 'field_id' => $field->id,
                 'product_id' => $product->id,
-                'entity' => 'order',
-                'section' => 'trip',
+                'entity' => $field->entity,
+                'section' => $field->section,
                 'required' => true,
                 'default_value' => $field->default_value,
             ]);
