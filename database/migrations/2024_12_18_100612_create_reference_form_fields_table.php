@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('order_fields', function (Blueprint $table) {
+        Schema::create('reference_form_fields', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('slug');
+            $table->string('entity');
             $table->string('type');
+            $table->string('section');
             $table->string('placeholder')->nullable();
             $table->text('tooltip')->nullable();
             $table->text('description')->nullable();
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('order_fields');
+        Schema::dropIfExists('reference_form_fields');
     }
 };

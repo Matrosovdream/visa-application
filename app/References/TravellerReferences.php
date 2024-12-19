@@ -14,6 +14,7 @@ class TravellerReferences
             [
                 'title' => "Country of Residence",
                 'slug' => "residence_country",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -26,6 +27,7 @@ class TravellerReferences
             [
                 'title' => "Gender",
                 'slug' => "gender",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -38,6 +40,7 @@ class TravellerReferences
             [
                 'title' => "Do you have another nationality?",
                 'slug' => "dual_nationality",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -50,6 +53,7 @@ class TravellerReferences
             [
                 'title' => "Dual Nationality Country",
                 'slug' => "dual_nationality_country",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -62,6 +66,7 @@ class TravellerReferences
             [
                 'title' => "Residence address",
                 'slug' => "residence_address",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -74,6 +79,7 @@ class TravellerReferences
             [
                 'title' => "Residence city or Town",
                 'slug' => "residence_city",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -86,6 +92,7 @@ class TravellerReferences
             [
                 'title' => "Residence state or province",
                 'slug' => "residence_state",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -98,6 +105,7 @@ class TravellerReferences
             [
                 'title' => "Residence ZIP code",
                 'slug' => "residence_zip",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -110,6 +118,7 @@ class TravellerReferences
             [
                 'title' => "Occupation",
                 'slug' => "occupaion",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -124,6 +133,7 @@ class TravellerReferences
             [
                 'title' => "Name",
                 'slug' => "name",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -136,6 +146,7 @@ class TravellerReferences
             [
                 'title' => "Last name",
                 'slug' => "lastname",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -148,6 +159,7 @@ class TravellerReferences
             [
                 'title' => "Birthday",
                 'slug' => "birthday",
+                'entity' => "traveller",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -160,6 +172,7 @@ class TravellerReferences
             [
                 'title' => "Passport",
                 'slug' => "passport",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -172,6 +185,7 @@ class TravellerReferences
             [
                 'title' => "Passport Issue Date",
                 'slug' => "passport_issue_date",
+                'entity' => "traveller",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -184,6 +198,7 @@ class TravellerReferences
             [
                 'title' => "Passport Expiration Date",
                 'slug' => "passport_expiration_date",
+                'entity' => "traveller",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -196,6 +211,7 @@ class TravellerReferences
             [
                 'title' => "Country of Birth",
                 'slug' => "birth_country",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -208,6 +224,7 @@ class TravellerReferences
             [
                 'title' => "Which country issued your passport",
                 'slug' => "passport_issue_country",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -222,6 +239,7 @@ class TravellerReferences
             [
                 'title' => "Marital status",
                 'slug' => "marital_status",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -236,6 +254,7 @@ class TravellerReferences
             [
                 'title' => "Have you previously visited this country?",
                 'slug' => "past_travel_country",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -248,6 +267,7 @@ class TravellerReferences
             [
                 'title' => "During your Last visit this country, when did you arrive?",
                 'slug' => "past_travel_date",
+                'entity' => "traveller",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -260,6 +280,7 @@ class TravellerReferences
             [
                 'title' => "When did you depart?",
                 'slug' => "past_travel_departure",
+                'entity' => "traveller",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -272,6 +293,7 @@ class TravellerReferences
             [
                 'title' => "What city did you stay in?",
                 'slug' => "past_travel_cities",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -286,6 +308,7 @@ class TravellerReferences
             [
                 'title' => "Have you ever been deported from this country or another country?",
                 'slug' => "is_previous_country_deport",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -298,6 +321,7 @@ class TravellerReferences
             [
                 'title' => "Which Country?",
                 'slug' => "previous_country_deport_country",
+                'entity' => "traveller",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -310,6 +334,7 @@ class TravellerReferences
             [
                 'title' => "Date deported",
                 'slug' => "previous_country_deport_date",
+                'entity' => "traveller",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -322,6 +347,7 @@ class TravellerReferences
             [
                 'title' => "Please provide details",
                 'slug' => "previous_country_deport_details",
+                'entity' => "traveller",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",

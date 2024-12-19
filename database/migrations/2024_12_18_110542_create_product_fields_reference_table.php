@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_fields_reference', function (Blueprint $table) {
             $table->id();
             $table->foreignId('field_id')->on('order_fields');
-            $table->foreignId('product_id')->on('products');
+            $table->foreignId('product_id')->on('products')->nullable();
             $table->string('entity');
             $table->string('section')->nullable();
             $table->boolean('required')->default(false);

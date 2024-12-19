@@ -9,6 +9,7 @@ class ProductReferences {
             [
                 'title' => "When do you arrive at the country destination?",
                 'slug' => "arrival_date",
+                'entity' => "order",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "If your arrival point isn't listed, we can't process your request.",
@@ -21,6 +22,7 @@ class ProductReferences {
             [
                 'title' => "Which airport do you arrive?",
                 'slug' => "destination_airport",
+                'entity' => "order",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -33,6 +35,7 @@ class ProductReferences {
             [
                 'title' => "Your full name",
                 'slug' => "full_name",
+                'entity' => "order",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -45,6 +48,7 @@ class ProductReferences {
             [
                 'title' => "Phone number",
                 'slug' => "phone_number",
+                'entity' => "order",
                 'type' => "phone",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -57,6 +61,7 @@ class ProductReferences {
             [
                 'title' => "Email address",
                 'slug' => "email",
+                'entity' => "order",
                 'type' => "email",
                 'placeholder' => "",
                 'tooltip' => "We use this to create your account and send you updates about your application.",
