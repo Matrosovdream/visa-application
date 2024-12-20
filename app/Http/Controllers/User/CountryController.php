@@ -12,6 +12,7 @@ use App\Services\GlobalsService;
 use App\Repositories\Cart\CartRepoStore;
 use App\Repositories\Cart\CartRepo;
 use App\Models\Cart;
+use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
 
 
 
@@ -34,7 +35,10 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
-        //dd($data);
+        $filters = ['entity' => 'order', 'section' => 'trip'];
+        $formFields = (new FormFieldReferenceRepo())->getInitialFields( $filters );
+
+        //dd($formFields);
 
         $data['template'] = 'step-1';
         $data['subtitle'] = 'Trip Details';

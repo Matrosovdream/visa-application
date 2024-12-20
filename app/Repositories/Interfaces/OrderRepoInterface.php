@@ -1,7 +1,7 @@
 <?php
-namespace App\Repositories\Intefaces;
+namespace App\Repositories\Interfaces;
 
-Interface OrderRepoInterface {
+interface OrderRepoInterface {
     public function all();
     public function find($id);
     public function create(array $data);
