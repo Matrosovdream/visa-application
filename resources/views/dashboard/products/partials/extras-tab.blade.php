@@ -19,6 +19,7 @@
 
                                 <div class="w-100 w-md-200px">Title</div>
                                 <div class="w-100 w-md-100px">Price</div>
+                                <div class="w-100 w-md-100px text-center">Required</div>
                                 <div class="w-50 w-md-50px"></div>
 
                             </div>
@@ -35,6 +36,14 @@
                                     <div class="w-100 w-md-100px">
                                         <input type="text" class="form-control" name="offer_price[]" value="{{ $extra->price }}"
                                             disabled />
+                                    </div>
+
+                                    <div class="w-100 w-md-100px text-center">
+                                        @if( $extra->required )
+                                            <span class="badge badge-light-success">Yes</span>
+                                        @else
+                                            <span class="badge badge-light-danger">No</span>    
+                                        @endif
                                     </div>
 
                                     <div class="w-50 w-md-50px">

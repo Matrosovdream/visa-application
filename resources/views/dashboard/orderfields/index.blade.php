@@ -14,7 +14,7 @@
                         <span class="path2"></span>
                     </i>
                     <input type="text" name="s" value="{{ request()->s }}"
-                        class="form-control form-control-solid w-250px ps-12" placeholder="Search Articles">
+                        class="form-control form-control-solid w-250px ps-12" placeholder="Search Fields">
                 </div>
             </div>
 
@@ -28,7 +28,7 @@
                         <option value="inactive">Inactive</option>
                     </select>
                 </div>
-                <a href="{{ route('dashboard.orderfields.create') }}" class="btn btn-primary">Add article</a>
+                <a href="{{ route('dashboard.orderfields.create') }}" class="btn btn-primary">Add field</a>
             </div>
         </div>
 
@@ -46,15 +46,15 @@
                             </div>
                         </th>
                         <th class="max-w-150px">Title</th>
-                        <th class="">Author</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center">Created at</th>
+                        <th class="">Slug</th>
+                        <th class="">Type</th>
+                        <th class="">Section</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
 
-                    @foreach($articles as $article)
+                    @foreach($items as $item)
 
                         <tr>
                             <td>
@@ -63,44 +63,41 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('dashboard.orderfields.show', $article->id) }}"
+                                <a href="{{ route('dashboard.orderfields.show', $item->id) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $article->title }}
+                                    {{ $item->title }}
                                 </a>
                             </td>
-                            <td class="text-center">
-                                <a href="{{ route('dashboard.orderfields.show', $article->author_id) }}"
+                            <td class="">
+                                <a href="{{ route('dashboard.orderfields.show', $item->id) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $article->author->name }}
+                                    {{ $item->slug }}
                                 </a>
                             </td>
-                            <td class="text-center">
-                               @if( $article->published )
-                                    <span class="badge badge-light-success">Published</span>
-                                @else
-                                    <span class="badge badge-light-danger">Draft</span>
-                                @endif
+                            <td class="">
+                                {{ $item->type }}
                             </td>
-                            <td class="text-center pe-0">
-                                {{ $article->created_at->format('d/m/Y') }}
+                            <td class="pe-0">
+                                {{ $item->section }}
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
                                     <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-     
+
                                 <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.articles.show', $article->id) }}"
+                                        <a href="{{ route('dashboard.articles.show', $item->id) }}"
                                             class="menu-link px-3">Edit</a>
                                     </div>
 
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('dashboard.articles.destroy', $article->id) }}" method="POST">
+                                        <form action="{{ route('dashboard.orderfields.destroy', $item->id) }}"
+                                            method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="menu-link px-3" type="submit">
@@ -120,7 +117,7 @@
 
 
         <div id="" class="row">
-            
+            {{ $items->links('dashboard.includes.pagination.default') }}
         </div>
 
     </div>

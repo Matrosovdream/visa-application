@@ -176,18 +176,7 @@
 			<div class="tab-pane fade" id="kt_ecommerce_add_product_orderfields" role="tab-panel">
 				<div class="d-flex flex-column gap-7 gap-lg-10">
 
-					<div class="card card-flush py-4">
-						<div class="card-header">
-							<div class="card-title">
-								<h2>Order fields</h2>
-							</div>
-						</div>
-						<div class="card-body pt-0">
-
-							
-
-						</div>
-					</div>
+					@include('dashboard.products.tabs.order-fields', ['fields' => $formFields['order']])
 
 				</div>
 			</div>
@@ -195,18 +184,7 @@
 			<div class="tab-pane fade" id="kt_ecommerce_add_product_travellerfields" role="tab-panel">
 				<div class="d-flex flex-column gap-7 gap-lg-10">
 
-					<div class="card card-flush py-4">
-						<div class="card-header">
-							<div class="card-title">
-								<h2>Traveller fields</h2>
-							</div>
-						</div>
-						<div class="card-body pt-0">
-
-							
-
-						</div>
-					</div>
+					@include('dashboard.products.tabs.traveller-fields', ['fields' => $formFields['order']])
 
 				</div>
 			</div>
@@ -244,16 +222,30 @@
 
 
 
-<!-- Modals -->
-@include('dashboard.products.offers.create', ['product' => $product])
-@include('dashboard.products.extras.create', ['product' => $product])
+	<!-- Modals -->
+	@include('dashboard.products.offers.create', ['product' => $product])
+	@include('dashboard.products.extras.create', ['product' => $product])
 
-@foreach($product->offers as $offer)
-	@include('dashboard.products.offers.index', ['offer' => $offer])
-@endforeach
+	@foreach($product->offers as $offer)
+		@include('dashboard.products.offers.index', ['offer' => $offer])
+	@endforeach
 
-@foreach($product->extras as $extra)
-	@include('dashboard.products.extras.index', ['extra' => $extra])
-@endforeach
+	@foreach($product->extras as $extra)
+		@include('dashboard.products.extras.index', ['extra' => $extra])
+	@endforeach
+
+
+	@include('dashboard.products.modals.create-form-field', ['product' => $product, 'entity' => 'order'])
+	@include('dashboard.products.modals.create-form-field', ['product' => $product, 'entity' => 'traveller'])
+
+	@foreach($formFields['order'] as $field)
+		@include('dashboard.products.modals.edit-form-field', ['field' => $field])
+	@endforeach
+
+	@foreach($formFields['traveller'] as $field)
+		@include('dashboard.products.modals.edit-form-field', ['field' => $field])
+	@endforeach
+
+	
 
 @endsection

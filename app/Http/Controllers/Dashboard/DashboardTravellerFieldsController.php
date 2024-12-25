@@ -2,81 +2,60 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
-use App\Helpers\adminSettingsHelper;
+use Illuminate\Http\Request;
+use App\Actions\Dashboard\TravellerFieldsActions;
 
 class DashboardTravellerFieldsController extends Controller
 {
 
     public $perPage = 10;
+
+    private $actions;
+
+    public function __construct(TravellerFieldsActions $actions)
+    {
+        $this->actions = $actions;
+    }
     
     public function index()
     {
-
-        $data = [
-            'title' => 'Articles',
-            'articles' => [],
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
+        $data = $this->actions->index(); //dd($data);
         return view('dashboard.travellerfields.index', $data);
     }
 
     public function show($id)
     {
-
-        $data = [
-            'title' => 'Edit ',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
+        $data = $this->actions->show( $id );
         return view('dashboard.travellerfields.show', $data);
     }
 
     public function create()
     {
-        $data = [
-            'title' => 'Create Article',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
+        $data = $this->actions->create();
         return view('dashboard.travellerfields.create', $data);
     }
 
-    public function store()
+    public function store( Request $request )
     {
-        $article = new Article();
-        $article->title = request('title');
-        $article->content = request('content');
-        $article->save();
+        $res = $this->actions->store($request);
 
-        return redirect()->route('dashboard.travellerfields.index');
+        if ($res) {
+            return redirect()->route('dashboard.travellerfields.index');
+        } else {
+            return redirect()->back();
+        }
     }
 
-    public function edit($id)
+    public function update($id, Request $request)
     {
-        $article = Article::find($id);
-
-        $data = [
-            'title' => 'Edit '.$article->title,
-            'article' => $article,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.travellerfields.edit', $data);
-    }
-
-    public function update($id)
-    {
-        
-
-        return redirect()->route('dashboard.travellerfields.index');
+        $this->actions->update($id, $request);
+        return redirect()->back();
     }
 
     public function destroy($id)
     {
-        
-        return redirect()->route('dashboard.aorderfields.index');
+        $this->actions->destroy($id);
+        return redirect()->route('dashboard.travellerfields.index');
     }
 
 }

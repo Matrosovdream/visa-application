@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->string('entity');
             $table->string('type');
-            $table->string('section');
+            $table->string('section')->nullable();
             $table->string('placeholder')->nullable();
             $table->text('tooltip')->nullable();
             $table->text('description')->nullable();

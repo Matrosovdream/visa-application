@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form class="form" method="POST" action="{{ route('dashboard.orderfields.update', $field['id']) }}">
+<form class="form" method="POST" action="{{ route('dashboard.orderfields.store') }}">
     @csrf
 
     <div class="d-flex flex-column flex-xl-row">
@@ -39,17 +39,17 @@
                         <div class="card-body pt-0 pb-5">
 
                             <input type="hidden" name="action" value="save_general" />
-                            <input type="hidden" name="entity" value="{{ $field['entity'] }}" />
+                            <input type="hidden" name="entity" value="{{ $entity }}" />
 
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Title</label>
-                                <input type="text" name="title" value="{{ $field['title'] }}"
+                                <input type="text" name="title" value="{{ old('title') }}"
                                     class="form-control form-control-solid" placeholder="" />
                             </div>
 
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Slug</label>
-                                <input type="text" name="slug" value="{{ $field['slug'] }}"
+                                <input type="text" name="slug" value="{{ old('slug') }}"
                                     class="form-control form-control-solid" placeholder="" />
                             </div>
 
@@ -65,7 +65,7 @@
                                     @foreach($field_types as $code=>$type)
                                         <option 
                                             value="{{ $code }}"
-                                            {{ $field['type'] == $code ? 'selected' : '' }}
+                                            {{ old('type') == $code ? 'selected' : '' }}
                                             >
                                             {{ $type['title'] }}
                                         </option>
@@ -86,7 +86,7 @@
                                     @foreach($references as $code=>$ref)
                                         <option 
                                             value="{{ $code }}"
-                                            {{ $field['reference_code'] == $code ? 'selected' : '' }}
+                                            {{ old('reference') == $code ? 'selected' : '' }}
                                             >
                                             {{ $ref['title'] }}
                                         </option>
@@ -97,19 +97,19 @@
 
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Placeholder</label>
-                                <input type="text" name="placeholder" value="{{ $field['placeholder'] }}"
+                                <input type="text" name="placeholder" value="{{ old('placeholder') }}"
                                     class="form-control form-control-solid" placeholder="" />
                             </div>
 
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Tooltip</label>
-                                <input type="text" name="tooltip" value="{{ $field['tooltip'] }}"
+                                <input type="text" name="tooltip" value="{{ old('tooltip') }}"
                                     class="form-control form-control-solid" placeholder="" />
                             </div>
 
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Description</label>
-                                <input type="text" name="description" value="{{ $field['description'] }}"
+                                <input type="text" name="description" value="{{ old('description') }}"
                                     class="form-control form-control-solid" placeholder="" />
                             </div>
 
