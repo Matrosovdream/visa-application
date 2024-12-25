@@ -7,11 +7,19 @@ use App\Models\Product;
 use App\Models\Country;
 use Str;
 use Illuminate\Http\Request;
+use App\Repositories\Product\ProductFieldsReferenceRepo;
 
 class DashboardProductsController extends Controller
 {
 
     public $perPage = 10;
+
+    protected $productFieldRepo;
+
+    public function __construct()
+    {
+        $this->productFieldRepo = new ProductFieldsReferenceRepo();
+    }
     
     public function index()
     {
@@ -42,6 +50,11 @@ class DashboardProductsController extends Controller
             'countries' => Country::all(),
             'productFields' => $this->getProductFields( $product ),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
+
+        $data['formFields'] = [
+            'order' => $this->productFieldRepo->getOrderFieldsByProduct($id),
+            'traveller' => $this->productFieldRepo->getTravellerFieldsByProduct($id),
         ];
 
         return view('dashboard.products.show', $data);

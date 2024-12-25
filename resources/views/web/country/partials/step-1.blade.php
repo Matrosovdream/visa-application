@@ -1,3 +1,9 @@
+@php /*
+@include('web.partials.fields-loop')
+*/ @endphp
+
+
+
 <div class="mb-3 xb-item--field">
 
     <label for="arrivalDate" class="form-label w-100">
@@ -70,6 +76,7 @@
         {{ __('We use this to create your account and send you updates about your application.') }}
     </p>
 </div>
+
 
 <br />
 <div class="mb-3 xb-item--field">

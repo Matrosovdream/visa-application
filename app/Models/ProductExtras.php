@@ -15,7 +15,9 @@ class ProductExtras extends Model
     protected $fillable = [
         'product_id',
         'name',
+        'type',
         'price',
+        'required',
     ];
 
     public function meta()

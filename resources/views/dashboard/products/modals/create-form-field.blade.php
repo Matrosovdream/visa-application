@@ -1,9 +1,9 @@
-<div class="modal fade" id="kt_modal_product_extra_new" tabindex="-1" aria-hidden="true"
+<div class="modal fade" id="kt_modal_product_form_field_{{ $entity }}" tabindex="-1" aria-hidden="true"
     style="display: none;">
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Create extra service</h2>
+                <h2>Create new field</h2>
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
@@ -17,6 +17,7 @@
                     @csrf
 
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
+                    <input type="hidden" name="entity" value="{{ $entity }}" />
 
                     <div class="mb-10 fv-row fv-plugins-icon-container">
                         <label class="required form-label">Title</label>

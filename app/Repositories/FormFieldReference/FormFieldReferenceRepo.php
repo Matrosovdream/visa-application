@@ -11,6 +11,27 @@ use App\Helpers\TravellerHelper;
 class FormFieldReferenceRepo
 {
 
+    protected $model;
+
+    protected $fields = [
+        'title',
+        'slug',
+        'entity',
+        'type',
+        'section',
+        'placeholder',
+        'tooltip',
+        'description',
+        'default_value',
+        'reference_code',
+        'default',
+    ];
+
+    public function __construct()
+    {
+        $this->model = new ReferenceFormField();
+    }
+
     public function getInitialFields($filters = [])
     {
 
@@ -73,13 +94,26 @@ class FormFieldReferenceRepo
         // Prepare the fields
         $data = [];
         foreach ($fields as $field) {
+
+            $fieldData = $this->getById($field->field_id);
+
+            if( $fieldData['type'] == 'reference' ) {
+                $fieldData['type'] = 'select';
+            }
+
             $data[] = [
                 "id" => $field->id,
                 "entity" => $field->entity,
                 "section" => $field->section,
                 "required" => $field->required,
                 "default_value" => $field->default_value,
-                "field" => $this->getById($field->field_id)
+                "type" => $fieldData['type'],
+                "slug" => $fieldData['slug'],
+                "title" => $fieldData['title'],
+                "value" => null,
+                "placeholder" => $fieldData['placeholder'],
+                "options" => $fieldData['options'] ?? [],
+                "field" => $fieldData
             ];
         }
 
@@ -95,7 +129,7 @@ class FormFieldReferenceRepo
                 $options = Country::all()->toArray();
                 break;
             case 'airport':
-                $options = Airport::all();
+                $options = $this->getAirportsReference();
                 break;
             case 'gender':
                 $options = TravellerHelper::getReference('gender');
@@ -114,6 +148,75 @@ class FormFieldReferenceRepo
 
     }
 
+    public function getReferences( $with_options = false ) {
+
+        $data = [
+            'country' => ['title' => 'Country'],
+            'airport' => ['title' => 'Airport'],
+            'gender'  => ['title' => 'Gender'],
+            'boolean' => ['title' => 'Boolean'],
+            'marital_status' => ['title' => 'Marital Status'],
+        ];
+
+        if( $with_options ) {
+
+            foreach( $data as $key => $value ) {
+                $data[ $key ]['options'] = $this->getRefererenceOptions( $key );
+            }
+
+        }
+
+        return $data;
+
+    }
+
+    public function getEntities() {   
+        return [
+            'order' => ['title' => 'Order'],
+            'traveller' => ['title' => 'Traveller'],
+        ];
+    }
+
+    public function getFieldTypes() {
+        return [
+            'text' => ['title' => 'Text'],
+            'date' => ['title' => 'Date'],
+            'textarea' => ['title' => 'Textarea'],
+            'reference' => ['title' => 'Reference'],
+        ];
+    }
+
+    public function getFieldSections() {
+        $data = [
+            'trip' => ['title' => 'Trip'],
+            'personal' => ['title' => 'Personal'],
+            'passport' => ['title' => 'Passport'],
+            'family' => ['title' => 'Family'],
+            'past_travel' => ['title' => 'Past Travel'],
+            'declarations' => ['title' => 'Declarations'],
+        ];
+        return $data;
+    }
+
+    public function getAirportsReference() {
+
+        $items = Airport::all();
+
+        $data = [];
+        foreach( $items as $item ) {
+
+            $data[ $item->id ] = [
+                "id" => $item->id,
+                "title" => $item->name,
+                "iso_country" => $item->iso_country,
+            ];
+
+        }
+
+        return $data;
+
+    }
+
     private function prepareInitialField($field)
     {
 
@@ -129,8 +232,57 @@ class FormFieldReferenceRepo
             "description" => $field->description,
             "default_value" => $field->default_value,
             "reference_code" => $field->reference_code,
-            "default" => $field->default
+            "default" => $field->default,
+            "required" => $field->required,
+            "value" => null,
         ];
+
+    }
+
+    public function create($data)
+    {
+
+        // Prepare the values
+        $values = $this->prepareValues($data);
+
+        // Create the field and return it
+        return $this->model->create($values );
+
+    }
+
+    public function update($id, $data)
+    {
+
+        // Fine the field
+        $field = $this->model->find($id);
+
+        // Prepare the values
+        $values = $this->prepareValues($data);
+
+        // Update the field
+        $field->update($values);
+
+        return $field;
+
+    }
+
+    public function deleteById($id)
+    {
+
+        $field = $this->model->find($id);
+        $field->delete();
+
+    }
+
+    private function prepareValues($data)
+    {
+
+        $values = [];
+        foreach ($this->fields as $field_code) {
+            $values[ $field_code ] = $data[ $field_code ] ?? null;
+        }
+
+        return $values;
 
     }
 

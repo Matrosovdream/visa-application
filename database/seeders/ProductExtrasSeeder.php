@@ -18,6 +18,7 @@ class ProductExtrasSeeder extends Seeder
                 'price' => 55,
                 'description' => '',
                 'type' => 'gov_fees',
+                'required' => true,
                 'metas' => [
                     //['key' => 'duration', 'value' => '2 days'],
                     //['key' => 'duration_hours', 'value' => 72],
@@ -42,6 +43,7 @@ class ProductExtrasSeeder extends Seeder
                     'price' => $extra['price'],
                     'description' => $extra['description'],
                     'type' => $extra['type'],
+                    'required' => $extra['required'],
                 ])->meta()->createMany($extra['metas']);
             }
 

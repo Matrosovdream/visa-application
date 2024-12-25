@@ -36,9 +36,16 @@ class CountryController extends Controller
         $data = $this->collectCartData( $request );
 
         $filters = ['entity' => 'order', 'section' => 'trip'];
-        $formFields = (new FormFieldReferenceRepo())->getInitialFields( $filters );
+        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
+            $data['product']['id'], 
+            $filters 
+        );
 
-        //dd($formFields);
+        if( $request->has('lg') ) {
+            //dd($data);
+            dd($data['formFields'][1]['options']);
+        }
+        
 
         $data['template'] = 'step-1';
         $data['subtitle'] = 'Trip Details';
@@ -132,6 +139,8 @@ class CountryController extends Controller
             abort(404);
         }
 
+        
+
         //$data = $this->getDirectionData( $request );
 
         $data['cart'] = $cart;
@@ -149,6 +158,8 @@ class CountryController extends Controller
         $data['currency'] = $cart['fields']['currency'];
 
         $data['totals'] = $cart['totals'];
+
+        //dd($data);
 
         // Prepare travellers
         if( isset($data['cart']['meta']['travellers']) ) {

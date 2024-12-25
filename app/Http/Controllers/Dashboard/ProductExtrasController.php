@@ -16,6 +16,7 @@ class ProductExtrasController extends Controller {
             'product_id' => 'required|exists:products,id',
             'name' => 'required',
             'price' => 'required|numeric',
+            'required' => 'required|boolean',
         ]);
 
         // Create offer
@@ -37,6 +38,7 @@ class ProductExtrasController extends Controller {
             'product_id' => 'required|exists:products,id',
             'name' => 'required',
             'price' => 'required|numeric',
+            'required' => 'required|boolean',
         ]);
 
         // Update fields
