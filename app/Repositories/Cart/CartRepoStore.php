@@ -4,8 +4,15 @@ namespace App\Repositories\Cart;
 use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Repositories\Cart\CartRepo;
+use App\Repositories\FormFieldValue\FormFieldValueRepo;
 
 class CartRepoStore {
+
+    protected $fieldValueRepo;
+
+    public function __construct() {
+        $this->fieldValueRepo = new FormFieldValueRepo();
+    }
 
     public static function create(array $data) {
 
@@ -90,9 +97,8 @@ class CartRepoStore {
                     if( $key == 'travellers' ) {
                         
                         $value = self::prepareMultiple($value);
-                        
                         $value = self::prepareTraveller($value, $cart->getMeta('travellers'));
-//dd($value);
+                        //dd($value);
                         $cart->setMeta( 'travellers_count', count($value) );
                     } 
                     
@@ -107,6 +113,28 @@ class CartRepoStore {
         }
         
     }    
+
+    public function updateFields($cart_id, array $fields) {
+
+        $cart = Cart::find( $cart_id );
+
+        if( isset($cart) ) {
+            foreach( $fields as $field_id => $value ) {
+                $this->fieldValueRepo->setCartValue( $cart_id, $field_id, $value );
+            }
+        }
+        
+    }
+
+    public function getCartValues( $cart_id )
+    {
+        return $this->fieldValueRepo->getCartValues( $cart_id );
+    }
+
+    public function getTravellerValues( $cart_id )
+    {
+        return $this->fieldValueRepo->getTravellerValues( $cart_id );
+    }
 
     public static function prepareTraveller($values, $old_values) {
 

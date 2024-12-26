@@ -1,5 +1,22 @@
 
-@foreach($formFields as $field)
+@foreach($fields as $key=>$field)
+
+    @php
+
+    switch( $entity ) {
+        case 'order':
+            $fieldName = 'fields['.$field['id'].']';
+            $value = $values[ $field['id'] ]['value'] ?? '';
+            break;
+        case 'traveller':
+            $fieldName = 'travellers['.$field['id'].'][]';
+            $value = $values[ $field['id'] ] ?? '';
+            break;
+    }
+
+    //dd($values);
+
+    @endphp
 
     @if($field['type'] == 'text')
 
@@ -10,8 +27,8 @@
             <input 
                 type="text" 
                 class="form-control w-75" 
-                id="field-{{ $field['slug'] }}" name="fields[{{ $field['slug'] }}]"
-                value="{{ $field['value'] }}"
+                id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                value="{{ $value ?? '' }}"
                 placeholder="{{ $field['placeholder'] }}"
                 >
             @if( isset($field['icon']) ) 
@@ -32,8 +49,8 @@
             <input 
                 type="text" 
                 class="form-control w-75" 
-                id="field-{{ $field['slug'] }}" name="fields[{{ $field['slug'] }}]"
-                value="{{ $field['value'] }}"
+                id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                value="{{ $value ?? '' }}"
                 placeholder="{{ $field['placeholder'] }}"
                 >
             @if( isset($field['icon']) ) 
@@ -54,8 +71,8 @@
             <input 
                 type="email" 
                 class="form-control w-75" 
-                id="field-{{ $field['slug'] }}" name="fields[{{ $field['slug'] }}]"
-                value="{{ $field['value'] }}"
+                id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                value="{{ $value }}"
                 placeholder="{{ $field['placeholder'] }}"
                 >
             @if( isset($field['icon']) ) 
@@ -76,9 +93,9 @@
             <textarea 
                 class="form-control w-75" 
                 id="field-{{ $field['slug'] }}" 
-                name="fields[{{ $field['slug'] }}]"
+                name="{{ $fieldName }}"
                 placeholder="{{ $field['placeholder'] }}"
-                >{{ $field['value'] }}</textarea>
+                >{{ $value }}</textarea>
             @if( isset($field['icon']) ) 
                 <span class="icon">
                     <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
@@ -91,10 +108,16 @@
     @if($field['type'] == 'date')
 
         <div class="mb-3 xb-item--field field-block-{{ $field['slug'] }}">
-            <label for="field-{{ $field['slug'] }}" class="form-label  w-100">
+            <label for="field-{{ $field['slug'] }}-{{ $key }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input type="text" class="form-control w-50 datepicker-min-today min-5-alert {{ $field['classes'] ?? '' }}" id="field-{{ $field['slug'] }}" name="fields[{{ $field['slug'] }}]" value="{{ $field['value'] }}">
+            <input 
+                type="text" 
+                class="form-control w-50 datepicker-min-today min-5-alert {{ $field['classes'] ?? '' }}" 
+                id="field-{{ $field['slug'] }}-{{ $key }}" 
+                name="{{ $fieldName }}" 
+                value="{{ $value ?? '' }}"
+                >
             @if( isset($field['icon']) ) 
                 <span class="icon">
                     <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
@@ -104,18 +127,21 @@
 
     @endif
 
-    @if($field['type'] == 'select')
+    @if($field['type'] == 'select' || $field['type'] == 'reference')
 
         <div class="mb-3 xb-item--field field-block-{{ $field['slug'] }}">
-            <label for="field-{{ $field['slug'] }}" class="form-label  w-100">
+            <label for="field-{{ $field['slug'] }}-{{ $key }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="w-75">
-            <select class="select2 w-75" id="field-{{ $field['slug'] }}" name="fields[{{ $field['slug'] }}]">
+            <select class="select2 w-75" id="field-{{ $field['slug'] }}-{{ $key }}" name="{{ $fieldName }}">
                 <option selected disabled>{{ $field['placeholder'] }}</option>
                 @foreach($field['options'] as $option)
-                    <option value="{{ $option['id'] }}" @if( $option['id'] == $field['value'] ) selected @endif>
-                        {{ $option['title'] }}
+                    <option 
+                        value="{{ $option['id'] }}" 
+                        @if( $option['id'] == $value ) selected @endif
+                        >
+                        {{ $option['title'] ?? $option['name'] }}
                     </option>
                 @endforeach
             </select>
@@ -136,7 +162,7 @@
                 </a>
             @endif    
 
-            <input type="file" class="form-control w-75" id="field-{{ $field['slug'] }}" name="fields[{{ $field['slug'] }}]">
+            <input type="file" class="form-control w-75" id="field-{{ $field['slug'] }}" name="{{ $fieldName }}">
         </div>
 
     @endif
@@ -151,7 +177,7 @@
                 <div class="form-check">
                     <label class="form-check" for="field-{{ $field['slug'] }}-{{ $option['value'] }}">
                         <input class="form-check" type="radio" value="{{ $option['value'] }}"
-                            id="field-{{ $field['slug'] }}-{{ $option['value'] }}" name="fields[{{ $field['slug'] }}]"
+                            id="field-{{ $field['slug'] }}-{{ $option['value'] }}" name="{{ $fieldName }}"
                             @if( $option['value'] == $field['value'] ) checked @endif
                             >
                         {{ $option['title'] }}
@@ -171,7 +197,7 @@
             <div class="form-check">
                 <input class="form-check w-75" type="checkbox" id="field-{{ $field['slug'] }}"
                     @if( $field['value'] == 1 ) checked @endif
-                    name="fields[{{ $field['slug'] }}]">
+                    name="{{ $fieldName }}">
             </div>
         </div>
 

@@ -183,9 +183,7 @@
 
 			<div class="tab-pane fade" id="kt_ecommerce_add_product_travellerfields" role="tab-panel">
 				<div class="d-flex flex-column gap-7 gap-lg-10">
-
-					@include('dashboard.products.tabs.traveller-fields', ['fields' => $formFields['order']])
-
+					@include('dashboard.products.tabs.traveller-fields', ['fields' => $formFields['traveller']])
 				</div>
 			</div>
 
@@ -235,15 +233,38 @@
 	@endforeach
 
 
-	@include('dashboard.products.modals.create-form-field', ['product' => $product, 'entity' => 'order'])
-	@include('dashboard.products.modals.create-form-field', ['product' => $product, 'entity' => 'traveller'])
+	@include('dashboard.products.modals.create-form-field', 
+	[
+		'product' => $product, 
+		'entity' => 'order',
+		'formFields' => $formFieldsRef['order']
+	])
+	@include('dashboard.products.modals.create-form-field', 
+	[
+		'product' => $product, 
+		'entity' => 'traveller',
+		'formFields' => $formFieldsRef['traveller']
+	])
 
 	@foreach($formFields['order'] as $field)
-		@include('dashboard.products.modals.edit-form-field', ['field' => $field])
+		@php
+			//dd($field);
+		@endphp
+		@include('dashboard.products.modals.edit-form-field', 
+		[
+			'fieldValue' => $field,
+			'entity' => 'order',
+			'formFields' => $formFieldsRef['order']
+		])
 	@endforeach
 
 	@foreach($formFields['traveller'] as $field)
-		@include('dashboard.products.modals.edit-form-field', ['field' => $field])
+		@include('dashboard.products.modals.edit-form-field', 
+		[
+			'fieldValue' => $field,
+			'entity' => 'traveller',
+			'formFields' => $formFieldsRef['traveller']
+		])
 	@endforeach
 
 	

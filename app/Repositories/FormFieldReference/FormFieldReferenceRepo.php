@@ -56,6 +56,16 @@ class FormFieldReferenceRepo
 
     }
 
+    public function getOrderFields()
+    {
+        return $this->getInitialFields(['entity' => 'order']);
+    }
+
+    public function getTravellerFields()
+    {
+        return $this->getInitialFields(['entity' => 'traveller']);
+    }
+
     public function getById($id)
     {
 
@@ -98,7 +108,7 @@ class FormFieldReferenceRepo
             $fieldData = $this->getById($field->field_id);
 
             if( $fieldData['type'] == 'reference' ) {
-                $fieldData['type'] = 'select';
+                //$fieldData['type'] = 'select';
             }
 
             $data[] = [
@@ -196,6 +206,22 @@ class FormFieldReferenceRepo
             'declarations' => ['title' => 'Declarations'],
         ];
         return $data;
+    }
+
+    public function getOrderSections() {
+        return [
+            'trip' => ['title' => 'Trip'],
+        ];
+    }
+
+    public function getTravellerSections() {
+        return [
+            'personal' => ['title' => 'Personal'],
+            'passport' => ['title' => 'Passport'],
+            'family' => ['title' => 'Family'],
+            'past_travel' => ['title' => 'Past Travel'],
+            'declarations' => ['title' => 'Declarations'],
+        ];
     }
 
     public function getAirportsReference() {

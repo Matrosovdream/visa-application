@@ -1,6 +1,6 @@
 @if(isset($travellers) && count($travellers) > 0)
 
-    @foreach($travellers as $traveller)
+    @foreach($travellers as $key=>$traveller)
 
         @php
         
@@ -14,9 +14,11 @@
 
             <div class="row">
                 <div class="col-md-6">
+                    @php /*
                     <h3>
                         {{ $traveller['name'] }} {{ $traveller['lastname'] }} - {{ __('Passport information') }}
                     </h3>
+                    */ @endphp
                 </div>
                 @php /*
                 <div class="col-md-6 text-end">
@@ -27,7 +29,15 @@
                 */ @endphp
             </div>
 
+            @include('web.partials.fields-loop', 
+            [
+                'values' => $travellerFieldValues[$key], 
+                'fields' => $formFields,
+                'entity' => 'traveller'
+            ])
+
             <!-- Nationality -->
+            @php /*
             <div class="mb-4 w-75">
                 <label for="nationality" class="form-label">
                     {{ __("Nationality on passport") }}
@@ -112,6 +122,7 @@
                     @endforeach
                 </select>
             </div>
+            */ @endphp
 
         </div>
 
