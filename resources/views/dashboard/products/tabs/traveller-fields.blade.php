@@ -10,7 +10,7 @@
 
             <div id="kt_ecommerce_add_product_options">
 
-                @include('dashboard.products.form-fields.index', ['fields' => $formFields['traveller']])
+                @include('dashboard.products.form-fields.index', ['fields' => $fields])
 
                 <div class="form-group mt-5">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_product_form_field_traveller"

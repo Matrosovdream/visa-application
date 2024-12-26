@@ -8,6 +8,7 @@ use App\Models\Country;
 use Str;
 use Illuminate\Http\Request;
 use App\Repositories\Product\ProductFieldsReferenceRepo;
+use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
 
 class DashboardProductsController extends Controller
 {
@@ -15,10 +16,12 @@ class DashboardProductsController extends Controller
     public $perPage = 10;
 
     protected $productFieldRepo;
+    protected $formFieldRepo;
 
     public function __construct()
     {
         $this->productFieldRepo = new ProductFieldsReferenceRepo();
+        $this->formFieldRepo = new FormFieldReferenceRepo();
     }
     
     public function index()
@@ -56,6 +59,19 @@ class DashboardProductsController extends Controller
             'order' => $this->productFieldRepo->getOrderFieldsByProduct($id),
             'traveller' => $this->productFieldRepo->getTravellerFieldsByProduct($id),
         ];
+
+        $data['formFieldsRef'] = [
+            'order' => [
+                'sections' => $this->formFieldRepo->getOrderSections(),
+                'fields' => $this->formFieldRepo->getOrderFields(),
+            ],
+            'traveller' => [
+                'sections' => $this->formFieldRepo->getTravellerSections(),
+                'fields' => $this->formFieldRepo->getTravellerFields(),
+            ],
+        ];
+
+        //dd($data['formFieldsRef']);
 
         return view('dashboard.products.show', $data);
     }

@@ -1,9 +1,15 @@
+@php 
+
+@endphp
+
+@include('web.partials.fields-loop', 
+[
+    'values' => $cartFieldValues, 
+    'fields' => $formFields,
+    'entity' => 'order'
+    ])
+
 @php /*
-@include('web.partials.fields-loop')
-*/ @endphp
-
-
-
 <div class="mb-3 xb-item--field">
 
     <label for="arrivalDate" class="form-label w-100">
@@ -88,6 +94,7 @@
         <label class="form-check-label" for="flexCheckDefault">{{ __('Yes, I want to receive updates') }}</label>
     </div>
 </div>
+*/ @endphp
 
 
 <script>
@@ -104,10 +111,10 @@
     function validate_step1() {
 
         // Manual validation
-        var arrivalDate = $('#arrivalDate').val();
-        var fullName = $('#full_name').val();
-        var phone = $('#phone').val();
-        var email = $('#email').val();
+        var arrivalDate = $('#field-arrival_date').val();
+        var fullName = $('#field-full_name').val();
+        var phone = $('#field-phone_number').val();
+        var email = $('#field-email').val();
         var country_to = $('#country_to').val();
 
 
@@ -117,23 +124,23 @@
 
         // Check all fields and if not valid, show error label.error after the fields
         if (arrivalDate == '') {
-            $('#arrivalDate').after('<label class="error">This field is required</label>');
+            $('#field-arrival_date').after('<label class="error">This field is required</label>');
             isValid = false;
         }
 
         if (fullName == '') {
-            $('#full_name').after('<label class="error">This field is required</label>');
+            $('#field-full_name').after('<label class="error">This field is required</label>');
             isValid = false;
         }
 
         if (phone == '') {
-            $('#phone').after('<label class="error">This field is required</label>');
+            $('#field-phone_number').after('<label class="error">This field is required</label>');
             isValid = false;
         }
 
         
         if (email == '' || !check_email(email)) {
-            $('#email').after('<label class="error">Check email</label>');
+            $('#field-email').after('<label class="error">Check email</label>');
             isValid = false;
         }
         

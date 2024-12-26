@@ -17,6 +17,7 @@ use App\Http\Controllers\Dashboard\ProductOffersController;
 use App\Http\Controllers\Dashboard\ProductExtrasController;
 use App\Http\Controllers\Dashboard\DashboardOrderFieldsController;
 use App\Http\Controllers\Dashboard\DashboardTravellerFieldsController;
+use App\Http\Controllers\Dashboard\ProductFieldsReferenceController;
 
 
 
@@ -132,6 +133,13 @@ Route::group(['as' => '','prefix' =>'dashboard','namespace' => '', 'middleware' 
             Route::get('{field_id}/edit', [DashboardTravellerFieldsController::class, 'edit'])->name('dashboard.travellerfields.edit');
             Route::post('{field_id}', [DashboardTravellerFieldsController::class, 'update'])->name('dashboard.travellerfields.update');
             Route::delete('{field_id}', [DashboardTravellerFieldsController::class, 'destroy'])->name('dashboard.travellerfields.destroy');
+        });
+
+        // Product fields reference
+        Route::group(['as' => '','prefix' =>'product-fields-reference','namespace' => '', 'middleware' => []],function(){
+            Route::post('/', [ProductFieldsReferenceController::class, 'store'])->name('dashboard.productfieldsreference.store');
+            Route::post('{field_id}', [ProductFieldsReferenceController::class, 'update'])->name('dashboard.productfieldsreference.update');
+            Route::delete('{field_id}', [ProductFieldsReferenceController::class, 'destroy'])->name('dashboard.productfieldsreference.destroy');
         });
 
     });

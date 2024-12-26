@@ -13,29 +13,30 @@
             </div>
 
             <div class="modal-body py-lg-10 px-lg-10">
-                <form method="POST" action="{{ route('dashboard.extras.create') }}">
+                <form method="POST" action="{{ route('dashboard.productfieldsreference.store') }}">
                     @csrf
 
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
                     <input type="hidden" name="entity" value="{{ $entity }}" />
+                    <input type="hidden" name="required" value="0" />
 
-                    <div class="mb-10 fv-row fv-plugins-icon-container">
-                        <label class="required form-label">Title</label>
-                        <input type="text" name="name" class="form-control mb-2"
-                            value="{{ old('name') }}">
-                    </div>
-
-                    <div class="mb-10 fv-row fv-plugins-icon-container">
-                        <label class="required form-label">Price</label>
-                        <input type="text" name="price" class="form-control mb-2"
-                            value="{{ old('price') }}">
+                    <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
+                        <label class="required form-label">Field</label>
+                        <select name="field_id" class="form-select form-select-solid mb-2">
+                            <option>Select field</option>
+                            @foreach($formFields['fields'] as $field)
+                                <option value="{{ $field['id'] }}">{{ $field['title'] }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
-                        <label class="required form-label">Required</label>
-                        <select name="required" class="form-select form-select-solid mb-2">
-                            <option value="0">No</option>
-                            <option value="1">Yes</option>
+                        <label class="required form-label">Section</label>
+                        <select name="section" class="form-select form-select-solid mb-2">
+                            <option>Select section</option>
+                            @foreach($formFields['sections'] as $code=>$section)
+                                <option value="{{ $code }}">{{ $section['title'] }}</option>
+                            @endforeach
                         </select>
                     </div>
 

@@ -1,5 +1,5 @@
 @if(isset($travellers) && count($travellers) > 0)
-    @foreach($travellers as $traveller)
+    @foreach($travellers as $key=>$traveller)
 
         <div class="card-traveller mt-25">
 
@@ -15,6 +15,15 @@
                     </span>
                 </div>
             </div>
+
+            @include('web.partials.fields-loop', 
+            [
+                'values' => $travellerFieldValues[$key], 
+                'fields' => $formFields,
+                'entity' => 'traveller'
+            ])
+
+            @php /*
 
             <div class="mb-3 xb-item--field">
                 <label class="form-label w-100">
@@ -45,6 +54,10 @@
                 <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
             </div>
 
+            */ @endphp
+
+            
+
         </div>
 
     @endforeach
@@ -66,6 +79,14 @@
             </div>
         </div>
 
+        @include('web.partials.fields-loop', 
+        [
+            'values' => [], 
+            'fields' => $formFields,
+            'entity' => 'traveller'
+        ])
+
+        @php /*
         <div class="mb-3 xb-item--field">
             <label class="form-label w-100">
                 {{ __('First and middle name') }}
@@ -94,6 +115,7 @@
                 id="birthday-1">
             <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
         </div>
+        */ @endphp
 
     </div>
 

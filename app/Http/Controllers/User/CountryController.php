@@ -20,6 +20,12 @@ use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
 class CountryController extends Controller
 {
 
+    protected $cartRepoStore;
+
+    public function __construct() {
+        $this->cartRepoStore = new CartRepoStore();
+    }
+
     public function index(Request $request)
     {
 
@@ -41,9 +47,36 @@ class CountryController extends Controller
             $filters 
         );
 
+        $countryCode = $data['country']->code;
+
+        // Cart field values
+        $data['cartFieldValues'] = $this->cartRepoStore->getCartValues( $data['cart']['fields']['id'] );
+
+        // Traveller field values
+        //$data['travellerFieldValues'] = [];
+
+        // Prepare references
+        foreach ($data['formFields'] as $key => $field) {
+            if( $field['type'] == 'reference' ) {
+
+                if( $field['field']['reference_code'] == 'airport' ) {
+
+                    // Filter $field['options'] by country code
+                    $field['field']['options'] = array_filter($field['field']['options'], function($airport) use ($countryCode) {
+                        return $airport['iso_country'] == $countryCode;
+                    });
+
+                    $field['options'] = $field['field']['options'];
+
+                    $data['formFields'][$key] = $field;
+                }
+
+            }
+        }
+
         if( $request->has('lg') ) {
             //dd($data);
-            dd($data['formFields'][1]['options']);
+            dd($data['formFields']);
         }
         
 
@@ -61,6 +94,21 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
+
+        $filters = ['entity' => 'traveller'];
+        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
+            $data['product']['id'], 
+            $filters 
+        );
+        $data['formFields'] = array_filter($data['formFields'], function($field) {
+            return in_array($field['slug'], ['name', 'lastname', 'birthday']);
+        });
+
+        // Cart field values
+        $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
+        $data['travellerFieldValues'] = json_decode($data['travellerFieldValues'], true);
+
+
         $data['template'] = 'step-2';
         $data['subtitle'] = 'Your information';
         $data['prev_page'] = route('web.country.apply.cart.step1', [$data['country']->slug, $request->cart]);
@@ -75,7 +123,24 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
-        //dd($data['travellers']);
+
+        $filters = ['entity' => 'traveller'];
+        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
+            $data['product']['id'], 
+            $filters 
+        );
+        $data['formFields'] = array_filter($data['formFields'], function($field) {
+            return in_array(
+                $field['slug'], 
+                ['birth_country', 'passport', 'passport_expiration_date']
+            );
+        });
+
+        // Cart field values
+        $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
+        $data['travellerFieldValues'] = json_decode($data['travellerFieldValues'], true);
+
+        //dd($data['formFields']);
 
         $data['template'] = 'step-3';
         $data['subtitle'] = 'Passport details';
@@ -107,12 +172,15 @@ class CountryController extends Controller
 
         $data = $this->collectCartData( $request );
 
-        //dd($request->all());
-
         $cart = Cart::where('hash', $request->cart)->first();
 
         // Update cart meta
         CartRepoStore::updateMeta( $cart->id, $request->all() );
+
+        // Update cart fields
+        if( isset($request->fields) ) {
+            $this->cartRepoStore->updateFields( $cart->id, $request->fields );
+        }
 
         // Update cart product
         $cartRepo = CartRepo::find($cart->id);
