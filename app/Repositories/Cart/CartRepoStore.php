@@ -98,7 +98,7 @@ class CartRepoStore {
                         
                         $value = self::prepareMultiple($value);
                         $value = self::prepareTraveller($value, $cart->getMeta('travellers'));
-                        //dd($value);
+                        //dd($value, $cart->getMeta('travellers'));
                         $cart->setMeta( 'travellers_count', count($value) );
                     } 
                     
@@ -137,25 +137,26 @@ class CartRepoStore {
     }
 
     public static function prepareTraveller($values, $old_values) {
-
-        $old_values = json_decode( $old_values, true );
-
-        // Iterate over the values array to update corresponding old values
+        // Decode old_values JSON into an associative array
+        $old_values = json_decode($old_values, true);
+    
+        // Iterate over the values array to update or add entries to old_values
         foreach ($values as $index => $new_data) {
-            // Merge the old data with the new data for the corresponding index
+            // Check if the index exists in old_values
             if (isset($old_values[$index])) {
-                $old_values[$index] = array_merge($old_values[$index], $new_data);
+                // Iterate through the new data to update or add key-value pairs
+                foreach ($new_data as $key => $value) {
+                    $old_values[$index][$key] = $value; // Replace or add the key-value pair
+                }
             } else {
-                // If the index doesn't exist in old_values, just add the new data
+                // If the index doesn't exist in old_values, add the new data directly
                 $old_values[$index] = $new_data;
             }
         }
-        
-        //dd($old_values, $values);
-
+    
         return $old_values;
-
     }
+    
 
 
     public static function prepareMultiple( $data ) {

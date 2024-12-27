@@ -31,7 +31,7 @@ class FormFieldValueRepo {
         foreach ($values as $key => $value) {
             $data[ $value->field_id ] = $this->prepareField( $value );
         }
-        return $data;
+        return $data ?? [];
 
     }
 

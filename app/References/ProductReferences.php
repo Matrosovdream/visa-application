@@ -17,7 +17,8 @@ class ProductReferences {
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "trip"
+                'section' => "trip",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Which airport do you arrive?",
@@ -30,7 +31,8 @@ class ProductReferences {
                 'default_value' => "",
                 'reference_code' => "airport",
                 'default' => true,
-                'section' => "trip"
+                'section' => "trip",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Your full name",
@@ -43,7 +45,8 @@ class ProductReferences {
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "trip"
+                'section' => "trip",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Phone number",
@@ -56,7 +59,8 @@ class ProductReferences {
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "trip"
+                'section' => "trip",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Email address",
@@ -69,7 +73,8 @@ class ProductReferences {
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "trip"
+                'section' => "trip",
+                'icon' => 'location-2.svg',
             ],
         ];
 
