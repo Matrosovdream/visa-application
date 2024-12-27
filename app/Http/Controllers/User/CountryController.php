@@ -49,6 +49,8 @@ class CountryController extends Controller
 
         $countryCode = $data['country']->code;
 
+        //dd($data['formFields']);
+
         // Cart field values
         $data['cartFieldValues'] = $this->cartRepoStore->getCartValues( $data['cart']['fields']['id'] );
 
@@ -105,9 +107,11 @@ class CountryController extends Controller
         });
 
         // Cart field values
-        $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
-        $data['travellerFieldValues'] = json_decode($data['travellerFieldValues'], true);
-
+        if( isset($data['cart']['meta']['travellers']) ) {
+            $data['travellerFieldValues'] = json_decode($data['cart']['meta']['travellers'], true);
+        } else {
+            $data['travellerFieldValues'] = [];
+        }
 
         $data['template'] = 'step-2';
         $data['subtitle'] = 'Your information';
@@ -129,6 +133,14 @@ class CountryController extends Controller
             $data['product']['id'], 
             $filters 
         );
+
+        $data['personFormFields'] = array_filter($data['formFields'], function($field) {
+            return in_array(
+                $field['slug'], 
+                ['name', 'lastname', 'birthday']
+            );
+        });
+
         $data['formFields'] = array_filter($data['formFields'], function($field) {
             return in_array(
                 $field['slug'], 
@@ -136,11 +148,13 @@ class CountryController extends Controller
             );
         });
 
+        //dd($data['personFormFields'], $data['travellers']);
+
         // Cart field values
         $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
         $data['travellerFieldValues'] = json_decode($data['travellerFieldValues'], true);
 
-        //dd($data['formFields']);
+        
 
         $data['template'] = 'step-3';
         $data['subtitle'] = 'Passport details';

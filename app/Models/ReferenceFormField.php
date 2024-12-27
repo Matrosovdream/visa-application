@@ -20,6 +20,7 @@ class ReferenceFormField extends Model
         'description',
         'default_value',
         'reference_code',
+        'icon',
     ];
 
 }

@@ -25,6 +25,7 @@ class FormFieldReferenceRepo
         'default_value',
         'reference_code',
         'default',
+        'icon'
     ];
 
     public function __construct()
@@ -126,6 +127,8 @@ class FormFieldReferenceRepo
                 "field" => $fieldData
             ];
         }
+
+        //dd($data);
 
         return $data;
 
@@ -261,6 +264,7 @@ class FormFieldReferenceRepo
             "default" => $field->default,
             "required" => $field->required,
             "value" => null,
+            "icon" => $field->icon,
         ];
 
     }

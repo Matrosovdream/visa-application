@@ -22,7 +22,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "country",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Gender",
@@ -35,7 +36,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "gender",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Do you have another nationality?",
@@ -48,7 +50,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "boolean",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Dual Nationality Country",
@@ -61,7 +64,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "country",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Residence address",
@@ -74,7 +78,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Residence city or Town",
@@ -87,7 +92,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Residence state or province",
@@ -100,7 +106,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Residence ZIP code",
@@ -113,7 +120,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Occupation",
@@ -126,7 +134,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "personal"
+                'section' => "personal",
+                'icon' => 'user.svg',
             ],
 
             // Passport Information
@@ -141,7 +150,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Last name",
@@ -154,7 +164,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Birthday",
@@ -167,7 +178,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Passport",
@@ -180,7 +192,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Passport Issue Date",
@@ -193,7 +206,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Passport Expiration Date",
@@ -206,7 +220,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'user.svg',
             ],
             [
                 'title' => "Country of Birth",
@@ -219,7 +234,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "country",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Which country issued your passport",
@@ -232,7 +248,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "country",
                 'default' => true,
-                'section' => "passport"
+                'section' => "passport",
+                'icon' => 'location-2.svg',
             ],
 
             // Family
@@ -247,7 +264,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "marital_status",
                 'default' => true,
-                'section' => "family"
+                'section' => "family",
+                'icon' => 'user.svg',
             ],
 
             // Past travel
@@ -262,7 +280,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "boolean",
                 'default' => true,
-                'section' => "past_travel"
+                'section' => "past_travel",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "During your Last visit this country, when did you arrive?",
@@ -275,7 +294,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "past_travel"
+                'section' => "past_travel",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "When did you depart?",
@@ -288,7 +308,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "past_travel"
+                'section' => "past_travel",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "What city did you stay in?",
@@ -301,7 +322,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "past_travel"
+                'section' => "past_travel",
+                'icon' => 'location-2.svg',
             ],
 
             // Declarations
@@ -316,7 +338,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "boolean",
                 'default' => true,
-                'section' => "declarations"
+                'section' => "declarations",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Which Country?",
@@ -329,7 +352,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "country",
                 'default' => true,
-                'section' => "declarations"
+                'section' => "declarations",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Date deported",
@@ -342,7 +366,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "declarations"
+                'section' => "declarations",
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Please provide details",
@@ -355,7 +380,8 @@ class TravellerReferences
                 'default_value' => "",
                 'reference_code' => "",
                 'default' => true,
-                'section' => "declarations"
+                'section' => "declarations",
+                'icon' => 'location-2.svg',
             ],
             
         ];

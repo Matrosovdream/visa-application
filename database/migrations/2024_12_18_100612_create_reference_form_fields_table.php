@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('default_value')->nullable();
             $table->string('reference_code')->nullable();
+            $table->string('icon')->nullable();
             $table->boolean('default')->default(false);
             $table->timestamps();
         });

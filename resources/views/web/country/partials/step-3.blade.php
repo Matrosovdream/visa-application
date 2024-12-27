@@ -19,14 +19,16 @@
                         {{ $traveller['name'] }} {{ $traveller['lastname'] }} - {{ __('Passport information') }}
                     </h3>
                     */ @endphp
+                    <h3>
+                        Traveller #{{ $loop->iteration }} - {{ __('Passport information') }}
+                    </h3>
                 </div>
-                @php /*
+
                 <div class="col-md-6 text-end">
                     <span class="btn-remove-traveller @if($loop->iteration == 1) hidden @endif">
                         <i class="bi bi-trash3 remove-traveller-icon"></i>
                     </span>
                 </div>
-                */ @endphp
             </div>
 
             @include('web.partials.fields-loop', 

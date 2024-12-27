@@ -24,18 +24,21 @@
             <label for="field-{{ $field['slug'] }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input 
-                type="text" 
-                class="form-control w-75" 
-                id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
-                value="{{ $value ?? '' }}"
-                placeholder="{{ $field['placeholder'] }}"
-                >
-            @if( isset($field['icon']) ) 
+            <div>
+                <input 
+                    type="text" 
+                    class="form-control w-75" 
+                    id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                    value="{{ $value ?? '' }}"
+                    placeholder="{{ $field['placeholder'] }}"
+                    >
+            </div>
+            @if( isset($field['field']['icon']) ) 
                 <span class="icon">
-                    <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
+                    <img src="{{ asset('/user/assets/img/icon/'.$field['field']['icon']) }}" alt="">
                 </span>
             @endif
+            
         </div>
 
     @endif
@@ -46,18 +49,21 @@
             <label for="field-{{ $field['slug'] }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input 
-                type="text" 
-                class="form-control w-75" 
-                id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
-                value="{{ $value ?? '' }}"
-                placeholder="{{ $field['placeholder'] }}"
-                >
-            @if( isset($field['icon']) ) 
+            <div>
+                <input 
+                    type="text" 
+                    class="form-control w-75" 
+                    id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                    value="{{ $value ?? '' }}"
+                    placeholder="{{ $field['placeholder'] }}"
+                    >
+            </div>
+            @if( isset($field['field']['icon']) ) 
                 <span class="icon">
-                    <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
+                    <img src="{{ asset('/user/assets/img/icon/'.$field['field']['icon']) }}" alt="">
                 </span>
             @endif
+            
         </div>
 
     @endif
@@ -68,19 +74,29 @@
             <label for="field-{{ $field['slug'] }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input 
-                type="email" 
-                class="form-control w-75" 
-                id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
-                value="{{ $value }}"
-                placeholder="{{ $field['placeholder'] }}"
-                >
-            @if( isset($field['icon']) ) 
-                <span class="icon">
-                    <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
-                </span>
+            <div>
+                <input 
+                    type="email" 
+                    class="form-control w-75" 
+                    id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                    value="{{ $value }}"
+                    placeholder="{{ $field['placeholder'] }}"
+                    >
+                @if( isset($field['field']['icon']) ) 
+                    <span class="icon">
+                        <img src="{{ asset('/user/assets/img/icon/'.$field['field']['icon']) }}" alt="">
+                    </span>
+                @endif
+            </div>
+            @if( isset($field['field']['tooltip']) ) 
+                <p class="form-note">
+                    {{ $field['field']['tooltip'] }}
+                </p>
             @endif
+
         </div>
+
+        
 
     @endif
 
@@ -96,12 +112,18 @@
                 name="{{ $fieldName }}"
                 placeholder="{{ $field['placeholder'] }}"
                 >{{ $value }}</textarea>
-            @if( isset($field['icon']) ) 
+            @if( isset($field['field']['icon']) ) 
                 <span class="icon">
-                    <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
+                    <img src="{{ asset('/user/assets/img/icon/'.$field['field']['icon']) }}" alt="">
                 </span>
             @endif
         </div>
+
+        @if( isset($field['field']['tooltip']) ) 
+            <p class="form-note">
+                {{ $field['field']['tooltip'] }}
+            </p>
+        @endif
 
     @endif
 
@@ -111,17 +133,24 @@
             <label for="field-{{ $field['slug'] }}-{{ $key }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            <input 
-                type="text" 
-                class="form-control w-50 datepicker-min-today min-5-alert {{ $field['classes'] ?? '' }}" 
-                id="field-{{ $field['slug'] }}-{{ $key }}" 
-                name="{{ $fieldName }}" 
-                value="{{ $value ?? '' }}"
-                >
-            @if( isset($field['icon']) ) 
-                <span class="icon">
-                    <img src="{{ asset('/user/assets/img/icon/'.$field['icon']) }}" alt="">
-                </span>
+            <div>
+                <input 
+                    type="text" 
+                    class="form-control w-50 datepicker-min-today min-5-alert {{ $field['classes'] ?? '' }}" 
+                    id="field-{{ $field['slug'] }}-{{ $key }}" 
+                    name="{{ $fieldName }}" 
+                    value="{{ $value ?? '' }}"
+                    >
+                @if( isset($field['field']['icon']) ) 
+                    <span class="icon">
+                        <img src="{{ asset('/user/assets/img/icon/'.$field['field']['icon']) }}" alt="">
+                    </span>
+                @endif
+            </div>
+            @if( isset($field['field']['tooltip']) ) 
+                <p class="form-note">
+                    {{ $field['field']['tooltip'] }}
+                </p>
             @endif
         </div>
 
@@ -134,18 +163,23 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="w-75">
-            <select class="select2 w-75" id="field-{{ $field['slug'] }}-{{ $key }}" name="{{ $fieldName }}">
-                <option selected disabled>{{ $field['placeholder'] }}</option>
-                @foreach($field['options'] as $option)
-                    <option 
-                        value="{{ $option['id'] }}" 
-                        @if( $option['id'] == $value ) selected @endif
-                        >
-                        {{ $option['title'] ?? $option['name'] }}
-                    </option>
-                @endforeach
-            </select>
+                <select class="select2 w-75" id="field-{{ $field['slug'] }}-{{ $key }}" name="{{ $fieldName }}">
+                    <option selected disabled>{{ $field['placeholder'] }}</option>
+                    @foreach($field['options'] as $option)
+                        <option 
+                            value="{{ $option['id'] }}" 
+                            @if( $option['id'] == $value ) selected @endif
+                            >
+                            {{ $option['title'] ?? $option['name'] }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
+            @if( isset($field['field']['tooltip']) ) 
+                <p class="form-note">
+                    {{ $field['field']['tooltip'] }}
+                </p>
+            @endif
         </div>
 
     @endif
@@ -163,7 +197,14 @@
             @endif    
 
             <input type="file" class="form-control w-75" id="field-{{ $field['slug'] }}" name="{{ $fieldName }}">
+
         </div>
+
+        @if( isset($field['field']['tooltip']) ) 
+            <p class="form-note">
+                {{ $field['field']['tooltip'] }}
+            </p>
+        @endif
 
     @endif
 
@@ -173,17 +214,26 @@
             <label for="field-{{ $field['slug'] }}" class="form-label">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
-            @foreach($field['options'] as $option)
-                <div class="form-check">
-                    <label class="form-check" for="field-{{ $field['slug'] }}-{{ $option['value'] }}">
-                        <input class="form-check" type="radio" value="{{ $option['value'] }}"
-                            id="field-{{ $field['slug'] }}-{{ $option['value'] }}" name="{{ $fieldName }}"
-                            @if( $option['value'] == $field['value'] ) checked @endif
-                            >
-                        {{ $option['title'] }}
-                    </label>
-                </div>
-            @endforeach
+            <div>
+                @foreach($field['options'] as $option)
+                    <div class="form-check">
+                        <label class="form-check" for="field-{{ $field['slug'] }}-{{ $option['value'] }}">
+                            <input class="form-check" type="radio" value="{{ $option['value'] }}"
+                                id="field-{{ $field['slug'] }}-{{ $option['value'] }}" name="{{ $fieldName }}"
+                                @if( $option['value'] == $field['value'] ) checked @endif
+                                >
+                            {{ $option['title'] }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
+            @if( isset($field['field']['tooltip']) ) 
+                <p class="form-note">
+                    {{ $field['field']['tooltip'] }}
+                </p>
+            @endif
+
         </div>
 
     @endif
@@ -199,6 +249,11 @@
                     @if( $field['value'] == 1 ) checked @endif
                     name="{{ $fieldName }}">
             </div>
+            @if( isset($field['field']['tooltip']) ) 
+                <p class="form-note">
+                    {{ $field['field']['tooltip'] }}
+                </p>
+            @endif
         </div>
 
     @endif
