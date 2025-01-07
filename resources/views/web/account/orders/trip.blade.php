@@ -28,6 +28,16 @@
 
                     <div id="step-1" class="form-step form-step-active">
 
+                        @include(
+                            'web.partials.fields-loop',
+                            [
+                                'values' => $orderFieldValues,
+                                'fields' => $formFields,
+                                'entity' => 'order'
+                            ]
+                        )
+
+                        @php /*
                         <div class="mb-3 xb-item--field">
                             <label for="phone" class="form-label  w-100">Phone number</label>
                             <input type="tel" class="form-control w-75" id="phone" name="phone"
@@ -60,6 +70,7 @@
                             </div>
 
                         </div>
+                        */ @endphp
 
                         <button type="submit" class="btn btn-primary" id="next-1">Save and continue</button>
 

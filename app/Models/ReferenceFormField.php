@@ -21,6 +21,9 @@ class ReferenceFormField extends Model
         'default_value',
         'reference_code',
         'icon',
+        'is_email',
+        'is_phone',
+        'is_fullname',
     ];
 
 }

@@ -49,6 +49,14 @@
                         </select>
                     </div>
 
+                    <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
+                        <label class="required form-label">Required</label>
+                        <select name="required" class="form-select form-select-solid mb-2">
+                            <option value="0" {{ $fieldValue['required'] == 0 ? 'selected' : '' }}>No</option>
+                            <option value="1" {{ $fieldValue['required'] == 1 ? 'selected' : '' }}>Yes</option>
+                        </select>
+                    </div>
+
                     <div class="d-flex flex-stack">
 
                         

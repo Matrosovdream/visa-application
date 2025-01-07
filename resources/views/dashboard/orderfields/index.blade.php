@@ -49,6 +49,9 @@
                         <th class="">Slug</th>
                         <th class="">Type</th>
                         <th class="">Section</th>
+                        <th class="">Is email</th>
+                        <th class="">Is phone</th>
+                        <th class="">Is full name</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -82,6 +85,16 @@
                             <td class="pe-0">
                                 {{ $item->section }}
                             </td>
+                            <td class="pe-0">
+                                {{ $item->is_email ? 'Yes' : '' }}
+                            </td>
+                            <td class="pe-0">
+                                {{ $item->is_phone ? 'Yes' : '' }}
+                            </td>
+                            <td class="pe-0">
+                                {{ $item->is_full_name ? 'Yes' : '' }}
+                            </td>
+
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
                                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions

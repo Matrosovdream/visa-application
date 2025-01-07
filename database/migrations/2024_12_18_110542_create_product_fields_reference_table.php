@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('entity');
             $table->string('section')->nullable();
             $table->boolean('required')->default(false);
-            $table->string('default_value')->nullable();
+            $table->string('default_value')->nullable(); 
             $table->timestamps();
         });
     }

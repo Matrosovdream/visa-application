@@ -1,7 +1,3 @@
-@php 
-
-@endphp
-
 @include('web.partials.fields-loop', 
 [
     'values' => $cartFieldValues, 

@@ -25,7 +25,10 @@ class FormFieldReferenceRepo
         'default_value',
         'reference_code',
         'default',
-        'icon'
+        'icon',
+        'is_email',
+        'is_phone',
+        'is_fullname',
     ];
 
     public function __construct()
@@ -113,7 +116,7 @@ class FormFieldReferenceRepo
             }
 
             $data[] = [
-                "id" => $field->id,
+                "id" => $fieldData['id'],
                 "entity" => $field->entity,
                 "section" => $field->section,
                 "required" => $field->required,
@@ -265,6 +268,9 @@ class FormFieldReferenceRepo
             "required" => $field->required,
             "value" => null,
             "icon" => $field->icon,
+            "is_email" => $field->is_email,
+            "is_phone" => $field->is_phone,
+            "is_fullname" => $field->is_fullname,
         ];
 
     }

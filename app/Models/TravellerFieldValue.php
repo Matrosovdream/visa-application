@@ -15,4 +15,7 @@ class TravellerFieldValue extends Model
         'value',
     ];
 
+    // Turn off timestamps
+    public $timestamps = false;
+
 }

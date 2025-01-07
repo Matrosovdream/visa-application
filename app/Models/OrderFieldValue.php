@@ -15,6 +15,7 @@ class OrderFieldValue extends Model
         'value',
     ];
     
+    public $timestamps = false;
     
    
 
