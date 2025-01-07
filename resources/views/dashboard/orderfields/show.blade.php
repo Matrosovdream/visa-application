@@ -113,6 +113,37 @@
                                     class="form-control form-control-solid" placeholder="" />
                             </div>
 
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Icon</label>
+                                <input type="text" name="icon" value="{{ $field['icon'] }}"
+                                    class="form-control form-control-solid" placeholder="" />
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Is email</label>
+                                <select name="is_email" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                    <option value="1" {{ $field['is_email'] ? 'selected' : '' }}>Yes</option>
+                                    <option value="0" {{ $field['is_email'] ? '' : 'selected' }}>No</option>
+                                </select>
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Is phone</label>
+                                <select name="is_phone" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                    <option value="1" {{ $field['is_phone'] ? 'selected' : '' }}>Yes</option>
+                                    <option value="0" {{ $field['is_phone'] ? '' : 'selected' }}>No</option>
+                                </select>
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Is full name</label>
+                                <select name="is_fullname" class="form-select form-select-solid" data-control="select2" data-hide-search="true">
+                                    <option value="1" {{ $field['is_fullname'] ? 'selected' : '' }}>Yes</option>
+                                    <option value="0" {{ $field['is_fullname'] ? '' : 'selected' }}>No</option>
+                                </select>
+                            </div>
+
+
                             <div class="d-flex justify-content-end">
 
                                 <button type="submit" id="kt_ecommerce_customer_profile_submit"

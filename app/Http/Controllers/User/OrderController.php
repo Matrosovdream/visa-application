@@ -9,19 +9,29 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Traveller;
-use Illuminate\Support\Facades\Storage;
 use App\Models\TravellerDocuments;
 use App\Helpers\TravellerHelper;
 use App\Helpers\orderHelper;
 use App\Actions\Web\OrderApplicantActions as ApplicantActions;
+use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
+use App\Repositories\Order\OrderRepo;
 
 
 class OrderController extends Controller
 {
 
+    protected $formFieldRepo;
+    protected $orderRepo;
+
+    public function __construct()
+    {
+        $this->formFieldRepo = new FormFieldReferenceRepo();
+        $this->orderRepo = new OrderRepo();
+    }
+
     public function index()
     {
-        $data = array( 'title' => 'Order', 'orders' => Order::getOrdersByUser( Auth::user()->id )->paginate(10));
+        $data = array( 'title' => 'Order', 'orders' => Order::getOrdersByUser( Auth::user()->id )->paginate(100));
         return view('web.account.orders.index', $data);
     }
 
@@ -58,6 +68,41 @@ class OrderController extends Controller
             'travellerFieldCategories' => TravellerHelper::getTravellerFieldCategories(),
             'travellerFields' => TravellerHelper::getTravellerFieldList()
         );
+
+        $product_id = $data['order']->getProduct()->id;
+
+        // Fields reference
+        $filters = ['entity' => 'order', 'section' => 'trip'];
+        $data['formFields'] = $this->formFieldRepo->getProductFields( 
+            $product_id, 
+            $filters 
+        );
+
+        $countryToCode = $data['order']->getMeta('country_to_code');
+
+        // Prepare references
+        foreach ($data['formFields'] as $key => $field) {
+            if( $field['type'] == 'reference' ) {
+
+                if( $field['field']['reference_code'] == 'airport' ) {
+
+                    // Filter $field['options'] by country code
+                    $field['field']['options'] = array_filter($field['field']['options'], function($airport) use ($countryToCode) {
+                        return $airport['iso_country'] == $countryToCode;
+                    });
+
+                    $field['options'] = $field['field']['options'];
+
+                    $data['formFields'][$key] = $field;
+                }
+
+            }
+        }
+
+        //dd($data['formFields']);
+
+        // order field values
+        $data['orderFieldValues'] = $this->orderRepo->getOrderValues( $order_id );
 
         // Set next page
         if( isset($data['order']->travellers) ) {
@@ -129,7 +174,17 @@ class OrderController extends Controller
 
     public function applicantPersonal($order_id, $applicant_id)
     {
-        return view('web.account.orders.applicant.personal', $this->getApplicantData($order_id, $applicant_id));
+
+        $data = $this->getApplicantData($order_id, $applicant_id);
+
+        $data['formFields'] = $this->getFormFields( 
+            $data['order']->getProduct()->id,
+            'traveller', 
+            'personal' 
+        );
+        dd($data['formFields']);
+
+        return view('web.account.orders.applicant.personal', $data);
     }
 
     public function applicantPassport($order_id, $applicant_id)
@@ -244,6 +299,12 @@ class OrderController extends Controller
 
         // Redirect to the order page
         return redirect()->route('web.order.show', $order->hash);
+    }
+
+    public function getFormFields($product_id, $entity, $section)
+    {
+        $filters = ['entity' => $entity, 'section' => $section];
+        return $this->formFieldRepo->getProductFields( $product_id, $filters );
     }
 
 }

@@ -136,6 +136,12 @@
 
 @endif
 
+<style>
+    .btn-remove-traveller {
+        display: none;
+    }
+</style>
+
 <script>
 
     $(document).ready(function() {

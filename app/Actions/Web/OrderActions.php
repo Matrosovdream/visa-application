@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Models\Traveller;
 use App\Helpers\TravellerHelper;
 use App\Repositories\Cart\CartRepo;
+use App\Repositories\FormFieldValue\FormFieldValueRepo;
 
 
 
@@ -31,6 +32,14 @@ class OrderActions {
 
         $cart = CartRepo::find( $request->cart_id );
 
+        // User data
+        $email = (new FormFieldValueRepo())->getCartValueBy( $request->cart_id, 'order', 'email' );
+        $fullname = (new FormFieldValueRepo())->getCartValueBy( $request->cart_id, 'order', 'fullname' );
+        $userdata = [
+            'email' => $email,
+            'fullname' => $fullname,
+        ];
+
         // Create or find user by email
         if( $user_id ) {
             $USER = User::find($user_id);
@@ -38,7 +47,7 @@ class OrderActions {
             $USER = auth()->user();
         } else {
             // Create user
-            $USER = self::createUserNew($cart['meta'], $role = 'user');
+            $USER = self::createUserNew($userdata, $role = 'user');
 
             // Log in user
             auth()->login($USER);
@@ -62,13 +71,19 @@ class OrderActions {
         // Add travellers
         $travellers = json_decode($cart['meta']['travellers'], true);
         if( isset($travellers) ) {
-            self::addTravellersNew($order, $travellers);
+            self::addTravellersNew($order, $request->cart_id, $travellers);
         } 
 
         // Set cart product order ID
         $cartProduct->order_id = $order->id;
         $cartProduct->save();
 
+        // Set order fields values from cart
+        $fields = (new FormFieldValueRepo())->getCartValues( $request->cart_id );
+        foreach( $fields as $values ) {
+            (new FormFieldValueRepo())->setOrderValue($order->id, $values['field_id'], $values['value']);
+        }
+        
         // Add to history
         $order->history()->create([
             'user_id' => $USER->id,
@@ -79,6 +94,12 @@ class OrderActions {
         return $order;
 
         dd($cart);
+
+    }
+
+    public static function createOrderUser() {
+
+        
 
     }
 
@@ -188,7 +209,7 @@ class OrderActions {
         $user = User::firstOrCreate([
             'email' => $data['email'],
         ], [
-            'name' => $data['full_name'],
+            'name' => $data['fullname'],
             'email' => $data['email'],
             'password' => bcrypt(Str::random(16)),
         ]);
@@ -237,20 +258,31 @@ class OrderActions {
 
     }
 
-    public static function addTravellersNew( $order, $travellers ) {
+    public static function addTravellersNew( $order, $cart_id, $travellers ) {
 
         foreach ($travellers as $traveller) {
 
+            $name_id = (new FormFieldValueRepo())->getFieldBy( 'traveller', 'name' );
+            $lastname_id = (new FormFieldValueRepo())->getFieldBy( 'traveller', 'lastname' );
+            $birthday_id = (new FormFieldValueRepo())->getFieldBy( 'traveller', 'birthday' );
+            $passport_id = (new FormFieldValueRepo())->getFieldBy( 'traveller', 'passport' );
+
             $data = [
-                'name' => $traveller['name'],
-                'lastname' => $traveller['lastname'],
-                'birthday' => $traveller['birthday'],
-                'passport' => $traveller['passport'],
+                'name' => $traveller[ $name_id['id'] ],
+                'lastname' => $traveller[ $lastname_id['id'] ],
+                'birthday' => $traveller[ $birthday_id['id'] ],
+                'passport' => $traveller[ $passport_id['id'] ],
             ];
 
             $travellerSet = $order->travellers()->create( $data );
+            $travellerID = $travellerSet->id;
             foreach( $data as $key=>$value ) {
                 $travellerSet->setMeta($key, $value);
+            }
+
+            // Set traveller fields values
+            foreach( $traveller as $field_id => $value ) {
+                (new FormFieldValueRepo())->setTravellerValue($travellerID, $field_id, $value);
             }
 
         }

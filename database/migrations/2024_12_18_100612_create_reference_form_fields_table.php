@@ -25,6 +25,13 @@ return new class extends Migration
             $table->string('reference_code')->nullable();
             $table->string('icon')->nullable();
             $table->boolean('default')->default(false);
+            $table->boolean('is_email')->default(false);
+            $table->boolean('is_phone')->default(false);
+            $table->boolean('is_fullname')->default(false);
+            $table->boolean('is_name')->default(false);
+            $table->boolean('is_lastname')->default(false);
+            $table->boolean('is_birthday')->default(false);
+            $table->boolean('is_passport')->default(false);
             $table->timestamps();
         });
     }

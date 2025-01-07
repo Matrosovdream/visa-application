@@ -47,6 +47,7 @@ class ProductReferences {
                 'default' => true,
                 'section' => "trip",
                 'icon' => 'location-2.svg',
+                'is_fullname' => true
             ],
             [
                 'title' => "Phone number",
@@ -61,6 +62,7 @@ class ProductReferences {
                 'default' => true,
                 'section' => "trip",
                 'icon' => 'location-2.svg',
+                'is_phone' => true
             ],
             [
                 'title' => "Email address",
@@ -75,6 +77,7 @@ class ProductReferences {
                 'default' => true,
                 'section' => "trip",
                 'icon' => 'location-2.svg',
+                'is_email' => true
             ],
         ];
 

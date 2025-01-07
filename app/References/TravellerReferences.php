@@ -152,6 +152,7 @@ class TravellerReferences
                 'default' => true,
                 'section' => "passport",
                 'icon' => 'user.svg',
+                'is_name' => true,
             ],
             [
                 'title' => "Last name",
@@ -166,6 +167,7 @@ class TravellerReferences
                 'default' => true,
                 'section' => "passport",
                 'icon' => 'user.svg',
+                'is_lastname' => true,
             ],
             [
                 'title' => "Birthday",
@@ -180,6 +182,7 @@ class TravellerReferences
                 'default' => true,
                 'section' => "passport",
                 'icon' => 'user.svg',
+                'is_birthday' => true,
             ],
             [
                 'title' => "Passport",
@@ -194,6 +197,7 @@ class TravellerReferences
                 'default' => true,
                 'section' => "passport",
                 'icon' => 'user.svg',
+                'is_passport' => true,
             ],
             [
                 'title' => "Passport Issue Date",
