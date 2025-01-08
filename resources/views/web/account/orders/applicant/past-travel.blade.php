@@ -31,7 +31,18 @@
                     class="xb-item--form contact-from w-75 apply-form">
                     @csrf
 
-                    @include('web.account.orders.partials.applicant-fields')
+                    @include(
+                            'web.partials.fields-loop',
+                            [
+                                'values' => $fieldValues,
+                                'fields' => $formFields,
+                                'entity' => 'traveller'
+                            ]
+                        )
+
+                        @php /*
+                        @include('web.account.orders.partials.applicant-fields')
+                        */ @endphp
 
                     <button type="submit" class="btn btn-primary" id="next-1">
                         {{ __('Save') }}

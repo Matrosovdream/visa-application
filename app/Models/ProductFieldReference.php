@@ -16,9 +16,7 @@ class ProductFieldReference extends Model
         'section',
         'required',
         'default_value',
-        'is_email',
-        'is_phone',
-        'is_fullname'
+        'classes',
     ];
 
     public function field()
