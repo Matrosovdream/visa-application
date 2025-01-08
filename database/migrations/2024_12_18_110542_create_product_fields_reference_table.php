@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('section')->nullable();
             $table->boolean('required')->default(false);
             $table->string('default_value')->nullable(); 
+            $table->string('classes')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,8 @@ use App\Helpers\orderHelper;
 use App\Actions\Web\OrderApplicantActions as ApplicantActions;
 use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
 use App\Repositories\Order\OrderRepo;
+use App\Repositories\FormFieldValue\FormFieldValueRepo;
+use App\Repositories\Traveller\TravellerRepoStore;
 
 
 class OrderController extends Controller
@@ -22,11 +24,15 @@ class OrderController extends Controller
 
     protected $formFieldRepo;
     protected $orderRepo;
+    protected $fieldValueRepo;
+    protected $travellerRepoStore;
 
     public function __construct()
     {
         $this->formFieldRepo = new FormFieldReferenceRepo();
         $this->orderRepo = new OrderRepo();
+        $this->fieldValueRepo = new FormFieldValueRepo();
+        $this->travellerRepoStore = new TravellerRepoStore();
     }
 
     public function index()
@@ -120,14 +126,23 @@ class OrderController extends Controller
     public function tripDetailsUpdate(Request $request, $order_id)
     {
 
+        // Update order fields
+        if( isset($request->fields) ) {
+            $this->orderRepo->saveOrderValues( $order_id, $request->fields );
+        }
+
+        /*
         $order = Order::find($order_id);
+
         // Set meta
         $order->setMeta('phone', $request->phone);
         $order->setMeta('time_arrival', $request->time_arrival);
         $order->setMeta('country_from_id', $request->country_from);
+        
 
         // Check if is completed then update status
         orderHelper::checkUpdateStatus( $order_id );
+        */
 
         if( isset( $request->next_page ) ) {
             return redirect($request->next_page );
@@ -176,43 +191,75 @@ class OrderController extends Controller
     {
 
         $data = $this->getApplicantData($order_id, $applicant_id);
-
-        $data['formFields'] = $this->getFormFields( 
-            $data['order']->getProduct()->id,
-            'traveller', 
-            'personal' 
-        );
-        dd($data['formFields']);
+        $data = array_merge($data, $this->getTravellerFields($applicant_id, $data['order']->getProduct()->id, 'personal'));
 
         return view('web.account.orders.applicant.personal', $data);
     }
 
+    public function getTravellerFields( $applicant_id, $product_id, $category ) {
+
+        $data = [];
+
+        $data['formFields'] = $this->getFormFields( 
+            $product_id,
+            'traveller', 
+            $category
+        );
+
+        $data['fieldValues'] = $this->fieldValueRepo->getTravellerValues( $applicant_id );
+
+        return $data;
+
+    }
+
     public function applicantPassport($order_id, $applicant_id)
     {
-        return view('web.account.orders.applicant.passport', $this->getApplicantData($order_id, $applicant_id));
+        $data = $this->getApplicantData($order_id, $applicant_id);
+        $data = array_merge($data, $this->getTravellerFields($applicant_id, $data['order']->getProduct()->id, 'passport'));
+
+        return view('web.account.orders.applicant.passport', $data);
     }
 
     public function applicantFamily($order_id, $applicant_id)
     {
-        return view('web.account.orders.applicant.family', $this->getApplicantData($order_id, $applicant_id));
+        $data = $this->getApplicantData($order_id, $applicant_id);
+        $data = array_merge($data, $this->getTravellerFields($applicant_id, $data['order']->getProduct()->id, 'family'));
+
+        return view('web.account.orders.applicant.family', $data);
     }
 
     public function applicantPastTravel($order_id, $applicant_id)
     {
-        return view('web.account.orders.applicant.past-travel', $this->getApplicantData($order_id, $applicant_id));
+        $data = $this->getApplicantData($order_id, $applicant_id);
+        $data = array_merge($data, $this->getTravellerFields($applicant_id, $data['order']->getProduct()->id, 'past_travel'));
+
+        return view('web.account.orders.applicant.past-travel', $data);
     }
 
     public function applicantDeclarations($order_id, $applicant_id)
     {
-        return view('web.account.orders.applicant.declarations', $this->getApplicantData($order_id, $applicant_id));
+        $data = $this->getApplicantData($order_id, $applicant_id);
+        $data = array_merge($data, $this->getTravellerFields($applicant_id, $data['order']->getProduct()->id, 'declarations'));
+
+        return view('web.account.orders.applicant.declarations', $data);
     }
 
     public function applicantFieldsUpdate(Request $request, $order_id, $applicant_id)
     {
+        
+        // Update order fields
+        if( isset($request->travellers) ) {
+            $this->travellerRepoStore->saveFieldValues( $applicant_id, $request->travellers );
+        }
+
+        //dd($request->all());
+
+        /*
         ApplicantActions::fieldsUpdate($request, $order_id, $applicant_id);
         
         // Check if is completed then update status
         orderHelper::checkUpdateStatus( $order_id );
+        */
 
         if( isset($request->next_page) ) {
             return redirect( $request->next_page );

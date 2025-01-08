@@ -9,6 +9,7 @@
                 <div class="w-250 w-md-100px">Section</div>
                 <div class="w-100 w-md-100px text-center">Required</div>
                 <div class="w-100 w-md-100px text-center">Default value</div>
+                <div class="w-100 w-md-100px text-center">Classes</div>
                 <div class="w-50 w-md-50px"></div>
 
             </div>
@@ -36,6 +37,11 @@
 
                     <div class="w-100 w-md-100px">
                         <input type="text" class="form-control" name="offer_price[]" value="{{ $field['default_value'] }}"
+                            disabled />
+                    </div>
+
+                    <div class="w-100 w-md-100px">
+                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['classes'] }}"
                             disabled />
                     </div>
 

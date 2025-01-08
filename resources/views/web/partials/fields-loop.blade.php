@@ -10,11 +10,13 @@
             break;
         case 'traveller':
             $fieldName = 'travellers['.$field['id'].'][]';
-            $value = $values[ $field['id'] ] ?? '';
+            if( isset( $values[ $field['id'] ] ) ) {
+                $value = $values[ $field['id'] ]['value'] ?? '';
+            } else {
+                $value = '';
+            }
             break;
     }
-
-    //dd($values);
 
     @endphp
 
@@ -27,10 +29,10 @@
             <div>
                 <input 
                     type="text" 
-                    class="form-control w-75" 
+                    class="form-control w-75 {{ $field['classes'] ?? '' }}" 
                     id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
                     value="{{ $value ?? '' }}"
-                    placeholder="{{ $field['placeholder'] }}"
+                    placeholder="{{ $field['placeholder'] ?? '' }}"
                     >
             </div>
             @if( isset($field['field']['icon']) ) 
@@ -52,10 +54,10 @@
             <div>
                 <input 
                     type="text" 
-                    class="form-control w-75" 
+                    class="form-control w-75  {{ $field['classes'] ?? '' }}" 
                     id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
                     value="{{ $value ?? '' }}"
-                    placeholder="{{ $field['placeholder'] }}"
+                    placeholder="{{ $field['placeholder'] ?? '' }}"
                     >
             </div>
             @if( isset($field['field']['icon']) ) 
@@ -77,10 +79,10 @@
             <div>
                 <input 
                     type="email" 
-                    class="form-control w-75" 
+                    class="form-control w-75 {{ $field['classes'] ?? '' }}" 
                     id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
                     value="{{ $value }}"
-                    placeholder="{{ $field['placeholder'] }}"
+                    placeholder="{{ $field['placeholder'] ?? '' }}"
                     >
                 @if( isset($field['field']['icon']) ) 
                     <span class="icon">
@@ -107,10 +109,10 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <textarea 
-                class="form-control w-75" 
+                class="form-control w-75 {{ $field['classes'] ?? '' }}" 
                 id="field-{{ $field['slug'] }}" 
                 name="{{ $fieldName }}"
-                placeholder="{{ $field['placeholder'] }}"
+                placeholder="{{ $field['placeholder'] ?? '' }}"
                 >{{ $value }}</textarea>
             @if( isset($field['field']['icon']) ) 
                 <span class="icon">
@@ -136,7 +138,7 @@
             <div>
                 <input 
                     type="text" 
-                    class="form-control w-50 datepicker-min-today min-5-alert {{ $field['classes'] ?? '' }}" 
+                    class="form-control w-50 datepicker {{ $field['classes'] ?? '' }}" 
                     id="field-{{ $field['slug'] }}-{{ $key }}" 
                     name="{{ $fieldName }}" 
                     value="{{ $value ?? '' }}"
@@ -163,12 +165,17 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="w-75">
-                <select class="select2 w-75" id="field-{{ $field['slug'] }}-{{ $key }}" name="{{ $fieldName }}">
-                    <option selected disabled>{{ $field['placeholder'] }}</option>
+                <select class="select2 w-75 {{ $field['classes'] ?? '' }}" id="field-{{ $field['slug'] }}-{{ $key }}" name="{{ $fieldName }}">
+                    <option selected disabled>{{ $field['placeholder'] ?? '' }}</option>
                     @foreach($field['options'] as $option)
+
+                    @php
+                        $option['value'] = $option['id'] ?? $option['value'];
+                    @endphp
+
                         <option 
-                            value="{{ $option['id'] }}" 
-                            @if( $option['id'] == $value ) selected @endif
+                            value="{{ $option['value'] }}" 
+                            @if( $option['value'] == $value ) selected @endif
                             >
                             {{ $option['title'] ?? $option['name'] }}
                         </option>
@@ -196,7 +203,7 @@
                 </a>
             @endif    
 
-            <input type="file" class="form-control w-75" id="field-{{ $field['slug'] }}" name="{{ $fieldName }}">
+            <input type="file" class="form-control w-75 {{ $field['classes'] ?? '' }}" id="field-{{ $field['slug'] }}" name="{{ $fieldName }}">
 
         </div>
 
@@ -245,7 +252,7 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="form-check">
-                <input class="form-check w-75" type="checkbox" id="field-{{ $field['slug'] }}"
+                <input class="form-check w-75 {{ $field['classes'] ?? '' }}" type="checkbox" id="field-{{ $field['slug'] }}"
                     @if( $field['value'] == 1 ) checked @endif
                     name="{{ $fieldName }}">
             </div>

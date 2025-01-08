@@ -134,8 +134,11 @@ class FormFieldValueRepo
 
     public function getTravellerValues($traveller_id)
     {
-        $data = $this->travellerModel->where('traveller_id', $traveller_id)->get();
-        return $data;
+        $values = $this->travellerModel->where('traveller_id', $traveller_id)->get();
+        foreach ($values as $key => $value) {
+            $data[$value->field_id] = $this->prepareField($value);
+        }
+        return $data ?? [];
     }
 
     public function setTravellerValue($traveller_id, $field_id, $value)

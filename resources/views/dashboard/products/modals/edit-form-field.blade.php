@@ -57,9 +57,12 @@
                         </select>
                     </div>
 
-                    <div class="d-flex flex-stack">
+                    <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
+                        <label class="form-label">Classes</label>
+                        <input type="text" name="classes" class="form-control form-control-solid mb-2" value="{{ $fieldValue['classes'] }}" />
+                    </div>
 
-                        
+                    <div class="d-flex flex-stack">
 
                         <div>
                             <button type="submit" class="btn btn-lg btn-primary">

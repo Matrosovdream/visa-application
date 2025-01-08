@@ -17,6 +17,13 @@ class OrderRepo
         return $this->fieldValueRepo->getOrderValues( $cart_id );
     }
 
+    public function saveOrderValues( $order_id, $values )
+    {
+        foreach( $values as $field_id => $value ) {
+            $this->fieldValueRepo->setOrderValue( $order_id, $field_id, $value );
+        }
+    }
+
     
 
 }
