@@ -90,7 +90,7 @@
                     </td>
                 </tr>
 
-                @foreach($product['Model']->extras as $extra) 
+                @foreach($product['Model']->getRequiredExtras() as $extra) 
                     <tr>
                         <td>+ {{ $extra->name }}</td>
                         <td>
