@@ -82,7 +82,7 @@ class CartRepo {
             $totals['offer_price'] = $product['Model']->offers->first()->price;
         }
 
-        $totals['extras_price'] = $product['Model']->extras->sum('price');
+        $totals['extras_price'] = $product['Model']->getRequiredExtras()->sum('price');
 
         $totals['offer_price_total'] = $totals['offer_price'] * $product['quantity'];
         $totals['extras_price_total'] = $totals['extras_price'] * $product['quantity'];

@@ -59,7 +59,7 @@
 
                     <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
                         <label class="form-label">Classes</label>
-                        <input type="text" name="classes" class="form-control form-control-solid mb-2" value="{{ $fieldValue['classes'] }}" />
+                        <input type="text" name="classes" class="form-control form-control-solid mb-2" value="{{ $fieldValue['classes'] ?? '' }}" />
                     </div>
 
                     <div class="d-flex flex-stack">

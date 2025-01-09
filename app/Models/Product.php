@@ -33,16 +33,26 @@ class Product extends Model
         return $this->hasMany(ProductMeta::class);
     }
 
-    public function extras()
-    {
-        return $this->hasMany(ProductExtras::class);
-    }
-
     public function offers()
     {
         return $this->hasMany(ProductOffers::class);
     }
 
+    public function extras()
+    {
+        return $this->hasMany(ProductExtras::class);
+    }
+
+    public function getRequiredExtras()
+    {
+        return $this->extras()->where('required', 1)->get();
+    }
+
+    public function getOptionalExtras()
+    {
+        return $this->extras()->where('required', 0)->get();
+    }
+    
     public function priceFrom()
     {
         if( $this->offers()->count() == 0 ) {

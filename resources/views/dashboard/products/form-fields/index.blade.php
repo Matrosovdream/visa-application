@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="w-100 w-md-100px">
-                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['classes'] }}"
+                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['classes'] ?? '' }}"
                             disabled />
                     </div>
 

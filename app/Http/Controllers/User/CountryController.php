@@ -15,8 +15,6 @@ use App\Models\Cart;
 use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
 
 
-
-
 class CountryController extends Controller
 {
 
@@ -221,10 +219,6 @@ class CountryController extends Controller
             abort(404);
         }
 
-        
-
-        //$data = $this->getDirectionData( $request );
-
         $data['cart'] = $cart;
 
         $data['country'] = Country::find($cart['meta']['country_to_id']);
@@ -241,12 +235,19 @@ class CountryController extends Controller
 
         $data['totals'] = $cart['totals'];
 
+        $data['extras'] = [
+            'required' => $data['product']['Model']->getRequiredExtras(),
+            'optional' => $data['product']['Model']->getOptionalExtras()
+        ];
+
         //dd($data);
 
         // Prepare travellers
         if( isset($data['cart']['meta']['travellers']) ) {
             $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
         }
+
+        //dd($data['cart']);
 
         return $data;
 
