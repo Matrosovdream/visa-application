@@ -3,19 +3,32 @@
 
     @php
 
+    if( isset( $values[ $field['id'] ] ) ) {
+        if( is_array($values[ $field['id'] ]) ) {
+            $value = $values[ $field['id'] ]['value'] ?? '';
+        } else {
+            $value = $values[ $field['id'] ];
+        }
+    } else {
+        $value = '';
+    }
+
     switch( $entity ) {
         case 'order':
             $fieldName = 'fields['.$field['id'].']';
-            $value = $values[ $field['id'] ]['value'] ?? '';
             break;
         case 'traveller':
             $fieldName = 'travellers['.$field['id'].'][]';
-            if( isset( $values[ $field['id'] ] ) ) {
-                $value = $values[ $field['id'] ]['value'] ?? '';
-            } else {
-                $value = '';
-            }
             break;
+    }
+
+
+    // Set the field id
+    $field_id = 'field-'.$field['slug'];
+
+    // Add the traveller index if it's a traveller field
+    if( isset( $travellerIndex ) ) {
+        $field_id .= '-'.$travellerIndex;
     }
 
     @endphp
@@ -29,8 +42,8 @@
             <div>
                 <input 
                     type="text" 
-                    class="form-control w-75 {{ $field['classes'] ?? '' }}" 
-                    id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                    class="form-control w-75 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
+                    id="{{ $field_id }}" name="{{ $fieldName }}"
                     value="{{ $value ?? '' }}"
                     placeholder="{{ $field['placeholder'] ?? '' }}"
                     >
@@ -54,8 +67,8 @@
             <div>
                 <input 
                     type="text" 
-                    class="form-control w-75  {{ $field['classes'] ?? '' }}" 
-                    id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                    class="form-control w-75  {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
+                    id="{{ $field_id }}" name="{{ $fieldName }}"
                     value="{{ $value ?? '' }}"
                     placeholder="{{ $field['placeholder'] ?? '' }}"
                     >
@@ -80,7 +93,7 @@
                 <input 
                     type="email" 
                     class="form-control w-75 {{ $field['classes'] ?? '' }}" 
-                    id="field-{{ $field['slug'] }}" name="{{ $fieldName }}"
+                    id="{{ $field_id }}" name="{{ $fieldName }}"
                     value="{{ $value }}"
                     placeholder="{{ $field['placeholder'] ?? '' }}"
                     >
@@ -109,8 +122,8 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <textarea 
-                class="form-control w-75 {{ $field['classes'] ?? '' }}" 
-                id="field-{{ $field['slug'] }}" 
+                class="form-control w-75 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
+                id="{{ $field_id }}" 
                 name="{{ $fieldName }}"
                 placeholder="{{ $field['placeholder'] ?? '' }}"
                 >{{ $value }}</textarea>
@@ -138,8 +151,8 @@
             <div>
                 <input 
                     type="text" 
-                    class="form-control w-50 datepicker {{ $field['classes'] ?? '' }}" 
-                    id="field-{{ $field['slug'] }}-{{ $key }}" 
+                    class="form-control w-50 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
+                    id="{{ $field_id }}-{{ $key }}" 
                     name="{{ $fieldName }}" 
                     value="{{ $value ?? '' }}"
                     >
@@ -165,7 +178,11 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="w-75">
-                <select class="select2 w-75 {{ $field['classes'] ?? '' }}" id="field-{{ $field['slug'] }}-{{ $key }}" name="{{ $fieldName }}">
+                <select 
+                    class="select2 w-75 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
+                    id="{{ $field_id }}-{{ $key }}" 
+                    name="{{ $fieldName }}"
+                    >
                     <option selected disabled>{{ $field['placeholder'] ?? '' }}</option>
                     @foreach($field['options'] as $option)
 
@@ -203,7 +220,7 @@
                 </a>
             @endif    
 
-            <input type="file" class="form-control w-75 {{ $field['classes'] ?? '' }}" id="field-{{ $field['slug'] }}" name="{{ $fieldName }}">
+            <input type="file" class="form-control w-75 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" id="{{ $field_id }}" name="{{ $fieldName }}">
 
         </div>
 
@@ -226,7 +243,7 @@
                     <div class="form-check">
                         <label class="form-check" for="field-{{ $field['slug'] }}-{{ $option['value'] }}">
                             <input class="form-check" type="radio" value="{{ $option['value'] }}"
-                                id="field-{{ $field['slug'] }}-{{ $option['value'] }}" name="{{ $fieldName }}"
+                                id="{{ $field_id }}-{{ $option['value'] }}" name="{{ $fieldName }}"
                                 @if( $option['value'] == $field['value'] ) checked @endif
                                 >
                             {{ $option['title'] }}
@@ -252,7 +269,7 @@
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
             <div class="form-check">
-                <input class="form-check w-75 {{ $field['classes'] ?? '' }}" type="checkbox" id="field-{{ $field['slug'] }}"
+                <input class="form-check w-75 {{ $field['classes'] ?? '' }} " type="checkbox" id="{{ $field_id }}"
                     @if( $field['value'] == 1 ) checked @endif
                     name="{{ $fieldName }}">
             </div>
@@ -266,3 +283,4 @@
     @endif
 
 @endforeach
+

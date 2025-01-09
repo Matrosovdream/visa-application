@@ -25,6 +25,7 @@ class ProductObserver
                 'section' => $field->section,
                 'required' => true,
                 'default_value' => $field->default_value,
+                'classes' => $field->classes,
             ]);
 
         }

@@ -352,10 +352,12 @@
 
 	// Select
 	$(document).ready(function() {
-		$('.select2').select2({
-			dropdownCssClass: 'select2-dropdown',
-			containerCssClass: 'select2-container',
-			minimumResultsForSearch: 10
+		$('.select2').each(function() {
+			$(this).select2({
+				dropdownCssClass: 'select2-dropdown',
+				containerCssClass: 'select2-container',
+				minimumResultsForSearch: 10
+			});
 		});
 	});
 

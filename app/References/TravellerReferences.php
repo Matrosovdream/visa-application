@@ -37,7 +37,7 @@ class TravellerReferences
                 'reference_code' => "gender",
                 'default' => true,
                 'section' => "personal",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
             ],
             [
                 'title' => "Do you have another nationality?",
@@ -51,7 +51,7 @@ class TravellerReferences
                 'reference_code' => "boolean",
                 'default' => true,
                 'section' => "personal",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
             ],
             [
                 'title' => "Dual Nationality Country",
@@ -65,7 +65,7 @@ class TravellerReferences
                 'reference_code' => "country",
                 'default' => true,
                 'section' => "personal",
-                'icon' => 'user.svg',
+                'icon' => 'location-2.svg',
             ],
             [
                 'title' => "Residence address",
@@ -135,7 +135,7 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "personal",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
             ],
 
             // Passport Information
@@ -151,7 +151,7 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "passport",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
                 'is_name' => true,
             ],
             [
@@ -166,7 +166,7 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "passport",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
                 'is_lastname' => true,
             ],
             [
@@ -181,8 +181,9 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "passport",
-                'icon' => 'user.svg',
+                'icon' => 'calendar.svg',
                 'is_birthday' => true,
+                'classes' => 'datepicker-birthday',
             ],
             [
                 'title' => "Passport",
@@ -196,7 +197,7 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "passport",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
                 'is_passport' => true,
             ],
             [
@@ -211,7 +212,8 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "passport",
-                'icon' => 'user.svg',
+                'icon' => 'calendar.svg',
+                'classes' => 'datepicker-birthday',
             ],
             [
                 'title' => "Passport Expiration Date",
@@ -225,7 +227,8 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "passport",
-                'icon' => 'user.svg',
+                'icon' => 'calendar.svg',
+                'classes' => 'datepicker-min-today',
             ],
             [
                 'title' => "Country of Birth",
@@ -269,7 +272,7 @@ class TravellerReferences
                 'reference_code' => "marital_status",
                 'default' => true,
                 'section' => "family",
-                'icon' => 'user.svg',
+                'icon' => 'c_user.svg',
             ],
 
             // Past travel
@@ -299,7 +302,8 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "past_travel",
-                'icon' => 'location-2.svg',
+                'icon' => 'calendar.svg',
+                'classes' => 'datepicker',
             ],
             [
                 'title' => "When did you depart?",
@@ -313,7 +317,8 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "past_travel",
-                'icon' => 'location-2.svg',
+                'icon' => 'calendar.svg',
+                'classes' => 'datepicker',
             ],
             [
                 'title' => "What city did you stay in?",
@@ -343,7 +348,7 @@ class TravellerReferences
                 'reference_code' => "boolean",
                 'default' => true,
                 'section' => "declarations",
-                'icon' => 'location-2.svg',
+                'icon' => '',
             ],
             [
                 'title' => "Which Country?",
@@ -371,7 +376,8 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "declarations",
-                'icon' => 'location-2.svg',
+                'icon' => 'calendar.svg',
+                'classes' => 'datepicker-birthday',
             ],
             [
                 'title' => "Please provide details",
@@ -385,7 +391,7 @@ class TravellerReferences
                 'reference_code' => "",
                 'default' => true,
                 'section' => "declarations",
-                'icon' => 'location-2.svg',
+                'icon' => '',
             ],
             
         ];

@@ -63,9 +63,9 @@
 
         $(document).ready(function() {
 
-            $('#field-dual_nationality').on('change.select2', function () {
-
-                if( $(this).val() == 'yes' ) {
+            $(document).ready(function() {
+                // Check the value on page load
+                if ($('#field-dual_nationality-2').val() == 'yes') {
                     $('.field-block-dual_nationality_country').show();
                     $('.field-block-dual_nationality_country select').select2();
                 } else {
@@ -73,6 +73,16 @@
                     $('.field-block-dual_nationality_country').hide();
                 }
 
+                // Handle change event
+                $('#field-dual_nationality-2').on('change.select2', function() {
+                    if ($(this).val() == 'yes') {
+                        $('.field-block-dual_nationality_country').show();
+                        $('.field-block-dual_nationality_country select').select2();
+                    } else {
+                        $('.field-block-dual_nationality_country select').select2('destroy');
+                        $('.field-block-dual_nationality_country').hide();
+                    }
+                });
             });
 
         });
@@ -80,26 +90,6 @@
 
 
     </script>
-
-    @php 
-
-//dd($fields);
-    @endphp
-
-    @if( $fields['dual_nationality']['value'] == 'yes' )
-        <style>
-            .field-block-dual_nationality_country {
-                display: block;
-            }
-        </style>
-    @else 
-        <style>
-            .field-block-dual_nationality_country {
-                display: none;
-            }
-        </style>
-    @endif
-
 
     <style>
         
