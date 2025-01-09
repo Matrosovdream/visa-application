@@ -92,7 +92,7 @@
                                 {{ $item->is_phone ? 'Yes' : '' }}
                             </td>
                             <td class="pe-0">
-                                {{ $item->is_full_name ? 'Yes' : '' }}
+                                {{ $item->is_fullname ? 'Yes' : '' }}
                             </td>
 
                             <td class="text-center">

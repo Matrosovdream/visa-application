@@ -18,7 +18,8 @@ class ProductReferences {
                 'reference_code' => "",
                 'default' => true,
                 'section' => "trip",
-                'icon' => 'location-2.svg',
+                'icon' => 'calendar.svg',
+                'classes' => 'datepicker-min-today min-5-alert'
             ],
             [
                 'title' => "Which airport do you arrive?",
@@ -46,7 +47,7 @@ class ProductReferences {
                 'reference_code' => "",
                 'default' => true,
                 'section' => "trip",
-                'icon' => 'location-2.svg',
+                'icon' => 'c_user.svg',
                 'is_fullname' => true
             ],
             [
@@ -61,7 +62,7 @@ class ProductReferences {
                 'reference_code' => "",
                 'default' => true,
                 'section' => "trip",
-                'icon' => 'location-2.svg',
+                'icon' => 'c_call.svg',
                 'is_phone' => true
             ],
             [
@@ -76,7 +77,7 @@ class ProductReferences {
                 'reference_code' => "",
                 'default' => true,
                 'section' => "trip",
-                'icon' => 'location-2.svg',
+                'icon' => 'c_mail.svg',
                 'is_email' => true
             ],
         ];

@@ -61,17 +61,29 @@
 
         $(document).ready(function () {
 
-            $('#field-is_previous_country_deport').on('change.select2', function () {
+            $('#field-is_previous_country_deport-0').on('change.select2', function () {
+
+                var blocks = [
+                    'previous_country_deport_country',
+                    'previous_country_deport_date',
+                    'previous_country_deport_details'
+                ];
 
                 if ($(this).val() == 'yes') {
-                    $('.field-block-dual_nationality_country').show();
-                    $('.field-block-dual_nationality_country select').select2();
+                    blocks.forEach(function (block) {
+                        $('.field-block-' + block).show();
+                        $('.field-block-' + block + ' select').select2();
+                    });
                 } else {
-                    $('.field-block-dual_nationality_country select').select2('destroy');
-                    $('.field-block-dual_nationality_country').hide();
+                    blocks.forEach(function (block) {
+                        $('.field-block-' + block).hide();
+                    });
                 }
 
             });
+
+            // Trigger the change event on page load
+            $('#field-is_previous_country_deport-0').trigger('change.select2');
 
         });
 

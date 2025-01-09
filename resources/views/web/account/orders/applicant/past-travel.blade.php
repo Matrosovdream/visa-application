@@ -60,26 +60,31 @@
 
 $(document).ready(function() {
 
-    $('#field-past_travel_country').on('change.select2', function () {
-        
-        if( $(this).val() == 'yes' ) {
-            $('.field-block-past_travel_date').show();
-            $('.field-block-past_travel_date select').select2();
+    $(document).ready(function() {
+        $('#field-past_travel_country-0').on('change.select2', function () {
+            
+            if( $(this).val() == 'yes' ) {
+                $('.field-block-past_travel_date').show();
+                $('.field-block-past_travel_date select').select2();
 
-            $('.field-block-past_travel_departure').show();
-            $('.field-block-past_travel_departure select').select2();
+                $('.field-block-past_travel_departure').show();
+                $('.field-block-past_travel_departure select').select2();
 
-            $('.field-block-past_travel_cities').show();
-        } else {
-            $('.field-block-past_travel_date select').select2('destroy');
-            $('.field-block-past_travel_date').hide();
+                $('.field-block-past_travel_cities').show();
+            } else {
+                $('.field-block-past_travel_date select').select2('destroy');
+                $('.field-block-past_travel_date').hide();
 
-            $('.field-block-past_travel_departure select').select2('destroy');
-            $('.field-block-past_travel_departure').hide();
+                $('.field-block-past_travel_departure select').select2('destroy');
+                $('.field-block-past_travel_departure').hide();
 
-            $('.field-block-past_travel_cities').hide();
-        }
+                $('.field-block-past_travel_cities').hide();
+            }
 
+        });
+
+        // Trigger the change event on page load
+        $('#field-past_travel_country-0').trigger('change.select2');
     });
 
 });

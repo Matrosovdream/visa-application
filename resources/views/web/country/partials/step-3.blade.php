@@ -35,7 +35,8 @@
             [
                 'values' => $travellerFieldValues[$key], 
                 'fields' => $formFields,
-                'entity' => 'traveller'
+                'entity' => 'traveller',
+                'travellerIndex' => $loop->iteration
             ])
 
             <!-- Nationality -->
@@ -143,6 +144,40 @@
 </style>
 
 <script>
+
+    $(document).ready(function () {
+        $('form.apply-form').submit(function (e) {
+            // Validate step 1
+            /*if (!validate_step2()) {
+                e.preventDefault();
+            }*/
+
+            if (!validate_form()) {
+                e.preventDefault();
+            }
+
+        });
+    });
+
+    function validate_form() {
+
+        var isValid = true;
+
+        // Check all fields inside form.apply-form and if it's required then after label etc
+        // Check all fields and if not valid, show error label.error after the fields
+        $('form.apply-form input.required').each(function () {
+            if ($(this).val() == '') {
+                $(this).next('label.error').remove(); // Remove previous error label
+                $(this).after('<label class="error">This field is required</label>');
+                isValid = false;
+            } else {
+                $(this).next('label.error').remove(); // Remove previous error label
+            }
+        });
+
+        return isValid;
+
+    }
 
     $(document).ready(function() {
 

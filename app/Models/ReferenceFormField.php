@@ -24,6 +24,7 @@ class ReferenceFormField extends Model
         'is_email',
         'is_phone',
         'is_fullname',
+        'classes'
     ];
 
 }

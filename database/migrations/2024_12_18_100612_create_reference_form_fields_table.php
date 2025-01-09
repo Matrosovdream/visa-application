@@ -32,6 +32,7 @@ return new class extends Migration
             $table->boolean('is_lastname')->default(false);
             $table->boolean('is_birthday')->default(false);
             $table->boolean('is_passport')->default(false);
+            $table->string('classes')->nullable();
             $table->timestamps();
         });
     }
