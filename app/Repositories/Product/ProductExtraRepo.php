@@ -14,13 +14,13 @@ class ProductExtraRepo {
 
     public function getRequired()
     {
-        $items = $this->model->where('required', 1)->get();
+        $items = $this->model->getRequiredExtras();
         return $this->mapItems($items);
     }
 
     public function getOptional()
     {
-        $items = $this->model->where('required', 0)->get();
+        $items = $this->model->getOptionalExtras();
         return $this->mapItems($items);
     }
 

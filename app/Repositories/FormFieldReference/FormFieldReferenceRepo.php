@@ -272,6 +272,7 @@ class FormFieldReferenceRepo
             "is_email" => $field->is_email,
             "is_phone" => $field->is_phone,
             "is_fullname" => $field->is_fullname,
+            "classes" => $field->classes,
         ];
 
     }
