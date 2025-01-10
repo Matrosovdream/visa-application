@@ -9,7 +9,9 @@ class OrderRepo
     protected $fieldValueRepo;
 
     public function __construct() {
+
         $this->fieldValueRepo = new FormFieldValueRepo();
+
     }
 
     public function getOrderValues( $cart_id )
@@ -23,7 +25,5 @@ class OrderRepo
             $this->fieldValueRepo->setOrderValue( $order_id, $field_id, $value );
         }
     }
-
-    
 
 }
