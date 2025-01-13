@@ -30,16 +30,22 @@ class AppServiceProvider extends ServiceProvider
     {
 
         //\View::share('geoData', $globalsService->getGlobals()['geoData']);
-        \View::share('languages', $globalsService->getLanguages());
-        \View::share('menuTop', $globalsService->getMenuTop());
-        \View::share('currencies', $globalsService->getCurrencies());
-        \View::share('countries', $globalsService->getCountries());
-        \View::share('activeLanguage', $globalsService->getActiveLanguage());
-        \View::share('activeCurrency', $globalsService->getActiveCurrency());
-        \View::share('siteSettings', $globalsService->getGlobals()['siteSettings']);
+        try {
+            \View::share('languages', $globalsService->getLanguages());
+            \View::share('menuTop', $globalsService->getMenuTop());
+            \View::share('currencies', $globalsService->getCurrencies());
+            \View::share('countries', $globalsService->getCountries());
+            \View::share('activeLanguage', $globalsService->getActiveLanguage());
+            \View::share('activeCurrency', $globalsService->getActiveCurrency());
+            \View::share('siteSettings', $globalsService->getGlobals()['siteSettings']);
 
-        // Set language globally
-        App::setLocale( strtolower($globalsService->getActiveLanguageCode()) );
+            // Set language globally
+            App::setLocale(strtolower($globalsService->getActiveLanguageCode()));
+        } catch (\Exception $e) {
+            // Handle the exception here
+            // You can log the error or display a custom error message
+            // Example: Log::error($e->getMessage());
+        }
 
         // Observers
         User::observe(UserObserver::class);
