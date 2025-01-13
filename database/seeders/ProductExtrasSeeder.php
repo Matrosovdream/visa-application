@@ -24,6 +24,17 @@ class ProductExtrasSeeder extends Seeder
                     //['key' => 'duration_hours', 'value' => 72],
                 ],
             ],
+            [
+                'name' => 'Denial protection',
+                'price' => 25,
+                'description' => '',
+                'type' => '',
+                'required' => false,
+                'metas' => [
+                    //['key' => 'duration', 'value' => '2 days'],
+                    //['key' => 'duration_hours', 'value' => 72],
+                ],
+            ],
         ];
 
         // Take all products

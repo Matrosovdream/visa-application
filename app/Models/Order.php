@@ -81,6 +81,11 @@ class Order extends Model
         return $this->hasMany(OrderHistory::class);
     }
 
+    public function extraServices()
+    {
+        return $this->hasMany(OrderExtraService::class, 'item_id');
+    }
+
     public function certificates() {
         return $this->hasMany(OrderCertificate::class);
     }

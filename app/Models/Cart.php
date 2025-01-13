@@ -45,6 +45,26 @@ class Cart extends Model
         return $this->hasMany(CartProduct::class);
     }
 
+    public function extraServices()
+    {
+        return $this->hasMany(CartExtraService::class, 'item_id');
+    }
+
+    public function setExtras($extras)
+    {
+        $this->extras()->delete();
+        foreach ($extras as $extra_id) {
+
+            $existingExtra = $this->extras()->where('service_id', $extra_id)->first();
+            
+            if ($existingExtra) {
+                $existingExtra->update($extra);
+            } else {
+                $this->extras()->create($extra);
+            }
+        }
+    }
+
     public function total()
     {
         return $this->products->sum('total');
