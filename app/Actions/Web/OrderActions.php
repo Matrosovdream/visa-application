@@ -83,6 +83,26 @@ class OrderActions {
         foreach( $fields as $values ) {
             (new FormFieldValueRepo())->setOrderValue($order->id, $values['field_id'], $values['value']);
         }
+
+        // Set cart extra services
+        $extras = $request->extra_ids;
+        foreach( $extras as $extra_id ) {
+
+            // Cart
+            $cart['Model']->extraServices()->create([
+                'service_id' => $extra_id,
+            ]);
+
+            // Order
+            $order->extraServices()->create([
+                'service_id' => $extra_id,
+            ]);
+            
+
+        }
+
+        //dd($extras);
+
         
         // Add to history
         $order->history()->create([

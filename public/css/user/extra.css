@@ -228,6 +228,10 @@ h3 {
     list-style: none;
 }
 
+.extra-services-list {
+    list-style: none;
+}
+
 .apply-offer-list li {
     margin: 5px 0;
     border-radius: 5px;
@@ -235,6 +239,21 @@ h3 {
     padding: 15px;
 }
 
+.extra-services-list li {
+    margin: 5px 0;
+    border-radius: 5px;
+    border: 1px solid #d4d4d4;
+    padding: 15px;
+}
+
+.extra-services-list li p {
+    color: #787b84;
+}
+
 .non-active-status-block {
     opacity: 0.3!important;
+}
+
+.optional-service.hidden {
+    display: none;
 }

@@ -146,7 +146,7 @@ class CountryController extends Controller
             );
         });
 
-        //dd($data['personFormFields'], $data['travellers']);
+        
 
         // Cart field values
         $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
@@ -245,6 +245,8 @@ class CountryController extends Controller
         // Prepare travellers
         if( isset($data['cart']['meta']['travellers']) ) {
             $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
+        } else {
+            $data['travellers'] = [];
         }
 
         //dd($data['cart']);

@@ -94,9 +94,12 @@
                     <tr>
                         <td>+ {{ $extra->name }}</td>
                         <td>
-                            <span id="extras-price-span">
-                                {{ $totals['extras_price_total'] }}
-                                {{ $currency }}
+                            <span 
+                                id="extras-price-span" 
+                                data-price="{{ $totals['extras_price_total'] }}"
+                                >
+                                    {{ $totals['extras_price_total'] }}
+                                    {{ $currency }}
                             </span>
                         </td>
                     </tr>
@@ -105,14 +108,36 @@
                 <tr>
                     <td>+ {{ __('Service fees') }}</td>
                     <td>
-                        <span id="price-span">{{ $totals['offer_price_total'] }} {{ $currency }}</span>
+                        <span 
+                            id="offer-price-span"
+                            data-price="{{ $totals['offer_price_total'] }}"
+                            >
+                                {{ $totals['offer_price_total'] }} {{ $currency }}
+                        </span>
                     </td>
                 </tr>
+
+                @foreach($extras['optional'] as $extra) 
+                    <tr 
+                        class="optional-service service-{{ $extra->id }} {{ !isset( $cart['extras'][ $extra->id ] ) ? "hidden" : '' }}"
+                        >
+                        <td>+ {{ $extra->name }}</td>
+                        <td>
+                            <span 
+                                id="extras-price-span"
+                                data-price="{{ $extra->price * count($travellers) }}"
+                                >
+                                {{ $extra->price * count($travellers) }}
+                                {{ $currency }}
+                            </span>
+                        </td>
+                    </tr>
+                @endforeach
 
                 <tr>
                     <td>{{ __('Total price') }}</td>
                     <td>
-                        <span id="price-span">{{ $totals['total_price'] }} {{ $currency }}</span>
+                        <span id="total-price-span">{{ $totals['total_price'] }} {{ $currency }}</span>
                     </td>
                 </tr>
 

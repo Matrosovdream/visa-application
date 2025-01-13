@@ -72,6 +72,14 @@ class CartRepo {
         // We work just with one product
         $product = $data['products'][0];
 
+        // Get extras
+        $extras = $model->extraServices;
+        foreach( $extras as $extra ) {
+            $serviceData = $extra->toArray();
+            $data['extras'][ $serviceData['service_id'] ] = $serviceData;
+        }
+        
+
         // Calculate totals
         $totals = [];
 
