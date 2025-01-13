@@ -13,7 +13,7 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        UserHelper::sendUserCreatedEmail($user);
+        //UserHelper::sendUserCreatedEmail($user);
     }
 
     /**
