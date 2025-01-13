@@ -29,7 +29,7 @@ class ProductExtrasSeeder extends Seeder
                 'price' => 25,
                 'description' => '',
                 'type' => '',
-                'required' => false,
+                'required' => '',
                 'metas' => [
                     //['key' => 'duration', 'value' => '2 days'],
                     //['key' => 'duration_hours', 'value' => 72],
