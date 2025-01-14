@@ -8,17 +8,17 @@ class OrderExtraService extends Model
 {
     
     protected $table = 'order_extra_services';
-    protected $fillable = ['cart_id', 'service_id'];
+    protected $fillable = ['item_id', 'service_id'];
     public $timestamps = false;
 
-    public function cart()
+    public function order()
     {
-        return $this->belongsTo(Cart::class);
+        return $this->belongsTo(Order::class, 'item_id');
     }
     
     public function service()
     {
-        return $this->belongsTo(ProductExtra::class);
+        return $this->belongsTo(ProductExtras::class);
     }
 
 }

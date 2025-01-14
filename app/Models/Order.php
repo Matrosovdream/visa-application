@@ -86,6 +86,18 @@ class Order extends Model
         return $this->hasMany(OrderExtraService::class, 'item_id');
     }
 
+    public function getExtraServices()
+    {
+        $raw = $this->extraServices;
+
+        $services = [];
+        foreach( $raw as $service ) {
+            $services[ $service->service_id ] = $service->service;
+        }
+        return $services;
+
+    }
+
     public function certificates() {
         return $this->hasMany(OrderCertificate::class);
     }

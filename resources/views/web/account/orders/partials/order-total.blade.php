@@ -36,4 +36,4 @@
     </tbody>
 </table>
 
-<h3>{{ __('Total') }}: {{ $order->getTotal() }} {{ $order->getCurrency() }}</h3>
+<h3>{{ __('Total') }}: {{ $total }} {{ $order->getCurrency() }}</h3>

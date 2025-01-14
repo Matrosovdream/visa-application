@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class WebPagesTest extends TestCase
 {
@@ -88,5 +89,37 @@ class WebPagesTest extends TestCase
         $response = $this->actingAs($this->user)->get($this->initialPath . 'account/settings');
         $response->assertStatus(200);
     }
+
+    public function test_country_page() {
+
+        // Params
+        $country_from = 'armenia';
+        $country_to = 'australia';
+
+        $response = $this->get($this->initialPath . 'country/' . $country_to . '?nationality=' . $country_from);
+        $response->assertStatus(200);
+
+    }
+
+    public function test_apply_now_page() {
+
+        // Params
+        $country_from_code = 'armenia';
+        $country_to_code = 'australia';
+
+        // Prepare the request
+        $params = [
+            'country' => $country_to_code,
+            'nationality' => $country_from_code,
+            'product_id' => 1,
+        ];
+
+        $request = new Request([], [], $params);
+
+        $response = $this->get($this->initialPath . 'country/'.$country_to_code.'/apply-now', $params);
+        $response->assertStatus(200);
+
+    }
+
 
 }

@@ -261,6 +261,8 @@ class CountryController extends Controller
         $countryFrom = $this->findCountry( $request->nationality );
         $countryTo = $this->findCountry($request->country);
 
+        //dd($request->all());
+
         $data = [
             'user_id' => auth()->user()->id ?? null,
             'status' => 'open',
