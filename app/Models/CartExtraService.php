@@ -8,7 +8,7 @@ class CartExtraService extends Model
 {
     
     protected $table = 'cart_extra_services';
-    protected $fillable = ['cart_id', 'service_id'];
+    protected $fillable = ['item_id', 'service_id'];
     public $timestamps = false;
 
     public function cart()

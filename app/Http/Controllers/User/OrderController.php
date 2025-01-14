@@ -46,7 +46,19 @@ class OrderController extends Controller
 
         $order = Order::find($order_id);
 
-        $data = array('title' => 'Order', 'order' => Order::find($order_id));
+        // Calculate total
+        $total = $order->getTotal();
+
+        // Add extra services price
+        foreach ($order->getExtraServices() as $extraService) {
+            $total += $extraService->price * $order->getMeta('travellers_count');
+        }
+
+        $data = array(
+            'title' => 'Order', 
+            'order' => Order::find($order_id),
+            'total' => $total
+        );
         return view('web.account.orders.show', $data);
     }
 

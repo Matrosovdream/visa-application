@@ -60,9 +60,29 @@ class orderHelper {
                 'Model' =>  $offerData,
             ];
             
-            // Extras
+            // Required Extras
             $extras = [];
-            foreach ($productData->extras as $extra) {
+            foreach ($productData->getRequiredExtras() as $extra) {
+                $extras[] = [
+                    'id' => $extra->id,
+                    'name' => $extra->name,
+                    'price' => $extra->price,
+                    'quantity' => $cartProduct->quantity,
+                    'total' => $extra->price * $cartProduct->quantity,
+                    'Model' => $extra,
+                ];
+            }
+
+            // Applied optional extras
+            $extras_applied = $order->getExtraServices();
+
+            // Optional Extras
+            foreach ($productData->getOptionalExtras() as $extra) {
+
+                if( !isset( $extras_applied[ $extra->id ] ) ) {
+                    continue;
+                }
+
                 $extras[] = [
                     'id' => $extra->id,
                     'name' => $extra->name,
@@ -82,6 +102,8 @@ class orderHelper {
                 'total' => $cartProduct->price * $cartProduct->quantity,
             ];
         }
+
+        //dd($cart);
 
         return $cart;
 

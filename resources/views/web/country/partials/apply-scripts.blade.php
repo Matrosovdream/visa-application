@@ -21,6 +21,8 @@
             // Passport expiration date datepicker
             traveller.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-' + travellerCount);
 
+            // Update datepicker
+            traveller.find('.hasDatepicker').removeClass('hasDatepicker');
             updateDatePicker();
 
             // Update traveller count
