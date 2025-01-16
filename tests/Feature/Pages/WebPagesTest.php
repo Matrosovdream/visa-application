@@ -4,10 +4,13 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Traits\Tests\OrderTest;
 
 class WebPagesTest extends TestCase
 {
+
+    // Create carts, order and remove it after use
+    use OrderTest;
 
     protected $initialPath = '/';
 
@@ -17,6 +20,7 @@ class WebPagesTest extends TestCase
 
         // Create a user
         $this->user = User::factory()->create();
+
     }
 
     protected function tearDown(): void
@@ -55,6 +59,13 @@ class WebPagesTest extends TestCase
         $response->assertStatus(200);
     }
 
+    // Articles page
+    public function test_articles_page(): void
+    {
+        $response = $this->get($this->initialPath . 'articles');
+        $response->assertStatus(200);
+    }
+
     // Forgot password page
     public function test_forgot_password_page(): void
     {
@@ -90,36 +101,124 @@ class WebPagesTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_country_page() {
+    // All steps of the cart
+    public function test_cart_page() {
 
-        // Params
-        $country_from = 'armenia';
-        $country_to = 'australia';
+        $cart = $this->createCart();
 
-        $response = $this->get($this->initialPath . 'country/' . $country_to . '?nationality=' . $country_from);
-        $response->assertStatus(200);
-
-    }
-
-    public function test_apply_now_page() {
-
-        // Params
-        $country_from_code = 'armenia';
-        $country_to_code = 'australia';
-
-        // Prepare the request
-        $params = [
-            'country' => $country_to_code,
-            'nationality' => $country_from_code,
-            'product_id' => 1,
+        // Routes to check
+        $routes = [
+            'web.country.apply.cart.step1',
+            'web.country.apply.cart.step2',
+            'web.country.apply.cart.step3',
+            'web.country.apply.cart.confirm'
         ];
 
-        $request = new Request([], [], $params);
+        foreach( $routes as $route ) {
+            $url = route($route, ['country' => 'australia', 'cart' => $cart['Model']->hash]);
+            $response = $this->get($url);
+            $response->assertStatus(200);
+        }
 
-        $response = $this->get($this->initialPath . 'country/'.$country_to_code.'/apply-now', $params);
+        // Remove the cart item
+        $this->removeCart();
+
+    }
+
+    // Order preview page
+    public function test_order_preview_page() {
+
+        // Create order
+        $order = $this->createOrder();
+
+        // web.order.show
+        $url = route('web.order.show', ['order_hash' => $order->hash]);
+        $response = $this->get($url);
         $response->assertStatus(200);
+
+        // Remove order
+        $this->removeOrder();
+
+    }
+
+    // Order details page route web.account.order
+    public function test_order_details_page() {
+
+        // Create order
+        $order = $this->createOrder( $user_id = 1, $is_paid = true );
+
+        // web.account.order
+        $url = route('web.account.order', ['order_id' => $order->id]);
+        $response = $this->actingAs( $order->user )->get($url);
+        $response->assertStatus(200);
+
+        // Remove order
+        $this->removeOrder();
+
+    }
+
+    // Traveller details page route web.account.order.trip
+    public function test_traveller_details_page() {
+
+        // Create order
+        $order = $this->createOrder( $user_id = 1, $is_paid = true );
+
+        // web.account.order.trip
+        $url = route('web.account.order.trip', ['order_id' => $order->id]);
+        $response = $this->actingAs( $order->user )->get($url);
+        $response->assertStatus(200);
+
+        // Remove order
+        $this->removeOrder();
+
+    }
+
+    // Documents page route web.account.order.documents
+    public function test_documents_page() {
+
+        // Create order
+        $order = $this->createOrder( $user_id = 1, $is_paid = true );
+
+        // web.account.order.documents
+        $url = route('web.account.order.documents', ['order_id' => $order->id]);
+        $response = $this->actingAs( $order->user )->get($url);
+        $response->assertStatus(200);
+
+        // Remove order
+        $this->removeOrder();
+
+    }
+
+    // Order traveller pages
+    public function test_order_traveller_pages() {
+
+        // Create order
+        $order = $this->createOrder( $user_id = 1, $is_paid = true );
+        $traveller = $order->travellers()->first();
+        //dd($traveller);
+
+        $routes = [
+            'web.account.order.applicant.documents',
+            'web.account.order.applicant.personal',
+            'web.account.order.applicant.passport',
+            'web.account.order.applicant.family',
+        ];
+
+        foreach( $routes as $route ) {
+            $url = route($route, ['order_id' => $order->id, 'applicant_id' => $traveller->id]);
+            $response = $this->actingAs( $order->user )->get($url);
+            $response->assertStatus(200);
+        }
+
+        // Remove order
+        $this->removeOrder();
 
     }
 
 
+
+
+
+
+    
 }
