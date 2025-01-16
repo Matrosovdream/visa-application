@@ -20,7 +20,30 @@ class OrderObserver
 
     public function deleted(Order $order): void
     {
-        //
+        // Meta
+        $order->meta()->delete();
+
+        // Travellers
+        $order->travellers()->detach();
+
+        // Cart products
+        $order->cartProducts()->delete();
+
+        // Payments
+        $order->payments()->delete();
+
+        // History
+        $order->history()->delete();
+
+        // Extra services
+        $order->extraServices()->delete();
+
+        // Certificates
+        $order->certificates()->delete();
+
+        // Field values
+        $order->fieldValues()->delete();
+
     }
 
     public function restored(Order $order): void

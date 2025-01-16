@@ -31,6 +31,7 @@ class Order extends Model
         'total_price',
         'payment_method_id',
         'status_id',
+        'is_paid'
     ];
 
     public function user()
@@ -100,6 +101,10 @@ class Order extends Model
 
     public function certificates() {
         return $this->hasMany(OrderCertificate::class);
+    }
+
+    public function fieldValues() {
+        return $this->hasMany(OrderFieldValue::class, 'order_id');
     }
 
     public function scopeFilter($query, array $filters)

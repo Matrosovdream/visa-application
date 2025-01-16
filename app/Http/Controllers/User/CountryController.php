@@ -41,7 +41,7 @@ class CountryController extends Controller
 
         $filters = ['entity' => 'order', 'section' => 'trip'];
         $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
-            $data['product']['id'], 
+            $data['product']['product_id'], 
             $filters 
         );
 
@@ -97,7 +97,7 @@ class CountryController extends Controller
 
         $filters = ['entity' => 'traveller'];
         $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
-            $data['product']['id'], 
+            $data['product']['product_id'], 
             $filters 
         );
         $data['formFields'] = array_filter($data['formFields'], function($field) {
@@ -128,7 +128,7 @@ class CountryController extends Controller
 
         $filters = ['entity' => 'traveller'];
         $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
-            $data['product']['id'], 
+            $data['product']['product_id'], 
             $filters 
         );
 

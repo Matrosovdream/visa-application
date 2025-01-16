@@ -19,7 +19,7 @@ class isUserCart
 
         // Check if cart exists in Cookies, it means the cart is attached to the device
         if( !isset($carts[ $request->cart ]) ) {
-            abort(404);
+            //abort(404);
         } 
 
         return $next($request);

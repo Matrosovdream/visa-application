@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Metaable;
 use Illuminate\Support\Str;
@@ -42,13 +41,25 @@ class Cart extends Model
 
     public function products()
     {
-        return $this->hasMany(CartProduct::class);
+        return $this->hasMany(CartProduct::class, 'cart_id');
     }
 
     public function extraServices()
     {
         return $this->hasMany(CartExtraService::class, 'item_id');
     }
+
+    public function meta()
+    {
+        return $this->hasMany(CartMeta::class);
+    }
+
+    public function fieldValues()
+    {
+        return $this->hasMany(CartFieldValue::class);
+    }
+
+
 
     public function setExtras($extras)
     {
@@ -68,11 +79,6 @@ class Cart extends Model
     public function total()
     {
         return $this->products->sum('total');
-    }
-
-    public function meta()
-    {
-        return $this->hasMany(CartMeta::class);
     }
 
     public function totalQuantity()

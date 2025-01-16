@@ -5,8 +5,9 @@ use App\Models\Order;
 use App\Models\ProductOffers;
 use App\Models\File;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\OrderCreated;
+use App\Actions\Web\OrderActions;
+use Illuminate\Http\Request;
+use App\Models\Cart;
 
 
 class orderHelper {
@@ -166,6 +167,29 @@ class orderHelper {
         if( $order->isCompletedForm() ) {
             $order->setStatus( 2 );
         }
+
+    }
+
+    public function createTestOrder( $cart_id, $is_paid = false ) {
+
+        $cart = Cart::find($cart_id);
+
+        // Parameters
+        $user_id = $cart->user_id;
+        $offer_id = 1;
+
+        // Imitate the request
+        $data = [
+            'cart_id' => $cart_id,
+            'offer_id' => $offer_id,
+        ];
+
+        $request = new Request();
+        $request->replace($data);
+
+        $order = OrderActions::createOrderNew( $request, $user_id, $is_paid );
+
+        return $order;
 
     }
 

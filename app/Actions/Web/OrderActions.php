@@ -19,7 +19,7 @@ use App\Repositories\FormFieldValue\FormFieldValueRepo;
 
 class OrderActions {
 
-    public static function createOrderNew( Request $request, $user_id=null ) {
+    public static function createOrderNew( Request $request, $user_id=null, $is_paid=false ) {
 
         $cart = CartRepo::find( $request->cart_id );
 
@@ -59,6 +59,7 @@ class OrderActions {
             'status_id' => 1,
             'payment_method_id' => 1,
             'total_price' => $cart['totals']['total_price'],
+            'is_paid' => $is_paid,
         ]);
 
         // Set cart Order ID
@@ -85,20 +86,24 @@ class OrderActions {
         }
 
         // Set cart extra services
-        $extras = $request->extra_ids;
-        foreach( $extras as $extra_id ) {
+        if( isset($request->extra_ids) ) {
 
-            // Cart
-            $cart['Model']->extraServices()->create([
-                'service_id' => $extra_id,
-            ]);
-
-            // Order
-            $order->extraServices()->create([
-                'service_id' => $extra_id,
-            ]);
+            $extras = $request->extra_ids;
+            foreach( $extras as $extra_id ) {
+    
+                // Cart
+                $cart['Model']->extraServices()->create([
+                    'service_id' => $extra_id,
+                ]);
+    
+                // Order
+                $order->extraServices()->create([
+                    'service_id' => $extra_id,
+                ]);
+                
+    
+            }
             
-
         }
 
         //dd($extras);
