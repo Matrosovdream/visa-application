@@ -85,7 +85,7 @@
 }
 
 .select2-container .select2-selection--single .select2-selection__arrow {
-    height: 50px!important;
+    height: 40px!important;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -102,6 +102,7 @@
 
 .form-note {
     font-size: 14px;
+    color: var(--color-evisamedium);
 }
 
 .agree-updates input[type="checkbox"] {
@@ -256,4 +257,9 @@ h3 {
 
 .optional-service.hidden {
     display: none;
+}
+
+.select2-container .select2-selection--single {
+    height: 39px!important;
+    border-color: var(--color-gray-300);
 }

@@ -13,160 +13,159 @@
 
 @endphp
 
-<div class="container mt-2">
+<h1 class="text-3xl font-semibold ml-12 mt-6 font-inter">
+    {{ $product['Model']->name }} • {{ $product['Model']->getMeta('entries_number') }} entry
+</h1>
 
-    <div class="row mb-10">
-        <h1 class="">
-            <span>{{ $product['Model']->name }} • {{ $product['Model']->getMeta('entries_number') }} entry </span>
-        </h1>
-    </div>
+<div class="mx-auto mt-8  flex w-full max-w-[calc(100%-6rem)] items-center justify-between font-inter">
+    <div class="absolute h-[3px] w-full max-w-[calc(100%-6rem)] bg-evisasuperlight -z-10"></div>
 
-    <div class="row">
+    @foreach($steps as $key => $step)
 
-        <div class="step-indicator">
-            @foreach($steps as $key => $step)
-                <div id="step-indicator-{{ $key }}" class="step {{ $key == $template ? 'active' : '' }}">
-                    {{ $step }}
-                </div>
-            @endforeach
+        <div class="flex items-center">
+            <div class="flex px-4 py-2 items-center justify-center rounded-full 
+                        {{ $key == $template ? 'bg-evisablue text-white' : 'bg-evisasuperlight text-evisamedium' }}
+                        ">
+                {{ $step }}
+            </div>
         </div>
 
-    </div>
+    @endforeach
 
-    <form id="multiStepForm" class="xb-item--form contact-from apply-form" method="POST" action="{{ $action }}">
-        @csrf
+</div>
 
-        <input type="hidden" name="next_page" value="{{ $next_page }}">
-        <input type="hidden" name="cart_id" value="{{ $cart['fields']['id'] }}">
+<form id="multiStepForm" class="xb-item--form contact-from apply-form" method="POST" action="{{ $action }}">
+    @csrf
 
-        <input type="hidden" name="extras_price_total" value="{{ $totals['extras_price_total'] }}" />
-        <input type="hidden" name="offer_price_total" value="{{ $totals['offer_price_total'] }}" />
-        <input type="hidden" name="quantity" value="{{ $cart['meta']['travellers_count'] ?? 1 }}" />
+    <input type="hidden" name="next_page" value="{{ $next_page }}">
+    <input type="hidden" name="cart_id" value="{{ $cart['fields']['id'] }}">
 
+    <input type="hidden" name="extras_price_total" value="{{ $totals['extras_price_total'] }}" />
+    <input type="hidden" name="offer_price_total" value="{{ $totals['offer_price_total'] }}" />
+    <input type="hidden" name="quantity" value="{{ $cart['meta']['travellers_count'] ?? 1 }}" />
 
-        <div class="row">
+    <div class="min-h-screen flex p-6 font-inter">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-[10vw] w-full bg-white  p-6">
 
-            <div class="col-md-8">
+            <div class="border-solid max-w-3xl text-">
 
+                @include("web.country.partials.$template")
 
-                <div id="step-1" class="form-step form-step-active">
-                    <h3>{{ $subtitle }}</h3>
+                <div class="flex w-full justify-center">
 
-                    @include("web.country.partials.$template")
-
-                    <br />
-
-                    <a href="{{ $prev_page }}" class="btn btn-secondary">
-                        {{ __('Previous step') }}
-                    </a>
-                </div>
-
-                <div id="step-3" class="form-step">
-                    <h3>{{ __('Checkout') }}</h3>
-                    <p>{{ __('Confirm your details and proceed to checkout') }}</p>
-                    <button type="button" class="btn btn-secondary" id="prev-3">
-                        {{ __('Previous') }}
+                    <button onclick="window.location.href = '{{ $prev_page }}'"
+                        class="mt-2 mr-2 w-[40%] bg-evisalight text-white font-medium py-2 rounded-lg hover:bg-evisasuperlight hover:text-evisamedium">
+                        Previous step
                     </button>
-                    <button type="submit" class="btn btn-success">
-                        {{ __('Save and Continue') }}
+
+                    <button type="submit"
+                        class="mt-2 w-full bg-evisablue text-white font-medium py-2 rounded-lg hover:bg-evisabluekhover">
+                        {{ __('Save and continue') }}
                     </button>
                 </div>
 
-    </form>
-</div>
+            </div>
 
-<!-- Sidebar Section -->
-<div class="col-md-4">
-    <div class="sidebar">
+            <!-- Right Column -->
+            <div class="mx-auto max-w-md rounded-lg bg-white ">
+                <h2 class="mb-1 px-4 text-2xl font-semibold">Order details</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto">
+                        <thead>
+                            <tr class="">
+                                <th class="px-4 py-2 text-left font-semibold text-sm text-evisamedium">
+                                    Product name
+                                </th>
+                                <th class="px-4 py-2 text-right font-semibold text-sm text-evisamedium">
+                                    Price
+                                </th>
+                                <th class="px-4 py-2 text-right font-semibold text-sm text-evisamedium">
+                                    Quantity
+                                </th>
+                                <th class="px-4 py-2 text-right font-semibold text-sm text-evisamedium">
+                                    Subtotal
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-        <table class="table summary-table">
-            <tbody>
-                <tr>
-                    <td>
-                        <h5>{{ $product['Model']->name }}</h5>
-                    </td>
-                    <td>
-                        <p id="traveler-count">{{ $cart['meta']['travellers_count'] ?? 1 }} {{ __('traveler(s)') }}</p>
-                    </td>
-                </tr>
+                            @foreach($product['Model']->getRequiredExtras() as $extra) 
 
-                @foreach($product['Model']->getRequiredExtras() as $extra) 
-                    <tr>
-                        <td>+ {{ $extra->name }}</td>
-                        <td>
-                            <span 
-                                id="extras-price-span" 
-                                data-price="{{ $totals['extras_price_total'] }}"
-                                >
-                                    {{ $totals['extras_price_total'] }}
-                                    {{ $currency }}
-                            </span>
-                        </td>
-                    </tr>
-                @endforeach
+                                <tr class="border-t">
+                                    <td class="px-4 py-2 text-sm text-evisablack">
+                                        {{ $extra->name }}
+                                    </td>
+                                    <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                        {{ $totals['extras_price_total'] }}
+                                        {{ $currency }}
+                                    </td>
+                                    <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                        {{ $cart['meta']['travellers_count'] ?? 1 }}
+                                    </td>
+                                    <td class="px-4 py-2 text-right text-sm text-evisablack">
+                                        $400
+                                    </td>
+                                </tr>
 
-                <tr>
-                    <td>+ {{ __('Service fees') }}</td>
-                    <td>
-                        <span 
-                            id="offer-price-span"
-                            data-price="{{ $totals['offer_price_total'] }}"
-                            >
-                                {{ $totals['offer_price_total'] }} {{ $currency }}
-                        </span>
-                    </td>
-                </tr>
+                            @endforeach
 
-                @foreach($extras['optional'] as $extra) 
-                    <tr 
-                        class="optional-service service-{{ $extra->id }} {{ !isset( $cart['extras'][ $extra->id ] ) ? "hidden" : '' }}"
-                        >
-                        <td>+ {{ $extra->name }}</td>
-                        <td>
-                            <span 
-                                id="extras-price-span"
-                                data-price="{{ $extra->price * count($travellers) }}"
-                                >
-                                {{ $extra->price * count($travellers) }}
-                                {{ $currency }}
-                            </span>
-                        </td>
-                    </tr>
-                @endforeach
+                            <tr class="border-t">
+                                <td class="px-4 py-2 text-sm text-evisablack">
+                                    {{ __('Service fees') }}
+                                </td>
+                                <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                    {{ $totals['offer_price_total'] }} {{ $currency }}
+                                </td>
+                                <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                    {{ $cart['meta']['travellers_count'] ?? 1 }}
+                                </td>
+                                <td class="px-4 py-2 text-right text-sm text-evisablack">
+                                    $400
+                                </td>
+                            </tr>
 
-                <tr>
-                    <td>{{ __('Total price') }}</td>
-                    <td>
-                        <span id="total-price-span">{{ $totals['total_price'] }} {{ $currency }}</span>
-                    </td>
-                </tr>
+                            @foreach($extras['optional'] as $extra) 
 
-            </tbody>
-        </table>
+                                <tr class="border-t">
+                                    <td class="px-4 py-2 text-sm text-evisablack">
+                                        {{ $extra->name }}
+                                    </td>
+                                    <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                        {{ $totals['extras_price_total'] }}
+                                        {{ $currency }}
+                                    </td>
+                                    <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                        {{ $cart['meta']['travellers_count'] ?? 1 }}
+                                    </td>
+                                    <td class="px-4 py-2 text-right text-sm text-evisablack">
+                                        $400
+                                    </td>
+                                </tr>
 
-        @if( !$next_page )
-            <button type="submit" class="btn btn-primary w-100 mt-3">
-                {{ __('Continue to Payment') }}
-            </button>
-        @else 
-            <button type="submit" class="btn btn-primary w-100 mt-3">
-                {{ __('Save and continue') }}
-            </button>
-        @endif
+                            @endforeach
 
+                        </tbody>
+                        <tfoot>
+                            <tr class="  border-t border-solid border-t-1 border-evisalight">
+                                <td class="px-4 py-2  font-semibold text-evisablack" colspan="3">
+                                    {{ __('Total price') }}
+                                </td>
+                                <td class="px-4 py-2 text-right  font-semibold text-evisablack">
+                                    {{ $totals['total_price'] }} {{ $currency }}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
     </div>
-</div>
-</div>
 
 </form>
 
 </div>
-
-
-
-<br />
-<br />
-
 
 @include('web.country.partials.apply-scripts')
 

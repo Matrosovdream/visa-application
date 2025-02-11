@@ -13,8 +13,8 @@ use Tests\TestCase;
 class EmailVerificationTest extends TestCase
 {
 
-    /*
-    use RefreshDatabase;
+    
+    //use RefreshDatabase;
 
     public function test_email_verification_screen_can_be_rendered(): void
     {
@@ -25,6 +25,7 @@ class EmailVerificationTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /*
     public function test_email_can_be_verified(): void
     {
         $user = User::factory()->unverified()->create();
@@ -43,6 +44,7 @@ class EmailVerificationTest extends TestCase
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
         $response->assertRedirect(route('dashboard', absolute: false).'?verified=1');
     }
+    */
 
     public function test_email_is_not_verified_with_invalid_hash(): void
     {
@@ -58,5 +60,5 @@ class EmailVerificationTest extends TestCase
 
         $this->assertFalse($user->fresh()->hasVerifiedEmail());
     }
-    */
+    
 }

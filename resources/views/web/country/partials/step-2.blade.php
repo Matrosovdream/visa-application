@@ -22,42 +22,7 @@
                 'fields' => $formFields,
                 'entity' => 'traveller',
                 'travellerIndex' => $loop->iteration
-            ])
-
-            @php /*
-
-            <div class="mb-3 xb-item--field">
-                <label class="form-label w-100">
-                    {{ __('First and middle name') }}
-                </label>
-                <input type="text" name="travellers[name][]" class="form-control w-75" value="{{ $traveller['name'] ?? '' }}"
-                    placeholder="{{ __('First and middle name') }}"
-                >
-                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-            </div>
-
-            <div class="mb-3 xb-item--field">
-                <label class="form-label w-100">
-                    {{ __('Last name') }}
-                </label>
-                <input type="text" name="travellers[lastname][]" class="form-control w-75" value="{{ $traveller['lastname'] ?? '' }}"
-                placeholder="{{ __('Last name') }}"
-                >
-                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-            </div>
-
-            <div class="mb-3 xb-item--field">
-                <label for="birthday" class="form-label w-100">
-                    {{ __('Birthday') }}
-                </label>
-                <input type="text" class="form-control w-50 datepicker-birthday birthday-date" name="travellers[birthday][]"
-                    value="{{ $traveller['birthday'] ?? '' }}">
-                <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-            </div>
-
-            */ @endphp
-
-            
+            ])            
 
         </div>
 
@@ -86,37 +51,6 @@
             'fields' => $formFields,
             'entity' => 'traveller'
         ])
-
-        @php /*
-        <div class="mb-3 xb-item--field">
-            <label class="form-label w-100">
-                {{ __('First and middle name') }}
-            </label>
-            <input type="text" name="travellers[name][]" class="form-control w-75" 
-            placeholder="{{ __('First and middle name') }}"
-            >
-            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-        </div>
-
-        <div class="mb-3 xb-item--field">
-            <label class="form-label w-100">
-                {{ __('Last name') }}
-            </label>
-            <input type="text" name="travellers[lastname][]" class="form-control w-75"
-            placeholder="{{ __('Last name') }}"
-            >
-            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-        </div>
-
-        <div class="mb-3 xb-item--field">
-            <label for="birthday" class="form-label w-100">
-                {{ __('Birthday') }}
-            </label>
-            <input type="text" class="form-control w-50 datepicker-birthday birthday-date" name="travellers[birthday][]"
-                id="birthday-1">
-            <span class="icon"><img src="{{ asset('/user/assets/img/icon/c_user.svg') }}" alt=""></span>
-        </div>
-        */ @endphp
 
     </div>
 

@@ -1,3 +1,59 @@
+<!-- Left Column -->
+<div>
+    <div class="border-solid max-w-3xl text-">
+        <div class="mb-4">
+            <div class="flex w-full items-center justify-between">
+                <h2 class="mb-4 text-2xl font-semibold">Select your package</h2>
+            </div>
+
+            <form
+                class="group mb-4 bg-white border-2 border-solid border-evisasuperlight rounded-xl p-4 pl-6 pr-6 hover:border-evisablue">
+                <h2 class="text- font-semibold text-evisablack py-1">
+                    Standart
+                </h2>
+                <p class="text- text-evisablack py-1">
+                    Standart offer for 2 days
+                </p>
+                <p class="text- text-evisablack py-1">30$</p>
+            </form>
+
+            <form
+                class="group mb-4 bg-white border-2 border-solid border-evisasuperlight rounded-xl p-4 pl-6 pr-6 hover:border-evisablue">
+                <h2 class="text- font-semibold text-evisablack py-1">
+                    Standart
+                </h2>
+                <p class="text- text-evisablack py-1">
+                    Standart offer for 2 days
+                </p>
+                <p class="text- text-evisablack py-1">30$</p>
+            </form>
+
+            <form
+                class="group mb-4 bg-white border-2 border-solid border-evisasuperlight rounded-xl p-4 pl-6 pr-6 hover:border-evisablue">
+                <h2 class="text- font-semibold text-evisablack py-1">
+                    Standart
+                </h2>
+                <p class="text- text-evisablack py-1">
+                    Standart offer for 2 days
+                </p>
+                <p class="text- text-evisablack py-1">30$</p>
+            </form>
+            <h2 class="mb-4 text-2xl font-semibold text-evisablack">Extra services</h2>
+            <form
+                class="group mb-4 bg-white border-2 border-solid border-evisasuperlight rounded-xl p-4 pl-6 pr-6 hover:border-evisablue">
+                <h2 class="text- font-semibold text-evisablack py-1">
+                    Denial protection
+                </h2>
+
+                <p class="text- text-evisablack py-1">25$</p>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!--
 <ul class="list-group apply-offer-list">
     @foreach($product['Model']->offers as $offer)
         <li class="">
@@ -16,7 +72,7 @@
     @endforeach
 </ul>
 
-<!-- Extra services with checkboxes -->
+
 <div class="extra-services-list mt-25">
     <h5 class="mb-15">{{ __('Extra services') }}</h5>
     <ul class="list-group">
@@ -46,3 +102,4 @@
         @endforeach
     </ul>
 </div>
+-->
