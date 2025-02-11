@@ -7,7 +7,7 @@
 
     <!-- Scripts -->
     @foreach([
-        '/css/user/bootstrap.min.css',
+        /*'/css/user/bootstrap.min.css',
         '/css/user/fontawesome.css',
         '/css/user/animate.css',
         '/css/user/swiper.min.css',
@@ -15,11 +15,18 @@
         '/css/user/nice-select.css',
         '/css/user/jquery-ui.min.css',
         '/css/user/magnific-popup.css',
-        '/css/user/main.css',
-        'css/user/extra.css'
+        '/css/user/main.css',*/
+        'css/user/extra.css',
+        '/css/user/output.css',
     ] as $asset)
         <link rel="stylesheet" href="{{ asset($asset) }}">
     @endforeach    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
@@ -47,6 +54,7 @@
     <!-- backtotop - end -->
 
     <!-- preloader start -->
+    <!--
     <div id="xb-loadding">
         <div class="loader">
             <div class="plane">
@@ -57,6 +65,7 @@
             </div>
         </div>
     </div>
+    -->
     <!-- preloader end -->
 
     <div class="body_wrap">
@@ -80,7 +89,6 @@
         '/js/user/jquery-3.7.1.min.js',
         '/js/user/bootstrap.bundle.min.js',
         '/js/user/swiper.min.js',
-        //'resources/js/user/wow.min.js',
         '/js/user/appear.js',
         '/js/user/odometer.min.js',
         '/js/user/jquery.nice-select.min.js',

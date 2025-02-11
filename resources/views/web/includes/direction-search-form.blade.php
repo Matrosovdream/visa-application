@@ -1,75 +1,65 @@
-<!-- hero start -->
-<section class="hero hero__style-one bg_img"
-    data-background="{{ asset('user/assets/img/hero/homepage-hero.webp') }}" style="min-height: 600px;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-xl-10 col-lg-7">
-                <div class="hero__content">
-                    <h1 class="wow skewIn fs-1">
-                       {{ __('Get your travel visa for') }} <br> <span>{{ __('ANY COUNTRY') }}</span>
-                    </h1>
+<div class="relative w-full min-h-screen">
+    <img src="{{ asset('user/assets/img/hero/homepage-hero.webp') }}" class="w-full h-full object-cover" />
 
-                    <div class="p-4 bg-light rounded shadow w-100">
-                        <form method="POST" action="{{ route('web.direction.apply') }}" id="search_direction">
+    <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+        <div>
 
-                            @csrf
+            <form method="POST" action="{{ route('web.direction.apply') }}" id="search_direction"
+                class="md:flex w-6xl p-4 bg-blue-50 bg-opacity-80 justify-center space-x-2 font-inter font-medium items-center rounded-xl shadow-lg">
 
-                            <div class="row g-3">
-                                <!-- Where am I from? -->
-                                <div class="col-md-5">
-                                    <label for="fromCountry" class="form-label">
-                                        {{ __('Where am I from?') }}
-                                    </label>
-                                    <select class="select2 form-control" name="country_from">
-                                        <option selected disabled></option>
-                                        @foreach($countries as $country)
-                                            <option 
-                                                value="{{ $country->id }}"
-                                                @if( $location['countryCode'] == $country->code ) selected @endif
-                                                >
-                                                {{ $country->name }} - {{ $country->code }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                <div class="max-w-sm min-w-xs flex-grow" id="search_direction">
 
-                                <!-- Where am I going? -->
-                                <div class="col-md-5">
-                                    <label for="toCountry" class="form-label">
-                                        {{ __('Where am I going?') }}
-                                    </label>
-                                    <select class="select2 form-control" name="country_to">
-                                        <option selected disabled></option>
-                                        @foreach($countries as $country)
-                                            <option value="{{ $country->id }}">
-                                                {{ $country->name }} - {{ $country->code }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                    @csrf
 
-                                <!-- Get Started Button -->
-                                <div class="col-md-2 d-flex align-items-end ">
-                                    <button type="submit" class="btn btn-success w-100" style="height: 50px;">
-                                        {{ __('Get started!') }}
-                                    </button>
-                                </div>
+                    <label for="countries1" class="block mb-2 text-sm font-light text-gray-900">
+                        {{ __('Where am I from?') }}
+                    </label>
 
-                            </div>
-                        </form>
-                    </div>
-
-
+                    <select
+                        class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-10"
+                        name="country_from">
+                        <option selected disabled></option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}" @if($location['countryCode'] == $country->code) selected
+                            @endif>
+                                {{ $country->name }} - {{ $country->code }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
-            </div>
+
+                <div class="max-w-sm min-w-xs flex-grow">
+
+                    <label for="countries2" class="block mb-2 text-sm font-light text-gray-900">
+                        {{ __('Where am I going?') }}
+                    </label>
+
+                    <select
+                        class="select2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-10"
+                        name="country_to">
+                        <option selected disabled></option>
+                        @foreach($countries as $country)
+                            <option value="{{ $country->id }}">
+                                {{ $country->name }} - {{ $country->code }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <button class="rounded-lg mt-7 ml-2 bg-blue-600 px-4 py-2 text-white h-10 flex items-center"
+                    type="submit">
+                    {{ __('Get started!') }}
+                </button>
+
+            </form>
+
         </div>
     </div>
-</section>
-<!-- hero end -->
+</div>
 
 
 <script type="text/javascript">
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
         jQuery('#search_direction').validate({
             rules: {
                 country_from: {
@@ -87,7 +77,10 @@
                     required: "Please select your destination country"
                 }
             },
-            submitHandler: function(form) {
+            /*errorPlacement: function (error, element) {
+                $(element).closest('tr').next().find('.error_label').html(error);
+            },*/
+            submitHandler: function (form) {
                 form.submit();
             }
         });
