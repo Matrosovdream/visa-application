@@ -48,6 +48,7 @@ Route::group(['as' => '','prefix' =>'dashboard','namespace' => '', 'middleware' 
         // Directions
         Route::get('directions', [DashboardDirectionsController::class, 'index'])->name('dashboard.directions.index');
         Route::get('directions/{direction_id}', [DashboardDirectionsController::class, 'show'])->name('dashboard.directions.show');
+        Route::post('directions/{direction_id}', [DashboardDirectionsController::class, 'update'])->name('dashboard.directions.update');
 
         // Products
         Route::get('products', [DashboardProductsController::class, 'index'])->name('dashboard.products.index');

@@ -4,6 +4,83 @@
 
 <div class="card card-flush">
 
+    <form action="{{ route('dashboard.directions.index') }}" method="GET">
+
+        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+
+            <div class="card-title">
+                
+            </div>
+
+            <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+
+                <div class="w-100 mw-150px">
+        
+                    <select name="visa_req" class="form-select form-select-solid" data-control="select2" data-hide-search="true"
+                        data-placeholder="Visa?" data-kt-ecommerce-product-filter="Visa?">
+                        
+                        @foreach($references['visa_req'] as $item)
+                            <option 
+                                value="{{ $item['id'] }}"
+                                @if( isset( request()->visa_req ) )
+                                    {{ request()->visa_req == $item['id'] ? 'selected' : '' }}
+                                @endif
+                                >
+                                {{ $item['name'] }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+                <div class="w-100 mw-200px">
+    
+                    <select name="country_from" class="form-select form-select-solid" data-control="select2" data-hide-search="false"
+                        data-placeholder="Country from" data-kt-ecommerce-product-filter="Country from">
+                        <option></option>
+                        <option value="all">All</option>
+
+                        @foreach($references['country']['items'] as $country)
+                            <option 
+                                value="{{ $country['id'] }}"
+                                {{ request()->get('country_from') == $country['id'] ? 'selected' : '' }}
+                                >
+                                {{ $country['name'] }}
+                            </option>
+                        @endforeach
+                        
+                    </select>
+
+                </div>
+
+                <div class="w-100 mw-200px">
+    
+                    <select name="country_to" class="form-select form-select-solid" data-control="select2" data-hide-search="false"
+                        data-placeholder="Country to" data-kt-ecommerce-product-filter="Country to">
+                        <option></option>
+                        <option value="all">All</option>
+                        
+                        @foreach($references['country']['items'] as $country)
+                            <option 
+                                value="{{ $country['id'] }}"
+                                {{ request()->get('country_to') == $country['id'] ? 'selected' : '' }}
+                                >
+                                {{ $country['name'] }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Filter</button>
+
+            </div>
+        </div>
+
+    </form>
+
     <div class="card-body pt-0">
         <div class="table-responsive">
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
@@ -16,13 +93,13 @@
                             </div>
                         </th>
                         <th class="min-w-200px">Direction</th>
-                        <th class="min-w-200px">Visa requirements</th>
+                        <th class="min-w-200px text-center">Visa requirements</th>
                         <th class="min-w-200px">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
 
-                    @foreach($directions as $direction)
+                    @foreach($directions['items'] as $direction)
 
                         <tr>
                             <td>
@@ -31,42 +108,29 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('dashboard.directions.show', $direction->countryFrom->id) }}"
+                                <a href=""
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $direction->countryFrom->name }}
+                                    {{ $direction['countryFrom']['name'] }}
                                 </a>
                                 ->
-                                <a href="{{ route('dashboard.directions.show', $direction->countryTo->id) }}"
+                                <a href=""
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $direction->countryTo->name }}
+                                    {{ $direction['countryTo']['name'] }}
                                 </a>
                             </td>
-                            <td>
-                                @if ( $direction->visa_req == 1 )
+                            <td class="text-center">
+                                @if ($direction['visa_req'] == 1)
                                     <div class="badge badge-light-primary">Yes</div>
                                 @else
                                     <div class="badge badge-light-danger">No</div>
                                 @endif
                             </td>
                             <td class="text-right">
-                                @php /*
-                                <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    Actions
-                                    <i class="ki-duotone ki-down fs-5 ms-1"></i>
+                                <a href="{{ route('dashboard.directions.show', $direction['id']) }}" class="menu-link px-3">
+                                    Edit
                                 </a>
-
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                    data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.directions.show', $direction->id) }}"
-                                            class="menu-link px-3">Edit</a>
-                                    </div>
-                                </div>
-                                */ @endphp
-
                             </td>
                         </tr>
 
@@ -78,7 +142,9 @@
 
 
         <div id="" class="row">
-            {{ $directions->links('dashboard.includes.pagination.default') }}
+            {{ $directions['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
+
+        </div>
         </div>
 
     </div>

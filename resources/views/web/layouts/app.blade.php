@@ -16,6 +16,7 @@
         '/css/user/jquery-ui.min.css',
         '/css/user/magnific-popup.css',
         '/css/user/main.css',*/
+        '/css/user/jquery-ui.min.css',
         'css/user/extra.css',
         '/css/user/output.css',
     ] as $asset)
