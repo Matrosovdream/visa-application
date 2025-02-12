@@ -160,6 +160,11 @@
 
     @if($field['type'] == 'select' || $field['type'] == 'reference')
 
+        @php
+        $country = $field['field']['reference_code'] == 'country' ? true : false;
+        //dd($field);
+        @endphp
+
         <div class="mb-4 field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
@@ -180,6 +185,7 @@
                     <option 
                         value="{{ $option['value'] }}" 
                         @if( $option['value'] == $value ) selected @endif
+                        @if( $country ) data-flag="{{ asset('user/assets/img/flags/' . strtolower($option['slug']) . '.svg') }}" @endif
                         >
                         {{ $option['title'] ?? $option['name'] }}
                     </option>
