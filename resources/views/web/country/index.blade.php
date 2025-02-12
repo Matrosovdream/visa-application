@@ -16,16 +16,31 @@
             @if(isset($countryFrom))
                 @if($direction->visa_req == 1)
 
-                    <div class="mb-8 p-4 bg-evisapeach text-evisamedium rounded-2xl">
-                        <h2 class="font-semibold mb-1">
-                            {{ __('Visa required') }}
-                        </h2>
-                        <p class>
-                            {{ __('You need a visa to travel to') }} {{ $country->name }}
-                            {{ __('if you have a passport from') }}
-                            {{ $countryFrom->name }}.
-                        </p>
-                    </div>
+                    @if(isset($products) && count($products) > 0)
+
+                        <div class="mb-8 p-4 bg-evisapeach text-evisamedium rounded-2xl">
+                            <h2 class="font-semibold mb-1">
+                                {{ __('Visa required') }}
+                            </h2>
+                            <p class>
+                                {{ __('You need a visa to travel to') }} {{ $country->name }}
+                                {{ __('if you have a passport from') }}
+                                {{ $countryFrom->name }}.
+                            </p>
+                        </div>
+
+                    @else
+
+                        <div class="mb-8 p-4 bg-evisapeach text-evisamedium rounded-2xl">
+                            <h2 class="font-semibold mb-1">
+                                {{ __('Visa required') }}
+                            </h2>
+                            <p class>
+                                {{ __("But we currently don't offer this service.") }}
+                            </p>
+                        </div>
+
+                    @endif
 
                 @else
 
@@ -45,57 +60,60 @@
                 {{ __("Choose a nationality to see if you need a visa to travel to") }} {{ $country->name }}.
             @endif
 
-
-
-            <div class="mb-4">
-                <label for="nationality" class="block text-evisamedium">
-                    {{ __("What is your nationality?") }}
-                </label>
-
-                <select
-                    class="select2 mt-1 block w-full px-3 py-2 border-solid border-2 border-evisalight hover:border-evisalightblue rounded-lg"
-                    name="nationality" id="nationality" aria-label="Nationality">
-                    @foreach($countries as $country)
-                        <option value="{{ $country->slug }}" data-slug="{{ $country->slug }}" @if(isset($countryFrom) && $country->slug == $countryFrom->slug) selected @endif>
-                            {{ $country->name }} - {{ $country->code }}
-                        </option>
-                    @endforeach
-                </select>
-                <small class="form-text text-muted">
-                    {{ __("Ensure you select the nationality of the passport you'll betraveling with.") }}
-                </small>
-
-            </div>
-
-            <!-- Applying For -->
-            @if(isset($products) && count($products) > 0)
+            @if($direction->visa_req == 1 && isset($products) && count($products) > 0)
 
                 <div class="mb-4">
                     <label for="nationality" class="block text-evisamedium">
-                        {{ __("Applying for") }}
+                        {{ __("What is your nationality?") }}
                     </label>
 
                     <select
                         class="select2 mt-1 block w-full px-3 py-2 border-solid border-2 border-evisalight hover:border-evisalightblue rounded-lg"
-                        id="visaType" aria-label="Visa Type" name="product_id">
-                        @foreach($products as $product)
-                            <option value="{{ $product->id }}">
-                                {{ $product->name }}
+                        name="nationality" id="nationality" aria-label="Nationality">
+                        @foreach($countries as $country)
+                            <option value="{{ $country->slug }}" data-slug="{{ $country->slug }}" @if(isset($countryFrom) && $country->slug == $countryFrom->slug) selected @endif>
+                                {{ $country->name }} - {{ $country->code }}
                             </option>
                         @endforeach
                     </select>
                     <small class="form-text text-muted">
-                        {{ __("Choose your Visa product") }}
+                        {{ __("Ensure you select the nationality of the passport you'll betraveling with.") }}
                     </small>
 
                 </div>
 
+                <!-- Applying For -->
+                @if(isset($products) && count($products) > 0)
+
+                    <div class="mb-4">
+                        <label for="nationality" class="block text-evisamedium">
+                            {{ __("Applying for") }}
+                        </label>
+
+                        <select
+                            class="select2 mt-1 block w-full px-3 py-2 border-solid border-2 border-evisalight hover:border-evisalightblue rounded-lg"
+                            id="visaType" aria-label="Visa Type" name="product_id">
+                            @foreach($products as $product)
+                                <option value="{{ $product->id }}">
+                                    {{ $product->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <small class="form-text text-muted">
+                            {{ __("Choose your Visa product") }}
+                        </small>
+
+                    </div>
+
+                @endif
+
+                <button type="submit"
+                    class="mt-2 w-full bg-evisablue text-white font-medium py-2 rounded-xl hover:bg-evisabluekhover">
+                    {{ __('Apply for eVisa') }}
+                </button>
+
             @endif
 
-            <button type="submit"
-                class="mt-2 w-full bg-evisablue text-white font-medium py-2 rounded-xl hover:bg-evisabluekhover">
-                {{ __('Apply for eVisa') }}
-            </button>
         </div>
 
         @if($direction->visa_req == 1)

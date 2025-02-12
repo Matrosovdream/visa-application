@@ -2,35 +2,35 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\TravelDirection;
-use App\Helpers\adminSettingsHelper;
+use App\Actions\Dashboard\DirectionActions;
+use Illuminate\Http\Request;
 
 class DashboardDirectionsController extends Controller
 {
-    
-    public function index()
+
+    private $directionActions;
+
+    public function __construct()
     {
-
-        $data = [
-            'title' => 'Directions',
-            'directions' => TravelDirection::paginate(30),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
+        $this->directionActions = new DirectionActions();
+    }
+    
+    public function index( Request $request )
+    {
+        $data = $this->directionActions->index( $request );
         return view('dashboard.directions.index', $data);
     }
 
     public function show($direction_id)
     {
-        $direction = TravelDirection::find($direction_id);
-
-        $data = [
-            'title' => 'Direction',
-            'direction' => $direction,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
+        $data = $this->directionActions->show($direction_id);
         return view('dashboard.directions.show', $data);
+    }
+
+    public function update(Request $request, $direction_id)
+    {
+        $data = $this->directionActions->update($request, $direction_id);
+        return redirect()->route('dashboard.directions.show', $direction_id);
     }
 
 }

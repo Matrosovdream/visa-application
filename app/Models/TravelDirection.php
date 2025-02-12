@@ -11,7 +11,10 @@ use App\Models\ProductCountries;
 class TravelDirection extends Model
 {
 
-    protected $fillable = ['name', 'slug', 'country_from_id', 'country_to_id'];
+    protected $fillable = ['name', 'slug', 'country_from_id', 'country_to_id', 'visa_req'];
+
+    // No timestamps
+    public $timestamps = false;
 
     public function countryFrom()
     {
