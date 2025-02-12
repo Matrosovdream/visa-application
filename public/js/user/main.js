@@ -356,10 +356,29 @@
 			$(this).select2({
 				dropdownCssClass: 'select2-dropdown',
 				containerCssClass: 'select2-container',
-				minimumResultsForSearch: 10
+				minimumResultsForSearch: 10,
+				templateResult: formatCountry,
+            	templateSelection: formatCountry,
 			});
 		});
 	});
+
+	function formatCountry(country) {
+		if (!country.id) {
+			return country.text;
+		}
+		var flagUrl = $(country.element).data('flag'); // Get flag URL from data attribute
+		var $country = '';
+		if (flagUrl) {
+			$country = $(
+				`<span><img src="${flagUrl}" class="w-5 h-5 inline-block mr-2" /> ${country.text}</span>`
+			);
+		} else {
+			$country = $(`<span>${country.text}</span>`);
+		}
+		return $country;
+	}
+
 
 	/* magnificPopup img view */
 	$('.popup-image').magnificPopup({

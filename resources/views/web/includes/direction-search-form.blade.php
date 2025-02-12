@@ -20,8 +20,11 @@
                         name="country_from">
                         <option selected disabled></option>
                         @foreach($countries as $country)
-                            <option value="{{ $country->id }}" @if($location['countryCode'] == $country->code) selected
-                            @endif>
+                            <option 
+                                value="{{ $country->id }}" 
+                                @if($location['countryCode'] == $country->code) selected @endif
+                                data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}"
+                                >
                                 {{ $country->name }} - {{ $country->code }}
                             </option>
                         @endforeach
@@ -39,7 +42,10 @@
                         name="country_to">
                         <option selected disabled></option>
                         @foreach($countries as $country)
-                            <option value="{{ $country->id }}">
+                            <option 
+                                value="{{ $country->id }}"
+                                data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}"
+                                >
                                 {{ $country->name }} - {{ $country->code }}
                             </option>
                         @endforeach
