@@ -4,7 +4,7 @@
 
         // Add traveller logic
         var travellerCount = 1;
-        $('#add_traveller').click(function () {
+        $('.add_traveller').click(function () {
 
             // Clone the element and append it to the form
             var traveller = $('.card-traveller').first().clone();
@@ -22,8 +22,14 @@
             traveller.find(".expiration-date").removeClass("hasDatepicker").attr('id', 'expiration-' + travellerCount);
 
             // Update datepicker
-            traveller.find('.hasDatepicker').removeClass('hasDatepicker');
+            traveller.find('.hasDatepicker').removeClass('hasDatepicker').removeAttr('id');
             updateDatePicker();
+
+            // Remove button
+            traveller.find('.btn-remove-traveller').removeClass('hidden');
+
+            // Find .add_traveller and remove it
+            traveller.find('.add_traveller').remove();
 
             // Update traveller count
             $('#traveller-count').text(travellerCount + ' travellers');
@@ -64,9 +70,9 @@
         $('input[name="extra_ids[]"]').change(function () {
             // If checked
             if ($(this).is(':checked')) {
-                $('.service-' + $(this).val()).show();
+                $('.service-' + $(this).val()).removeClass('hidden');
             } else {
-                $('.service-' + $(this).val()).hide();
+                $('.service-' + $(this).val()).addClass('hidden');
             }
 
             calcTotals();

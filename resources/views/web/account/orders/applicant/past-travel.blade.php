@@ -2,168 +2,118 @@
 
 @section('content')
 
-<div class="container my-4">
+    <div class="flex h-screen p-6">
+        <!-- Sidebar -->
+        <aside class="w-1/4 p-6 ml-6 bg-white">
 
-    @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
+            <a href="#" class="text-blue-600 mb-4 inline-block hover:underline">&larr; Back to all orders</a>
+            @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
-    <h2 class="mb-25">
-        {{ $order->getProduct()->name }} - {{ __('Past travel') }}
-    </h2>
+            <h2 class="text-3xl font-semibold mb-6">
+                {{ $order->getProduct()->name }} - {{ __('Past travel') }}
+            </h2>
 
-    <div class="row">
-        <div class="col-md-3">
-            @include('web.account.orders.partials.sidebar')
-        </div>
+            <div class="space-y-6">
+                @include('web.account.orders.partials.sidebar')
+            </div>
 
-        <div class="col-md-9">
-            <!-- General Information Form -->
-            <div class="card p-4">
-                
-                <div class="application-section-head mb-25">
-                    <h3 class="card-title">
-                        {{ __('Past travel') }}
-                    </h3>
-                    <p class="card-text text-warning"></p>
-                </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 max-w-5xl">
+            <div class="bg-white border-2 border-solid border-evisasuperlight rounded-3xl p-8">
+
+                <h1 class="text-2xl font-medium mb-6">
+                    {{ __('Past travel') }}
+                </h1>
 
                 <form method="POST"
                     action="{{ route('web.account.order.applicant.fields.update', ['order_id' => $order->id, 'applicant_id' => $applicant->id]) }}"
-                    class="xb-item--form contact-from w-75 apply-form">
+                    class="grid grid-cols-2 gap-6">
                     @csrf
 
+                    <input type="hidden" name="next_page" value="{{ $next_page ?? '' }}">
+
                     @include(
-                            'web.partials.fields-loop',
-                            [
-                                'values' => $fieldValues,
-                                'fields' => $formFields,
-                                'entity' => 'traveller'
-                            ]
-                        )
+                        'web.partials.fields-loop',
+                        [
+                            'values' => $fieldValues,
+                            'fields' => $formFields,
+                            'entity' => 'traveller'
+                        ]
+                    )
 
-                        @php /*
-                        @include('web.account.orders.partials.applicant-fields')
-                        */ @endphp
-
-                    <button type="submit" class="btn btn-primary" id="next-1">
-                        {{ __('Save') }}
-                    </button>
+                    <div class="col-span-2">
+                        <button type="submit"
+                            class="mt-2 bg-evisablue text-white font-medium px-4 py-2 rounded-lg hover:bg-evisabluekhover"
+                            id="next-1">
+                            {{ __('Save and continue') }}
+                        </button>
+                    </div>
 
                 </form>
 
             </div>
-        </div>
+        </main>
     </div>
-</div>
 
 
-<script>
 
-$(document).ready(function() {
 
-    $(document).ready(function() {
-        $('#field-past_travel_country-0').on('change.select2', function () {
-            
-            if( $(this).val() == 'yes' ) {
-                $('.field-block-past_travel_date').show();
-                $('.field-block-past_travel_date select').select2();
+    <script>
 
-                $('.field-block-past_travel_departure').show();
-                $('.field-block-past_travel_departure select').select2();
+        $(document).ready(function () {
 
-                $('.field-block-past_travel_cities').show();
-            } else {
-                $('.field-block-past_travel_date select').select2('destroy');
-                $('.field-block-past_travel_date').hide();
+            $(document).ready(function () {
+                $('#field-past_travel_country-0').on('change.select2', function () {
 
-                $('.field-block-past_travel_departure select').select2('destroy');
-                $('.field-block-past_travel_departure').hide();
+                    if ($(this).val() == 'yes') {
+                        $('.field-block-past_travel_date').show();
+                        $('.field-block-past_travel_date select').select2();
 
-                $('.field-block-past_travel_cities').hide();
-            }
+                        $('.field-block-past_travel_departure').show();
+                        $('.field-block-past_travel_departure select').select2();
+
+                        $('.field-block-past_travel_cities').show();
+                    } else {
+                        $('.field-block-past_travel_date select').select2('destroy');
+                        $('.field-block-past_travel_date').hide();
+
+                        $('.field-block-past_travel_departure select').select2('destroy');
+                        $('.field-block-past_travel_departure').hide();
+
+                        $('.field-block-past_travel_cities').hide();
+                    }
+
+                });
+
+                // Trigger the change event on page load
+                $('#field-past_travel_country-0').trigger('change.select2');
+            });
 
         });
 
-        // Trigger the change event on page load
-        $('#field-past_travel_country-0').trigger('change.select2');
-    });
-
-});
 
 
-
-</script>
-
-@php 
-
-//dd($fields);
-@endphp
-
-@if( $fields['past_travel_country']['value'] == 'yes' )
-    <style>
-        .field-block-past_travel_date,
-        .field-block-past_travel_departure,
-        .field-block-past_travel_cities {
-            display: block;
-        }
-    </style>
-@else 
-    <style>
-        .field-block-past_travel_date,
-        .field-block-past_travel_departure,
-        .field-block-past_travel_cities {
-            display: none;
-        }
-    </style>
-@endif
+    </script>
 
 
-<style>
-    .card-body {
-        background-color: rgb(248 249 249);
-    }
-
-    .card-status {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border-radius: 10px;
-        padding: 4px 8px 2px 8px;
-        font-size: 0.8rem;
-        font-weight: bold;
-    }
-
-    .card-progress {
-        background-color: #e9ecef;
-        border-radius: 50%;
-        padding: 5px;
-        font-size: 0.8rem;
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .card-country img {
-        width: 20px;
-        margin-right: 5px;
-    }
-
-    .btn-arrow {
-        background: linear-gradient(90deg, #00d7b0, #00e65b);
-        color: white;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        border: none;
-    }
-
-    .card-text {
-        font-size: 15px;
-    }
-</style>
+    @if($fields['past_travel_country']['value'] == 'yes')
+        <style>
+            .field-block-past_travel_date,
+            .field-block-past_travel_departure,
+            .field-block-past_travel_cities {
+                display: block;
+            }
+        </style>
+    @else 
+        <style>
+            .field-block-past_travel_date,
+            .field-block-past_travel_departure,
+            .field-block-past_travel_cities {
+                display: none;
+            }
+        </style>
+    @endif
 
 @endsection

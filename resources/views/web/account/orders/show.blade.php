@@ -2,6 +2,48 @@
 
 @section('content')
 
+    <div class="min-h-screen p-6">
+        <a href="#" class="text-evisablue hover:underline text-sm mb-4 inline-block ml-6">← Back to all orders</a>
+
+        <div class="bg-white rounded-lg px-6 text-md">
+            <h1 class="text-3xl font-semibold text-evisablack mb-8">
+                {{ __('Order') }} #{{ $order->id }}
+                <span class="font-normal">
+                    {{ $order->getProduct()->name }}
+                </span>
+            </h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <div>
+
+                    <!-- Order Progress Bar -->
+                    @include('web.account.orders.partials.order-progress-bar')
+
+                    <!-- Applicants list -->
+                    @include('web.account.orders.partials.order-applicants-preview')
+                    
+                    <!-- Completed Documents, loaded by manager -->
+                    @php /*
+                    @include('web.account.orders.partials.order-completed-documents-preview')
+                    */ @endphp
+
+                </div>
+
+                <!-- Totals table -->
+                @include('web.account.orders.partials.order-total')
+
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+
+
+
+
+@php /*
 <div class="container my-5">
 
     <h2 class="mb-25">
@@ -30,11 +72,9 @@
     </div>
 
     <!-- Add-on Services -->
-    @php /*
     <div class="d-flex justify-content-between align-items-center my-3 block-border">
         @include('web.account.orders.partials.order-add-ons')
     </div>
-    */ @endphp
 
     <!-- Order Details -->
     <div class="order-details mt-50">
@@ -44,7 +84,7 @@
 </div>
 
 <style>
-        /* Additional custom styles */
+
         .progress-bar-container {
             display: flex;
             justify-content: space-around;
@@ -133,6 +173,4 @@
         opacity: 1;
     }
     </style>
-
-
-@endsection
+*/ @endphp

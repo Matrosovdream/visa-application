@@ -58,6 +58,11 @@
                     </div>
 
                     <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
+                        <label class="form-label">Default value</label>
+                        <input type="text" name="default_value" class="form-control form-control-solid mb-2" value="{{ $fieldValue['default_value'] ?? '' }}" />
+                    </div>
+
+                    <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
                         <label class="form-label">Classes</label>
                         <input type="text" name="classes" class="form-control form-control-solid mb-2" value="{{ $fieldValue['classes'] ?? '' }}" />
                     </div>

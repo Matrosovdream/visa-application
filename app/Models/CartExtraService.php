@@ -18,7 +18,7 @@ class CartExtraService extends Model
     
     public function service()
     {
-        return $this->belongsTo(ProductExtra::class);
+        return $this->belongsTo(ProductExtras::class);
     }
 
 }

@@ -76,7 +76,7 @@ class CountryController extends Controller
 
         if( $request->has('lg') ) {
             //dd($data);
-            dd($data['formFields']);
+            dd($data['cart']['totals']);
         }
         
 

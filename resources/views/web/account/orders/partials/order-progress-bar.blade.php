@@ -1,8 +1,35 @@
+<h2 class="text-lg font-semibold text-evisablack mb-4">Status</h2>
+
+@if(!$order->isCompletedForm())
+    <div class="flex items-center space-x-4 mb-4">
+        <span class="text-md font-medium text-evisablack bg-evisapeach px-4 py-2 rounded-2xl">Actions
+            needed</span>
+    </div>
+    <p class="text-evisablack mb-4">
+        We need more information from you to start processing documents
+    </p>
+
+    <a href="{{ route('web.account.order.trip', $order->id) }}">
+        <button 
+            class="mb-8 inline-block text-evisablue border-solid border-3 font-medium border-evisablue rounded-xl px-4 py-2 hover:bg-evisablue hover:border-evisablue hover:text-white">
+            Complete form now
+        </button>
+    </a>
+
+@else
+    <h5 class="card-title card-title-small mt-3 alert alert-success text-center">
+        {{ __('Form is completed') }}
+    </h5>
+@endif
+
+
+
+@php /*
 <div class="col @if($order->getProgress() != 1) non-active-status-block @else active-status-block @endif">
     <div class="card shadow-sm h-100">
         <div class="card-body">
 
-            @if( !$order->isCompletedForm() )
+            @if(!$order->isCompletedForm())
                 <h5 class="card-title card-title-small mt-3 alert alert-danger text-center">
                     {{ __('Actions needed') }}
                 </h5>
@@ -14,7 +41,7 @@
 
             <p>{{ $order->createAt }}</p>
 
-            @if( !$order->isCompletedForm() )
+            @if(!$order->isCompletedForm())
                 <p class="card-text">{{ __('We need more information from you') }}</p>
             @else
                 <p class="card-text">{{ __('We are preparing your order') }}</p>
@@ -61,3 +88,4 @@
         </div>
     </div>
 </div>
+*/ @endphp

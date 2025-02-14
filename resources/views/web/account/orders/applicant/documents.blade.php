@@ -2,23 +2,28 @@
 
 @section('content')
 
-<div class="container my-4">
+    <div class="flex h-screen p-6">
+        <!-- Sidebar -->
+        <aside class="w-1/4 p-6 ml-6 bg-white">
 
-    @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
+            <a href="#" class="text-blue-600 mb-4 inline-block hover:underline">&larr; Back to all orders</a>
+            @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
-    <h2 class="mb-25">
-        {{ $order->getProduct()->name }} - {{ __('Documents') }}
-    </h2>
+            <h2 class="text-3xl font-semibold mb-6">
+                {{ $order->getProduct()->name }} - {{ __('Trip Details') }}
+            </h2>
 
-    <div class="row">
-        <div class="col-md-3">
-            @include('web.account.orders.partials.sidebar')
-        </div>
+            <div class="space-y-6">
+                @include('web.account.orders.partials.sidebar')
+            </div>
 
-        <div class="col-md-9">
-            <div class="card p-4">
-                
-                <div class="application-section-head mb-25">
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 max-w-5xl">
+            <div class="bg-white border-2 border-solid border-evisasuperlight rounded-3xl p-8">
+
+            <div class="application-section-head mb-25">
                     <h3 class="card-title">{{ __('Documents') }}</h3>
                     <p class="card-text text-warning">{{ __('Passport page is required') }}</p>
                 </div>
@@ -83,63 +88,14 @@
                     </button>
                 </form>
 
-                
 
-                
-                
             </div>
-        </div>
+        </main>
     </div>
-</div>
 
 
-<style>
-    .card-body {
-        background-color: rgb(248 249 249);
-    }
 
-    .card-status {
-        background-color: #d1ecf1;
-        color: #0c5460;
-        border-radius: 10px;
-        padding: 4px 8px 2px 8px;
-        font-size: 0.8rem;
-        font-weight: bold;
-    }
 
-    .card-progress {
-        background-color: #e9ecef;
-        border-radius: 50%;
-        padding: 5px;
-        font-size: 0.8rem;
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
 
-    .card-country img {
-        width: 20px;
-        margin-right: 5px;
-    }
-
-    .btn-arrow {
-        background: linear-gradient(90deg, #00d7b0, #00e65b);
-        color: white;
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        border: none;
-    }
-
-    .card-text {
-        font-size: 15px;
-    }
-</style>
 
 @endsection
