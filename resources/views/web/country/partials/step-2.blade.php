@@ -1,5 +1,83 @@
+<div class="border-solid max-w-3xl text-">
+
+    @if(isset($travellers) && count($travellers) > 0)
+        @foreach($travellers as $key => $traveller)
+
+            <div class="card-traveller mt-25">
+
+                <div class="flex w-full items-center justify-between ">
+                    <h2 class="mb-4 font-semibold">
+                        {{ __('Traveler') }} #{{ $loop->iteration }}
+
+                        <span class="btn-remove-traveller @if($loop->iteration == 1) hidden @endif">
+                            <i class="bi bi-trash3 remove-traveller-icon"></i>
+                        </span>
+
+                    </h2>
+
+                    @if($loop->iteration == 1)
+                        <span 
+                            href="#"
+                            class="add_traveller mb-4 mx-inline-block text-evisablue border-solid border-3 font-medium border-evisablue rounded-xl px-4 py-2 hover:bg-evisablue hover:border-evisablue hover:text-white"
+                            >
+                            + Add another person
+                        </span>
+                    @endif
+
+                </div>
+
+                @include(
+                    'web.partials.fields-loop',
+                    [
+                        'values' => $travellerFieldValues[$key],
+                        'fields' => $formFields,
+                        'entity' => 'traveller',
+                        'travellerIndex' => $loop->iteration
+                    ]
+                )
+
+            </div>
+
+        @endforeach
+
+    @else
+
+        <div class="card-traveller mt-25">
+
+            <div class="flex w-full items-center justify-between ">
+                <h2 class="mb-4 font-semibold">
+                    {{ __('Traveler') }} #1
+                    <span class="btn-remove-traveller">
+                        <i class="bi bi-trash3 remove-traveller-icon"></i>
+                    </span>
+                </h2>
+                <span 
+                    href="#"
+                    class="add_traveller mb-4 mx-inline-block text-evisablue border-solid border-3 font-medium border-evisablue rounded-xl px-4 py-2 hover:bg-evisablue hover:border-evisablue hover:text-white"
+                    >
+                    + Add another person
+                </span>
+
+            </div>
+
+            @include(
+                'web.partials.fields-loop',
+                [
+                    'values' => [],
+                    'fields' => $formFields,
+                    'entity' => 'traveller'
+                ]
+            )
+
+        </div>
+
+    @endif
+
+</div>
+
+@php /*
 @if(isset($travellers) && count($travellers) > 0)
-    @foreach($travellers as $key=>$traveller)
+    @foreach($travellers as $key => $traveller)
 
         <div class="card-traveller mt-25">
 
@@ -16,13 +94,15 @@
                 </div>
             </div>
 
-            @include('web.partials.fields-loop', 
-            [
-                'values' => $travellerFieldValues[$key], 
-                'fields' => $formFields,
-                'entity' => 'traveller',
-                'travellerIndex' => $loop->iteration
-            ])            
+            @include(
+                'web.partials.fields-loop',
+                [
+                    'values' => $travellerFieldValues[$key],
+                    'fields' => $formFields,
+                    'entity' => 'traveller',
+                    'travellerIndex' => $loop->iteration
+                ]
+            )
 
         </div>
 
@@ -45,12 +125,14 @@
             </div>
         </div>
 
-        @include('web.partials.fields-loop', 
-        [
-            'values' => [], 
-            'fields' => $formFields,
-            'entity' => 'traveller'
-        ])
+        @include(
+            'web.partials.fields-loop',
+            [
+                'values' => [],
+                'fields' => $formFields,
+                'entity' => 'traveller'
+            ]
+        )
 
     </div>
 
@@ -61,6 +143,7 @@
         {{ __('Add traveller') }}
     </button>
 </div>
+*/ @endphp
 
 
 

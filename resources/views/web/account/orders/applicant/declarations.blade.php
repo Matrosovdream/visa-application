@@ -2,59 +2,65 @@
 
 @section('content')
 
-<div class="container my-4">
+    <div class="flex h-screen p-6">
+        <!-- Sidebar -->
+        <aside class="w-1/4 p-6 ml-6 bg-white">
 
-    @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
+            <a href="#" class="text-blue-600 mb-4 inline-block hover:underline">&larr; Back to all orders</a>
+            @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
-    <h2 class="mb-25">
-        {{ $order->getProduct()->name }} - {{ __('Declarations') }}
-    </h2>
+            <h2 class="text-3xl font-semibold mb-6">
+                {{ $order->getProduct()->name }} - {{ __('Trip Details') }}
+            </h2>
 
-    <div class="row">
-        <div class="row">
-            <div class="col-md-3">
+            <div class="space-y-6">
                 @include('web.account.orders.partials.sidebar')
             </div>
 
-            <div class="col-md-9">
-                <!-- General Information Form -->
-                <div class="card p-4">
+        </aside>
 
-                    <div class="application-section-head mb-25">
-                        <h3 class="card-title">
-                            {{ __('Declarations') }}
-                        </h3>
-                        <p class="card-text text-warning"></p>
+        <!-- Main Content -->
+        <main class="flex-1 p-6 max-w-5xl">
+            <div class="bg-white border-2 border-solid border-evisasuperlight rounded-3xl p-8">
+
+                <h1 class="text-2xl font-medium mb-6">
+                    {{ __('Declarations') }}
+                </h1>
+
+                <form method="POST"
+                    action="{{ route('web.account.order.applicant.fields.update', ['order_id' => $order->id, 'applicant_id' => $applicant->id]) }}"
+                    class="grid grid-cols-2 gap-6">
+                    @csrf
+
+                    <input type="hidden" name="next_page" value="{{ $next_page ?? '' }}">
+
+                    @include(
+                        'web.partials.fields-loop',
+                        [
+                            'values' => $fieldValues,
+                            'fields' => $formFields,
+                            'entity' => 'traveller'
+                        ]
+                    )
+
+                    <div class="col-span-2">
+                        <button 
+                            type="submit" 
+                            class="mt-2 bg-evisablue text-white font-medium px-4 py-2 rounded-lg hover:bg-evisabluekhover"
+                            id="next-1"
+                            >
+                            {{ __('Save and continue') }}
+                        </button>
                     </div>
 
-                    <form method="POST"
-                        action="{{ route('web.account.order.applicant.fields.update', ['order_id' => $order->id, 'applicant_id' => $applicant->id]) }}"
-                        class="xb-item--form contact-from w-75 apply-form">
-                        @csrf
+                </form>
 
-                        @include(
-                            'web.partials.fields-loop',
-                            [
-                                'values' => $fieldValues,
-                                'fields' => $formFields,
-                                'entity' => 'traveller'
-                            ]
-                        )
-
-                        @php /*
-                        @include('web.account.orders.partials.applicant-fields')
-                        */ @endphp
-
-                        <button type="submit" class="btn btn-primary" id="next-1">
-                            {{ __('Save') }}
-                        </button>
-
-                    </form>
-
-                </div>
             </div>
-        </div>
+        </main>
     </div>
+
+
+
 
 
     <script>
@@ -115,53 +121,5 @@
     @endif
 
 
-    <style>
-        .card-body {
-            background-color: rgb(248 249 249);
-        }
 
-        .card-status {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-radius: 10px;
-            padding: 4px 8px 2px 8px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .card-progress {
-            background-color: #e9ecef;
-            border-radius: 50%;
-            padding: 5px;
-            font-size: 0.8rem;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card-country img {
-            width: 20px;
-            margin-right: 5px;
-        }
-
-        .btn-arrow {
-            background: linear-gradient(90deg, #00d7b0, #00e65b);
-            color: white;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            border: none;
-        }
-
-        .card-text {
-            font-size: 15px;
-        }
-    </style>
-
-    @endsection
+@endsection

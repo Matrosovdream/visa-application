@@ -1,39 +1,71 @@
-<div class="d-flex justify-content-between mb-40">
-    <h4>{{ __('Order Details') }}</h4>
-    @php /*
-    <a href="#" class="text-primary">{{ __('View Invoice') }}</a>
-    */ @endphp
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>{{ __('Product Name') }}</th>
-            <th>{{ __('Price') }}</th>
-            <th class="text-center">{{ __('Quantity') }}</th>
-            <th>{{ __('Total') }}</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($order->getCart() as $item)
-            <tr>
-                <td>{{ $item['product']['name'] }} ({{ $item['offer']['name'] }})</td>
-                <td>{{ $item['offer']['price'] }} {{ $order->getCurrency() }}</td>
-                <td class="text-center">{{ $item['quantity'] }}</td>
-                <td>{{ $item['offer']['total'] }} {{ $order->getCurrency() }}</td>
-            </tr>
-            @foreach($item['extras'] as $extra)
-
-                <tr>
-                    <td>{{ $extra['name'] }}</td>
-                    <td>{{ $extra['price'] }} {{ $order->getCurrency() }}</td>
-                    <td class="text-center">{{ $extra['quantity'] }}</td>
-                    <td>{{ $extra['total'] }} {{ $order->getCurrency() }}</td>
+<div class="mx-auto max-w-md rounded-lg bg-white">
+    <h2 class="mb-1 px-4 text-2xl font-semibold">Order details</h2>
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto">
+            <thead>
+                <tr class="">
+                    <th class="px-4 py-2 text-left font-semibold text-sm text-evisamedium">
+                        Product name
+                    </th>
+                    <th class="px-4 py-2 text-right font-semibold text-sm text-evisamedium">
+                        Price
+                    </th>
+                    <th class="px-4 py-2 text-right font-semibold text-sm text-evisamedium">
+                        Quantity
+                    </th>
+                    <th class="px-4 py-2 text-right font-semibold text-sm text-evisamedium">
+                        Subtotal
+                    </th>
                 </tr>
+            </thead>
 
-            @endforeach
+            <tbody>
+                @foreach($order->getCart() as $item)
+                    <tr class="border-t">
+                        <td class="px-4 py-2 text-sm text-evisablack">
+                            {{ $item['product']['name'] }} ({{ $item['offer']['name'] }})
+                        </td>
+                        <td class="px-4 py-2 text-center text-sm text-evisablack">
+                            {{ $item['offer']['price'] }} {{ $order->getCurrency() }}
+                        </td>
+                        <td class="px-4 py-2 text-center text-sm text-evisablack">
+                            {{ $item['quantity'] }}
+                        </td>
+                        <td class="px-4 py-2 text-center text-sm text-evisablack">
+                            {{ $item['offer']['total'] }} {{ $order->getCurrency() }}
+                        </td>
+                    </tr>
+                    @foreach($item['extras'] as $extra)
 
-        @endforeach
-    </tbody>
-</table>
+                        <tr class="border-t">
+                            <td class="px-4 py-2 text-sm text-evisablack">
+                                {{ $extra['name'] }}
+                            </td>
+                            <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                {{ $extra['price'] }} {{ $order->getCurrency() }}
+                            </td>
+                            <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                {{ $extra['quantity'] }}
+                            </td>
+                            <td class="px-4 py-2 text-center text-sm text-evisablack">
+                                {{ $extra['total'] }} {{ $order->getCurrency() }}
+                            </td>
+                        </tr>
 
-<h3>{{ __('Total') }}: {{ $total }} {{ $order->getCurrency() }}</h3>
+                    @endforeach    
+
+                @endforeach
+            </tbody>
+            <tfoot>
+                <tr class="border-t border-solid border-t-2 border-evisasuperlight">
+                    <td class="px-4 py-2 font-semibold text-evisablack" colspan="3">
+                        {{ __('Total') }}
+                    </td>
+                    <td class="px-4 py-2 text-right font-semibold text-evisablack">
+                        {{ $order->getTotal() }} {{ $order->getCurrency() }}
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>

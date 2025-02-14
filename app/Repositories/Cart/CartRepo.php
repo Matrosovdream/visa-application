@@ -56,6 +56,8 @@ class CartRepo {
             $data['travellers'] = [];
         }
 
+        $travellerCount = $data['meta']['travellers_count'] ?? 1;
+
         // Get products from cart
         $products = $model->products;
         foreach( $products as $product ) {
@@ -82,6 +84,7 @@ class CartRepo {
 
         // Calculate totals
         $totals = [];
+        $totals['price'] = 0;
 
         // Offer id can null
         if( $product['offer_id'] ) {
@@ -89,14 +92,22 @@ class CartRepo {
         } else {
             $totals['offer_price'] = $product['Model']->offers->first()->price;
         }
+        $totals['offer_price_total'] = $totals['offer_price'] * $travellerCount;
 
+        // Required extras
         $totals['extras_price'] = $product['Model']->getRequiredExtras()->sum('price');
+        $totals['extras_price_total'] = $totals['extras_price'] * $travellerCount;
 
-        $totals['offer_price_total'] = $totals['offer_price'] * $product['quantity'];
-        $totals['extras_price_total'] = $totals['extras_price'] * $product['quantity'];
-        
-        $totals['price'] = $totals['offer_price'] + $totals['extras_price'];
-        $totals['total_price'] = $totals['price'] * $product['quantity'];
+        // Extra services optional
+        $extrasOptionalPrice = 0;
+        $extrasOptional = $model->extraServices()->get();
+        foreach( $extrasOptional as $extraOpt ) {
+            $extrasOptionalPrice += $extraOpt->service->price;
+        }
+
+        // Calculate totals
+        $totals['price'] = $totals['offer_price'] + $totals['extras_price'] + $extrasOptionalPrice;
+        $totals['total_price'] = $totals['price'] * $travellerCount;
 
         $data['totals'] = $totals;
 

@@ -1,5 +1,8 @@
 <header class="flex items-center justify-between px-6 py-4 bg-white shadow-md">
-    <img src="{{ asset('user/assets/img/logo/logo.svg') }}" alt="Logo" class="h-12" />
+
+    <a href="/">
+        <img src="{{ asset('user/assets/img/logo/logo.svg') }}" alt="Logo" class="h-12" />
+    </a>
 
     <nav class="hidden md:flex space-x-6 font-medium text-lg text-gray-600">
         @foreach($menuTop as $menu)
