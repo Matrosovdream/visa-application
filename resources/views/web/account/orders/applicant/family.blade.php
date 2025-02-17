@@ -6,14 +6,13 @@
         <!-- Sidebar -->
         <aside class="w-1/4 p-6 ml-6 bg-white">
 
-            <a href="#" class="text-blue-600 mb-4 inline-block hover:underline">&larr; Back to all orders</a>
             @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
             <h2 class="text-3xl font-semibold mb-6">
                 {{ $order->getProduct()->name }} - {{ __('Family') }}
             </h2>
 
-            <div class="space-y-6">
+            <div class="space-y-6 orders-user-sidebar">
                 @include('web.account.orders.partials.sidebar')
             </div>
 

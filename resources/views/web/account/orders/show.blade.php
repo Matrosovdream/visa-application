@@ -3,7 +3,10 @@
 @section('content')
 
     <div class="min-h-screen p-6">
-        <a href="#" class="text-evisablue hover:underline text-sm mb-4 inline-block ml-6">← Back to all orders</a>
+
+        <a href="{{ route('web.account.orders') }}" class="text-evisablue hover:underline text-sm mb-4 inline-block ml-6">
+            ← Back to all orders
+        </a>
 
         <div class="bg-white rounded-lg px-6 text-md">
             <h1 class="text-3xl font-semibold text-evisablack mb-8">

@@ -1,101 +1,72 @@
 @extends('web.layouts.app')
 
 @section('content')
-
-    <div class="flex h-screen p-6">
+    <div class="flex min-h-screen p-6">
         <!-- Sidebar -->
-        <aside class="w-1/4 p-6 ml-6 bg-white">
-
-            <a href="#" class="text-blue-600 mb-4 inline-block hover:underline">&larr; Back to all orders</a>
+        <aside class="w-1/4 p-6 ml-6 bg-white rounded-lg shadow-md">
             @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
-            <h2 class="text-3xl font-semibold mb-6">
+            <h2 class="text-2xl font-semibold mb-6">
                 {{ $order->getProduct()->name }} - {{ __('Trip Details') }}
             </h2>
 
             <div class="space-y-6">
                 @include('web.account.orders.partials.sidebar')
             </div>
-
         </aside>
 
         <!-- Main Content -->
         <main class="flex-1 p-6 max-w-5xl">
             <div class="bg-white border-2 border-solid border-evisasuperlight rounded-3xl p-8">
 
-            <div class="application-section-head mb-25">
-                    <h3 class="card-title">{{ __('Documents') }}</h3>
-                    <p class="card-text text-warning">{{ __('Passport page is required') }}</p>
-                </div>
+                <h1 class="text-2xl font-medium mb-6">
+                    {{ __('Documents') }}
+                </h1>
 
-                <div class="row row-cols-1 row-cols-md-2 g-4">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($applicant->documents as $document)
-                        <div class="col">
-                            <div class="card shadow-sm h-100">
-                                <!-- We display filename, path, description and remove form -->
-                                <div class="card-body">
-                                    <a href="{{ route('file.download', $document->document->id) }}">
-                                        <h5 class="card-title">
-                                            {{ $document->document->filename }}
-                                        </h5>
-                                    </a>
-                                    @php /*
-                                    <p class="card-text">Description: 
-                                        @if( $document->document->description )
-                                            {{ $document->document->description }}
-                                        @else
-                                            -
-                                        @endif
-                                    </p>
-                                    */ @endphp
-
-                                    <form action="{{ route('web.account.order.applicant.document.delete', ['order_id' => $order->id, 'applicant_id' => $applicant->id, 'document_id' => $document->id]) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <div class="text-right">
-                                            <button type="submit" class="btn btn-danger btn-remove mt-15">
-                                                {{ __('Remove') }}
-                                            </button>
-                                        </div>
-                                    </form>
-
+                        <div class="bg-white p-6 rounded-lg shadow-md mb-4">
+                            <a href="{{ route('file.download', $document->document->id) }}" class="text-blue-600 hover:underline">
+                                <h5 class="text-lg font-medium">{{ $document->document->filename }}</h5>
+                            </a>
+                            
+                            <form action="{{ route('web.account.order.applicant.document.delete', ['order_id' => $order->id, 'applicant_id' => $applicant->id, 'document_id' => $document->id]) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <div class="text-right mt-3">
+                                    <button type="submit" class="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700">
+                                        {{ __('Remove') }}
+                                    </button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     @endforeach
                 </div>
 
-                <br/>
-                <hr class="mb-15 mt-25">
-                <h5 class="card-title">{{ __('Add new document') }}</h5>
+                <hr class="my-6 border-gray-300">
+                <h5 class="text-lg font-semibold">{{ __('Add new document') }}</h5>
 
-                <!-- Documents form with the one field input file and description -->
-                <form action="{{ route('web.account.order.applicant.documents.store', ['order_id' => $order->id, 'applicant_id' => $applicant->id]) }}" method="POST" enctype="multipart/form-data">
+                <form
+                    action="{{ route('web.account.order.applicant.documents.store', ['order_id' => $order->id, 'applicant_id' => $applicant->id]) }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="mb-3">
-                        <input type="file" class="form-control" id="document" name="document">
+                    
+                    <div class="mb-4">
+                        <div class="relative border border-gray-300 rounded-lg bg-gray-100 p-3 text-center cursor-pointer hover:bg-gray-200">
+                            <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="document" name="document">
+                            <span class="text-gray-600">Click to upload or drag and drop</span>
+                        </div>
                     </div>
-                    @php /*
-                    <div class="mb-3">
-                        <label for="description" class="form-label">
-                            {{ __('Document Description') }}
-                        </label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                    </div>
-                    */ @endphp
-                    <button type="submit" class="btn btn-primary">
+
+                    <button 
+                        type="submit"
+                        class="mt-2 bg-evisablue text-white font-medium px-4 py-2 rounded-lg hover:bg-evisabluekhover"
+                        >
                         {{ __('Add file') }}
                     </button>
                 </form>
-
-
             </div>
         </main>
     </div>
-
-
-
-
-
-
 @endsection

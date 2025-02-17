@@ -83,6 +83,10 @@ button {
     list-style: none;
 }
 
+.select2-container {
+    
+}
+
 .select2-container .select2-selection--single {
     height: 40px!important;
     line-height: 40px!important;
@@ -277,5 +281,7 @@ h3 {
     display: block!important;
 }
 
-
+.orders-user-sidebar .active {
+    background-color: #dce1e6;
+}
 

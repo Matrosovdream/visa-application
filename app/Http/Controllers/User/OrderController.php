@@ -2,7 +2,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Actions\Web\OrderActions;
-use App\Actions\Web\OrderApplicantActions;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +11,6 @@ use App\Models\Traveller;
 use App\Models\TravellerDocuments;
 use App\Helpers\TravellerHelper;
 use App\Helpers\orderHelper;
-use App\Actions\Web\OrderApplicantActions as ApplicantActions;
 use App\Repositories\FormFieldReference\FormFieldReferenceRepo;
 use App\Repositories\Order\OrderRepo;
 use App\Repositories\FormFieldValue\FormFieldValueRepo;
@@ -268,10 +266,10 @@ class OrderController extends Controller
 
         /*
         ApplicantActions::fieldsUpdate($request, $order_id, $applicant_id);
-        
+        */
+
         // Check if is completed then update status
         orderHelper::checkUpdateStatus( $order_id );
-        */
 
         if( isset($request->next_page) ) {
             return redirect( $request->next_page );

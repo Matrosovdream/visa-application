@@ -22,6 +22,10 @@
 
         <div class="flex-lg-row-fluid ms-lg-15">
 
+            @foreach($errors->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
+
             <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
 
                 <li class="nav-item">

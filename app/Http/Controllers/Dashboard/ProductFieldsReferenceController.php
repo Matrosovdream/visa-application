@@ -47,6 +47,8 @@ class ProductFieldsReferenceController extends Controller {
 
         $this->productFieldRepo->update($id, $request->all());
 
+        //dd($request->all());
+
         return redirect()->back()->with('success', 'Product field reference updated successfully');
 
     }    

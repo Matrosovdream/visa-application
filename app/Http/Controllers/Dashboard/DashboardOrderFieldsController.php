@@ -50,7 +50,7 @@ class DashboardOrderFieldsController extends Controller
 
     public function update($id, Request $request)
     {
-        $this->actions->update($id, $request);
+        $this->actions->update($id, $request); 
         return redirect()->back();
     }
 

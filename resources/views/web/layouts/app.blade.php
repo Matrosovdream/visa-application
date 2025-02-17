@@ -54,12 +54,27 @@
 
     @yield('content')
 
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 
+    @php
+        $js_scripts = [
+            '/js/user/jquery-3.7.1.min.js', 
+            '/js/user/bootstrap.bundle.min.js', 
+            '/js/user/swiper.min.js', 
+            '/js/user/appear.js', 
+            '/js/user/odometer.min.js', 
+            //'/js/user/jquery.nice-select.min.js', 
+            //'/js/user/imagesloaded.pkgd.min.js', 
+            '/js/user/isotope.pkgd.min.js', 
+            '/js/user/jquery.magnific-popup.min.js', 
+            '/js/user/jquery-ui.min.js', 
+            '/js/user/parallax-scroll.js', 
+            '/js/user/main.js'
+        ]
+    @endphp
+
     <!-- Scripts -->
-    @foreach(['/js/user/jquery-3.7.1.min.js', '/js/user/bootstrap.bundle.min.js', '/js/user/swiper.min.js', '/js/user/appear.js', '/js/user/odometer.min.js', '/js/user/jquery.nice-select.min.js', '/js/user/imagesloaded.pkgd.min.js', '/js/user/isotope.pkgd.min.js', '/js/user/jquery.magnific-popup.min.js', '/js/user/jquery-ui.min.js', '/js/user/parallax-scroll.js', '/js/user/main.js'] as $asset)
+    @foreach($js_scripts as $asset)
         <script src="{{ asset($asset) }}"></script>
     @endforeach
 

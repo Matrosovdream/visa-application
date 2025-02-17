@@ -5,7 +5,12 @@
     <ul class="space-y-2 ml-8">
         <li>
             <a href="{{ route('web.account.order.trip', $order->id) }}"
-                class="flex max-w-50 items-top space-x-4 text-evisablack px-2 py-1 rounded-lg hover:bg-evisasuperlight">
+                class="
+                @if(request()->routeIs('web.account.order.trip'))
+                    active 
+                @endif
+                
+                flex max-w-50 items-top space-x-4 text-evisablack px-2 py-1 rounded-lg hover:bg-evisasuperlight">
 
                 <img src="{{ asset('/user/assets/img/icon/book.svg') }}" alt="" class="w-4 h-5 mr-2">
                 {{ __('General Information') }}

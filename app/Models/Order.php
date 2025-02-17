@@ -153,7 +153,23 @@ class Order extends Model
 
     public function getTotal()
     {
-        return $this->total_price;
+
+        $total = 0;
+        $travellerCount = $this->getMeta('travellers_count');
+
+        // Offer
+        $total += $this->getOffer()->price * $travellerCount;
+
+        // Fees
+        $total += $this->getProduct()->getRequiredExtras()->sum('price') * $travellerCount;
+
+        // Extra services
+        $extraServices = $this->extraServices;
+        foreach( $extraServices as $extraService ) {
+            $total += $extraService->service->price * $travellerCount;
+        }
+
+        return $total;
     }
 
     public function getCurrency()

@@ -85,6 +85,10 @@
 
     @if($field['type'] == 'email')
 
+    @php
+    //dd($field);
+    @endphp
+
         <div class="mb-4 field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
@@ -171,7 +175,7 @@
             </label>
 
             <select 
-                class="select2 w-75 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
+                class="select2 {{ $field['classes'] ?? '' }} {{ $field['required'] ? 'required' : '' }}" 
                 id="{{ $field_id }}-{{ $key }}" 
                 name="{{ $fieldName }}"
                 >
