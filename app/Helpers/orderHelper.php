@@ -163,7 +163,7 @@ class orderHelper {
     public static function checkUpdateStatus( $order_id ) {
 
         $order = Order::find($order_id);
-        
+
         if( $order->isCompletedForm() ) {
             $order->setStatus( 2 );
         }

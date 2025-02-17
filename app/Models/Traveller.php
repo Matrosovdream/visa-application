@@ -35,6 +35,16 @@ class Traveller extends Model
         return $this->hasMany(TravellerDocuments::class);
     }
 
+    public function fieldValues()
+    {
+        return $this->hasMany(TravellerFieldValue::class, 'traveller_id');
+    }
+
+    public function getFieldValues()
+    {
+        return $this->fieldValues->pluck('value', 'field_id')->toArray();
+    }
+
     public function isCompletedForm()
     {
         return TravellerHelper::isCompletedForm($this);

@@ -150,7 +150,7 @@
 	// xbo counter end
 
 	// isotop
-	$('.grid').imagesLoaded(function () {
+	/*$('.grid').imagesLoaded(function () {
 		// init Isotope
 		var $grid = $('.grid').isotope({
 			itemSelector: '.grid-item',
@@ -160,7 +160,7 @@
 				columnWidth: '.grid-item',
 			}
 		});
-	});
+	});*/
 
 	// brand slider
 	var slider = new Swiper('.brand-slider .swiper-container', {
@@ -347,8 +347,8 @@
 	});
 
 	// nice select
-	$('#nice-select').niceSelect();
-	$('.nice-select').niceSelect();
+	//$('#nice-select').niceSelect();
+	//$('.nice-select').niceSelect();
 
 	// Select
 	$(document).ready(function() {
@@ -359,6 +359,7 @@
 				minimumResultsForSearch: 10,
 				templateResult: formatCountry,
             	templateSelection: formatCountry,
+				width: '100%'
 			});
 		});
 	});

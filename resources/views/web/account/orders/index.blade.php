@@ -13,9 +13,11 @@
 
                     <div
                         class="group max-w-[calc(100%-24px)] bg-white border-3 border-solid border-gray-200 rounded-3xl p-4 pl-6 pr-6 hover:border-3 hover:border-blue-500">
-                        <h2 class="text-xl font-semibold text-gray-900">
-                            Order #{{ $order->id }}
-                        </h2>
+                        <a href="{{ route('web.account.order', $order->id) }}">
+                            <h2 class="text-xl font-semibold text-gray-900">
+                                Order #{{ $order->id }}
+                            </h2>
+                        </a>
                         <p class="text-xl text-gray-900">
                             {{ $order->countryTo()->name }} tourist VISA
                         </p>

@@ -90,6 +90,8 @@
 
         // Go through summary-table, if tr isn't hidden and find span with data-price
         var total_price = 0;
+        var travellerCount = $('input[name="quantity"]').val();
+
         $('.summary-table tr').each(function () {
             if (!$(this).hasClass('hidden')) {
                 var price = parseFloat($(this).find('span').data('price'));
@@ -101,6 +103,8 @@
                 total_price += price;
             }
         });
+
+        //total_price = price * travellerCount;
 
         // Update price with currency
         $('#total-price-span').text(total_price + ' ' + '{{ $currency }}');

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('product_id')->on('products')->nullable();
             $table->string('entity');
             $table->string('section')->nullable();
+            $table->string('placeholder')->nullable();
             $table->boolean('required')->default(false);
             $table->string('default_value')->nullable(); 
             $table->string('classes')->nullable();

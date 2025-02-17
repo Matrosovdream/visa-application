@@ -14,6 +14,7 @@ class ProductFieldReference extends Model
         'product_id',
         'entity',
         'section',
+        'placeholder',
         'required',
         'default_value',
         'classes',
@@ -21,7 +22,7 @@ class ProductFieldReference extends Model
 
     public function field()
     {
-        return $this->belongsTo(OrderField::class, 'field_id');
+        return $this->belongsTo(ProductFieldReference::class, 'field_id');
     }
 
     public function product()

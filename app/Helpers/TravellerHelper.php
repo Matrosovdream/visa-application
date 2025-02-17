@@ -54,9 +54,23 @@ class TravellerHelper
     public static function isCompletedForm($traveller)
     {
 
-        $fields = self::getRequiredFields($traveller->id);
+        return false;
+
+        /*$traveller_id = $traveller->id;
+
+        $fields = self::getRequiredFields($traveller_id);
+
+        $all_fields = self::getTravellerFieldList( $traveller_id );*/
+
+        $fields = $traveller->getFieldList();
+
+        dd( $fields );
+
+
+
 
         // Check main fields
+        /*
         foreach ($fields['main'] as $field) {
             if (empty($traveller->$field)) {
                 return false;
@@ -74,8 +88,25 @@ class TravellerHelper
         if( count( $traveller->documents ) == 0) {
             return false;
         }
+        */
 
         return true;
+
+    }
+
+    public function getTravellerFields( $applicant_id, $product_id, $category ) {
+
+        $data = [];
+
+        $data['formFields'] = $this->getFormFields( 
+            $product_id,
+            'traveller', 
+            $category
+        );
+
+        $data['fieldValues'] = $this->fieldValueRepo->getTravellerValues( $applicant_id );
+
+        return $data;
 
     }
 
@@ -106,6 +137,8 @@ class TravellerHelper
             }
         }
 
+
+
         return [
             'main' => $fields_main,
             'meta' => $fields_meta,
@@ -129,7 +162,14 @@ class TravellerHelper
 
         // if isset traveller_id then fill in the array with values
         if ($traveller_id) {
+
             $traveller = Traveller::find($traveller_id);
+
+            // Field values from the single table
+            $fieldValues = $traveller->getFieldValues();
+
+            //dd($fields);
+
             foreach ($fields as $cat => $field) {
                 foreach ($field as $field_code => $data) {
 
@@ -142,6 +182,7 @@ class TravellerHelper
                             $fields[$cat][$field_code]['value'] = File::find($fileId);
                             break;
                         case 'meta':
+
                             // If it's select then take the value from the
                             if ($data['type'] == 'select') {
                                 foreach ($data['options'] as $option) {
@@ -153,11 +194,15 @@ class TravellerHelper
                             }
 
                             $fields[$cat][$field_code]['value'] = $traveller->getMeta($field_code);
+
+                            //$fields[$cat][$field_code]['value'] = $fieldValues[$field_code];
+
                             break;
                     }
 
                 }
             }
+
         }
 
         //dd($fields);

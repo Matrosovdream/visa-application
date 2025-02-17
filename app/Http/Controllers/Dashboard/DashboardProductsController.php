@@ -60,6 +60,8 @@ class DashboardProductsController extends Controller
             'traveller' => $this->productFieldRepo->getTravellerFieldsByProduct($id),
         ];
 
+        //dd($data['formFields']);
+
         $data['formFieldsRef'] = [
             'order' => [
                 'sections' => $this->formFieldRepo->getOrderSections(),

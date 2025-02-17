@@ -81,6 +81,7 @@ class OrderFieldsActions
 
     public function update($id, $request)
     {
+
         $request->validate([
             'title' => 'required',
             'slug' => 'required',

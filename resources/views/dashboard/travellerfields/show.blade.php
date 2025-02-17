@@ -2,145 +2,143 @@
 
 @section('content')
 
-<form class="form" method="POST" action="{{ route('dashboard.travellerfields.update', $field['id']) }}">
-    @csrf
+    <form class="form" method="POST" action="{{ route('dashboard.travellerfields.update', $field['id']) }}">
+        @csrf
 
-    <div class="d-flex flex-column flex-xl-row">
-        <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
-            <div class="card mb-5 mb-xl-8">
+        <div class="d-flex flex-column flex-xl-row">
+            <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
+                <div class="card mb-5 mb-xl-8">
 
-                <div class="card-body pt-5">
+                    <div class="card-body pt-5">
 
-                    <div class="d-flex flex-stack fs-4 py-3">
-                        <div class="fw-bold">{{ $title }}</div>
+                        <div class="d-flex flex-stack fs-4 py-3">
+                            <div class="fw-bold">{{ $title }}</div>
+                        </div>
+
                     </div>
 
                 </div>
-
             </div>
-        </div>
 
-        <div class="flex-lg-row-fluid ms-lg-15">
+            <div class="flex-lg-row-fluid ms-lg-15">
 
-            <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
 
-                <li class="nav-item">
-                    <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                        href="#kt_ecommerce_customer_general">General</a>
-                </li>
+                <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
 
-            </ul>
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
+                            href="#kt_ecommerce_customer_general">General</a>
+                    </li>
 
-            <div class="tab-content" id="myTabContent">
+                </ul>
 
-                <div class="tab-pane fade active show" id="kt_ecommerce_customer_general" role="tabpanel">
-                    <div class="card pt-4 mb-6 mb-xl-9">
+                <div class="tab-content" id="myTabContent">
 
-                        <div class="card-body pt-0 pb-5">
+                    <div class="tab-pane fade active show" id="kt_ecommerce_customer_general" role="tabpanel">
+                        <div class="card pt-4 mb-6 mb-xl-9">
 
-                            <input type="hidden" name="action" value="save_general" />
-                            <input type="hidden" name="entity" value="{{ $field['entity'] }}" />
+                            <div class="card-body pt-0 pb-5">
 
-                            <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Title</label>
-                                <input type="text" name="title" value="{{ $field['title'] }}"
-                                    class="form-control form-control-solid" placeholder="" />
+                                <input type="hidden" name="action" value="save_general" />
+                                <input type="hidden" name="entity" value="{{ $field['entity'] }}" />
+
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Title</label>
+                                    <input type="text" name="title" value="{{ $field['title'] }}"
+                                        class="form-control form-control-solid" placeholder="" />
+                                </div>
+
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Slug</label>
+                                    <input type="text" name="slug" value="{{ $field['slug'] }}"
+                                        class="form-control form-control-solid" placeholder="" />
+                                </div>
+
+                                <div class="fv-row mb-7">
+
+                                    <label class="fs-6 fw-semibold mb-2">
+                                        <span class="required">Field type</span>
+                                    </label>
+
+                                    <select name="type" class="form-select form-select-solid" data-control="select2"
+                                        data-hide-search="true">
+                                        <option value="">Select type</option>
+                                        @foreach($field_types as $code => $type)
+                                            <option value="{{ $code }}" {{ $field['type'] == $code ? 'selected' : '' }}>
+                                                {{ $type['title'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                                <div class="fv-row mb-7">
+
+                                    <label class="fs-6 fw-semibold mb-2">
+                                        <span class="required">Reference</span>
+                                    </label>
+
+                                    <select name="reference_code" class="form-select form-select-solid"
+                                        data-control="select2" data-hide-search="true">
+                                        <option value="">Select reference</option>
+                                        @foreach($references as $code => $ref)
+                                            <option value="{{ $code }}" {{ $field['reference_code'] == $code ? 'selected' : '' }}>
+                                                {{ $ref['title'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Placeholder</label>
+                                    <input type="text" name="placeholder" value="{{ $field['placeholder'] }}"
+                                        class="form-control form-control-solid" placeholder="" />
+                                </div>
+
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Tooltip</label>
+                                    <input type="text" name="tooltip" value="{{ $field['tooltip'] }}"
+                                        class="form-control form-control-solid" placeholder="" />
+                                </div>
+
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Description</label>
+                                    <input type="text" name="description" value="{{ $field['description'] }}"
+                                        class="form-control form-control-solid" placeholder="" />
+                                </div>
+
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Icon</label>
+                                    <input type="text" name="icon" value="{{ $field['icon'] }}"
+                                        class="form-control form-control-solid" placeholder="" />
+                                </div>
+
+                                <div class="d-flex justify-content-end">
+
+                                    <button type="submit" id="kt_ecommerce_customer_profile_submit"
+                                        class="btn btn-light-primary">
+                                        <span class="indicator-label">Save</span>
+                                        <span class="indicator-progress">Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+
+                                </div>
+
+
                             </div>
-
-                            <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Slug</label>
-                                <input type="text" name="slug" value="{{ $field['slug'] }}"
-                                    class="form-control form-control-solid" placeholder="" />
-                            </div>
-
-                            <div class="fv-row mb-7">
-
-                                <label class="fs-6 fw-semibold mb-2">
-                                    <span class="required">Field type</span>
-                                </label>
-
-                                <select name="type" class="form-select form-select-solid" data-control="select2"
-                                    data-hide-search="true">
-                                    <option value="">Select type</option>
-                                    @foreach($field_types as $code=>$type)
-                                        <option 
-                                            value="{{ $code }}"
-                                            {{ $field['type'] == $code ? 'selected' : '' }}
-                                            >
-                                            {{ $type['title'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-
-                            <div class="fv-row mb-7">
-
-                                <label class="fs-6 fw-semibold mb-2">
-                                    <span class="required">Reference</span>
-                                </label>
-
-                                <select name="reference_code" class="form-select form-select-solid" data-control="select2"
-                                    data-hide-search="true">
-                                    <option value="">Select reference</option>
-                                    @foreach($references as $code=>$ref)
-                                        <option 
-                                            value="{{ $code }}"
-                                            {{ $field['reference_code'] == $code ? 'selected' : '' }}
-                                            >
-                                            {{ $ref['title'] }}
-                                        </option>
-                                    @endforeach
-                                </select>
-
-                            </div>
-
-                            <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Placeholder</label>
-                                <input type="text" name="placeholder" value="{{ $field['placeholder'] }}"
-                                    class="form-control form-control-solid" placeholder="" />
-                            </div>
-
-                            <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Tooltip</label>
-                                <input type="text" name="tooltip" value="{{ $field['tooltip'] }}"
-                                    class="form-control form-control-solid" placeholder="" />
-                            </div>
-
-                            <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Description</label>
-                                <input type="text" name="description" value="{{ $field['description'] }}"
-                                    class="form-control form-control-solid" placeholder="" />
-                            </div>
-
-                            <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Icon</label>
-                                <input type="text" name="icon" value="{{ $field['icon'] }}"
-                                    class="form-control form-control-solid" placeholder="" />
-                            </div>
-
-                            <div class="d-flex justify-content-end">
-
-                                <button type="submit" id="kt_ecommerce_customer_profile_submit"
-                                    class="btn btn-light-primary">
-                                    <span class="indicator-label">Save</span>
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
-
-                            </div>
-
 
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
         </div>
-    </div>
 
-</form>
+    </form>
 
 @endsection

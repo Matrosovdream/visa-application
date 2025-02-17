@@ -63,6 +63,11 @@
                     </div>
 
                     <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
+                        <label class="form-label">Placeholder</label>
+                        <input type="text" name="placeholder" class="form-control form-control-solid mb-2" value="{{ $fieldValue['placeholder'] ?? '' }}" />
+                    </div>
+
+                    <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
                         <label class="form-label">Classes</label>
                         <input type="text" name="classes" class="form-control form-control-solid mb-2" value="{{ $fieldValue['classes'] ?? '' }}" />
                     </div>

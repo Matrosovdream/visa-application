@@ -7,14 +7,13 @@
         <!-- Sidebar -->
         <aside class="w-1/4 p-6 ml-6 bg-white">
 
-            <a href="#" class="text-blue-600 mb-4 inline-block hover:underline">&larr; Back to all orders</a>
             @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
             <h2 class="text-3xl font-semibold mb-6">
                 {{ $order->getProduct()->name }} - {{ __('Trip Details') }}
             </h2>
 
-            <div class="space-y-6">
+            <div class="space-y-6 orders-user-sidebar">
                 @include('web.account.orders.partials.sidebar')
             </div>
 
@@ -40,14 +39,6 @@
                             'entity' => 'order'
                         ]
                     )
-
-                    <div>
-                        <label class="block text-evisamedium mb-1">Name</label>
-                        <input type="text"
-                            class="block w-full px-3 py-2 border-solid border-2 border-evisasuperlight hover:border-evisalightblue focus:outline-0 focus:border-evisalightblue rounded-lg"
-                            value="" />
-                    </div>
-
 
                     <div class="col-span-2">
                         <button type="submit"
