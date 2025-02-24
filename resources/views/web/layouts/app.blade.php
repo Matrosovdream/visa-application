@@ -6,16 +6,21 @@
     @include('web.includes.metas')
 
     <!-- Scripts -->
-    @foreach([ /*'/css/user/bootstrap.min.css',
-          '/css/user/fontawesome.css',
-          '/css/user/animate.css',
-          '/css/user/swiper.min.css',
-          '/css/user/odometer.css',
-          '/css/user/nice-select.css',
-          '/css/user/jquery-ui.min.css',
-          '/css/user/magnific-popup.css',
-      '/css/user/main.css',*/ '/css/user/jquery-ui.min.css', 'css/user/extra.css', '/css/user/output.css',] as $asset)
-            <link rel="stylesheet" href="{{ asset($asset) }}">
+    @foreach([ 
+        /*'/css/user/bootstrap.min.css',
+        '/css/user/fontawesome.css',
+        '/css/user/animate.css',
+        '/css/user/swiper.min.css',
+        '/css/user/odometer.css',
+        '/css/user/nice-select.css',
+        '/css/user/jquery-ui.min.css',
+        '/css/user/magnific-popup.css',
+        '/css/user/main.css',*/ 
+        //'/css/user/jquery-ui.min.css', 
+        //'css/user/extra.css', 
+        '/css/user/output.css'
+        ] as $asset)
+            <link rel="stylesheet" href="{{ asset($asset) }}?=time{{ time() }}">
     @endforeach    
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,6 +29,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet" />
 
+    @php /*
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -34,31 +40,14 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" type="module"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    */ @endphp
 
     @stack('styles_top')
     @stack('scripts_top')
 
-</head>
-
-<body>
-
-    <!-- backtotop - start -->
-    <div class="xb-backtotop">
-        <a href="#" class="scroll">
-            <i class="far fa-arrow-up"></i>
-        </a>
-    </div>
-    <!-- backtotop - end -->
-
-    @include('web.includes.header')
-
-    @yield('content')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-
     @php
         $js_scripts = [
-            '/js/user/jquery-3.7.1.min.js', 
+            /*'/js/user/jquery-3.7.1.min.js', 
             '/js/user/bootstrap.bundle.min.js', 
             '/js/user/swiper.min.js', 
             '/js/user/appear.js', 
@@ -69,21 +58,39 @@
             '/js/user/jquery.magnific-popup.min.js', 
             '/js/user/jquery-ui.min.js', 
             '/js/user/parallax-scroll.js', 
-            '/js/user/main.js'
+            '/js/user/main.js'*/
+            '/js/user/scripts.js'
         ]
     @endphp
 
     <!-- Scripts -->
     @foreach($js_scripts as $asset)
-        <script src="{{ asset($asset) }}"></script>
+        <script src="{{ asset($asset) }}" defer></script>
     @endforeach
 
+</head>
+
+<body class="font-inter">
+
+    @include('web.includes.header')
+
+    @php /*
+    @yield('content')
+    */ @endphp
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+
+   
+    
+    @php /*
     @if(request()->routeIs('web.index'))
         @include('web.includes.footer')
     @endif
+    */ @endphp
 
     @stack('styles_bottom')
     @stack('scripts_bottom')
+    
 
 </body>
 

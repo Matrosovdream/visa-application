@@ -2,10 +2,8 @@
 
 @section('content')
 
-<main>
 
     @include('web.includes.direction-search-form')
 
-</main>
 
 @endsection
