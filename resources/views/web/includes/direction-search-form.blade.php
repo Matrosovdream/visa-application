@@ -1,4 +1,4 @@
-<div class="relative w-full min-h-screen">
+<div class="relative w-full min-h-[60vh] md:min-h-[80vh] flex items-center justify-center">
     <img src="{{ asset('user/assets/img/hero/homepage-hero.webp') }}" class="w-full h-full object-cover" />
 
     <div class="absolute top-0 left-0 w-full h-full flex justify-center items-center">
@@ -20,11 +20,8 @@
                         name="country_from">
                         <option selected disabled></option>
                         @foreach($countries as $country)
-                            <option 
-                                value="{{ $country->id }}" 
-                                @if($location['countryCode'] == $country->code) selected @endif
-                                data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}"
-                                >
+                            <option value="{{ $country->id }}" @if($location['countryCode'] == $country->code) selected @endif
+                                data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}">
                                 {{ $country->name }} - {{ $country->code }}
                             </option>
                         @endforeach
@@ -42,10 +39,8 @@
                         name="country_to">
                         <option selected disabled></option>
                         @foreach($countries as $country)
-                            <option 
-                                value="{{ $country->id }}"
-                                data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}"
-                                >
+                            <option value="{{ $country->id }}"
+                                data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}">
                                 {{ $country->name }} - {{ $country->code }}
                             </option>
                         @endforeach
