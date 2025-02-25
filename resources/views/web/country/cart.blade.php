@@ -13,19 +13,19 @@
 
     @endphp
 
-    <h1 class="text-3xl font-semibold ml-12 mt-6 font-inter">
+    <h1 class="text-2xl md:text-3xl font-semibold ml-6 md:ml-12 mt-6">
         {{ $product['Model']->name }} • {{ $product['Model']->getMeta('entries_number') }} entry
     </h1>
 
-    <div class="mx-auto mt-8  flex w-full max-w-[calc(100%-6rem)] items-center justify-between font-inter">
-        <div class="absolute h-[3px] w-full max-w-[calc(100%-6rem)] bg-evisasuperlight -z-10"></div>
+    <div class="mx-auto mt-8 flex w-full max-w-[calc(100%-3rem)] md:max-w-[calc(100%-6rem)] items-center justify-between space-x-3">
+        <div class="absolute h-[2px] md:h-[3px] w-full max-w-[calc(100%-6rem)] bg-evisasuperlight -z-10"></div>
 
         @foreach($steps as $key => $step)
 
             <div class="flex items-center">
-                <div class="flex px-4 py-2 items-center justify-center rounded-full 
-                                        {{ $key == $template ? 'bg-evisablue text-white' : 'bg-evisasuperlight text-evisamedium' }}
-                                        ">
+                <div class="text-xs md:text-base whitespace-nowrap flex px-2 py-1 md:px-4 md:py-2 items-center justify-center rounded-full
+                    {{ $key == $template ? 'bg-evisablue text-white' : 'bg-evisasuperlight text-evisamedium' }}
+                    ">
                     {{ $step }}
                 </div>
             </div>
@@ -45,7 +45,7 @@
         <input type="hidden" name="quantity" value="{{ $cart['meta']['travellers_count'] ?? 1 }}" />
 
         <div class="min-h-screen flex p-6 font-inter">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-[10vw] w-full bg-white  p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-[10vw] w-full md:px-6">
 
                 <div class="border-solid max-w-3xl text-">
 
