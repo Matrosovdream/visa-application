@@ -1,9 +1,9 @@
-<div class="border-solid max-w-3xl text-">
+<div class="border-solid max-w-3xl text-sm md:text-base">
 
     @if(isset($travellers) && count($travellers) > 0)
         @foreach($travellers as $key => $traveller)
 
-            <div class="card-traveller mt-25">
+            <div class="card-traveller">
 
                 <div class="flex w-full items-center justify-between ">
                     <h2 class="mb-4 font-semibold">
@@ -42,7 +42,7 @@
 
     @else
 
-        <div class="card-traveller mt-25">
+        <div class="card-traveller">
 
             <div class="flex w-full items-center justify-between ">
                 <h2 class="mb-4 font-semibold">

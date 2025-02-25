@@ -10,7 +10,7 @@
 
         @endphp
 
-        <div class="card-traveller mt-25">
+        <div class="card-traveller">
 
             <div class="row">
                 <div class="col-md-6">
@@ -19,9 +19,9 @@
                         {{ $traveller['name'] }} {{ $traveller['lastname'] }} - {{ __('Passport information') }}
                     </h3>
                     */ @endphp
-                    <h3>
+                    <h2 class="mb-4 font-semibold">
                         Traveller #{{ $loop->iteration }} - {{ __('Passport information') }}
-                    </h3>
+                    </h2>
                 </div>
 
                 <div class="col-md-6 text-end">
