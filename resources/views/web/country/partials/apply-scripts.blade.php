@@ -54,6 +54,9 @@
             var price = $(this).data('price');
             $('input[name="offer_price_total"]').val(price);
 
+            var travellerCount = $('input[name="quantity"]').val();
+            price *= travellerCount;
+
             // set offer-price-span
             $('#offer-price-span').text(price + ' {{ $currency }}');
             $('#offer-price-span').data('price', price);
@@ -95,7 +98,6 @@
         $('.summary-table tr').each(function () {
             if (!$(this).hasClass('hidden')) {
                 var price = parseFloat($(this).find('span').data('price'));
-                console.log(price);
 
                 if (isNaN(price)) {
                     price = 0;

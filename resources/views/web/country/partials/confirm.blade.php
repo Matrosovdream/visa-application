@@ -14,12 +14,15 @@
                     class="group mb-4 bg-white border-2 border-solid border-evisasuperlight rounded-xl p-4 pl-6 pr-6 
                     @if($loop->first) hover:border-evisablue @endif">
 
-                    <input class="form-check-input" type="radio" name="offer_id" id="offer-{{ $offer->id }}"
-                            value="{{ $offer->id }}" data-price="{{ $offer->price }}" @if($loop->first) checked @endif>
+                    
 
                     <label class="form-check label" for="offer-{{ $offer->id }}">
 
                         <h2 class="text- font-semibold text-evisablack py-1">
+
+                            <input class="form-check-input" type="radio" name="offer_id" id="offer-{{ $offer->id }}"
+                            value="{{ $offer->id }}" data-price="{{ $offer->price }}" @if($loop->first) checked @endif />
+
                             {{ $offer->name }}
                         </h2>
                         <p class="text- text-evisablack py-1">
@@ -43,20 +46,21 @@
 
                 <div
                     class="group mb-4 bg-white border-2 border-solid border-evisasuperlight rounded-xl p-4 pl-6 pr-6 hover:border-evisablue">
-                    
-                    <input 
-                            class="form-check-input" 
-                            type="checkbox" 
-                            name="extra_ids[]"
-                            id="extra-{{ $extra->id }}" 
-                            value="{{ $extra->id }}" 
-                            data-price="{{ $extra->price * count($travellers) }}"
-                            {{ isset( $cart['extras'][ $extra->id ] ) ? 'checked' : '' }}
-                            >
-
+  
                     <label class="form-check label" for="extra-{{ $extra->id }}">
                     
                         <h2 class="text- font-semibold text-evisablack py-1">
+
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                name="extra_ids[]"
+                                id="extra-{{ $extra->id }}" 
+                                value="{{ $extra->id }}" 
+                                data-price="{{ $extra->price * count($travellers) }}"
+                                {{ isset( $cart['extras'][ $extra->id ] ) ? 'checked' : '' }}
+                                >
+
                             {{ $extra->name }}
                         </h2>
 
