@@ -1,13 +1,16 @@
 <header
   class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-white shadow-md font-inter">
-  <img src="{{ asset('user/assets/img/logo/evisa_logo.png') }}" alt="Logo" class="h-12" />
+
+  <a href="/">
+    <img src="{{ asset('user/assets/img/logo/evisa_logo.png') }}" alt="Logo" class="h-12" />
+  </a>
 
   <nav class="hidden md:flex space-x-6 font-medium text-lg">
-    @foreach($menuTop as $menu)
-    <a href="{{ $menu['url'] }}" class="hover:text-evisablackhover">
-      {{ $menu['title'] }}
-    </a>
-  @endforeach
+      @foreach($menuTop as $menu)
+        <a href="{{ $menu['url'] }}" class="hover:text-evisablackhover">
+          {{ $menu['title'] }}
+        </a>
+      @endforeach
   </nav>
 
   <div class="flex items-center space-x-8">

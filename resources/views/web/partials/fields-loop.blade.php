@@ -166,7 +166,7 @@
 
         @php
         $country = $field['field']['reference_code'] == 'country' ? true : false;
-        //dd($field);
+        //dd($field['options'][0]['code']);
         @endphp
 
         <div class="mb-4 field-block-{{ $field['slug'] }}">
@@ -189,7 +189,9 @@
                     <option 
                         value="{{ $option['value'] }}" 
                         @if( $option['value'] == $value ) selected @endif
-                        @if( $country ) data-flag="{{ asset('user/assets/img/flags/' . strtolower($option['slug']) . '.svg') }}" @endif
+                        @if( $country ) 
+                            data-flag="{{ App\Helpers\countryHelper::getFlagUrl($option['code']) }}" 
+                        @endif
                         >
                         {{ $option['title'] ?? $option['name'] }}
                     </option>

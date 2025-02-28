@@ -352,7 +352,9 @@
 
 	// Select
 	$(document).ready(function() {
+		let i = 0;
 		$('.select2').each(function() {
+
 			$(this).select2({
 				dropdownCssClass: 'select2-dropdown',
 				containerCssClass: 'select2-container',
@@ -361,25 +363,10 @@
             	templateSelection: formatCountry,
 				width: '100%'
 			});
+			console.log(i);
+			i++;
 		});
 	});
-
-	function formatCountry(country) {
-		if (!country.id) {
-			return country.text;
-		}
-		var flagUrl = $(country.element).data('flag'); // Get flag URL from data attribute
-		var $country = '';
-		if (flagUrl) {
-			$country = $(
-				`<span><img src="${flagUrl}" class="w-5 h-5 inline-block mr-2" /> ${country.text}</span>`
-			);
-		} else {
-			$country = $(`<span>${country.text}</span>`);
-		}
-		return $country;
-	}
-
 
 	/* magnificPopup img view */
 	$('.popup-image').magnificPopup({
@@ -460,6 +447,25 @@ function updateDatePicker() {
 		}
 	});
 
+}
+
+
+function formatCountry(country) {
+		
+	if (!country.id) {
+		return country.text;
+	}
+
+	var flagUrl = $(country.element).data('flag'); // Get flag URL from data attribute
+	var $country = '';
+	if (flagUrl) {
+		$country = $(
+			`<span><img src="${flagUrl}" class="w-5 h-5 inline-block mr-2" /> ${country.text}</span>`
+		);
+	} else {
+		$country = $(`<span>${country.text}</span>`);
+	}
+	return $country;
 }
 
 

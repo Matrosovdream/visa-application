@@ -77,7 +77,14 @@
                 if ($(this).val() == 'yes') {
                     blocks.forEach(function (block) {
                         $('.field-block-' + block).show();
-                        $('.field-block-' + block + ' select').select2();
+                        $('.field-block-' + block + ' select').select2({
+                            dropdownCssClass: 'select2-dropdown',
+                            containerCssClass: 'select2-container',
+                            minimumResultsForSearch: 10,
+                            templateResult: formatCountry,
+                            templateSelection: formatCountry,
+                            width: '100%'
+                        });
                     });
                 } else {
                     blocks.forEach(function (block) {

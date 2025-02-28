@@ -69,7 +69,14 @@
                 // Check the value on page load
                 if ($('#field-dual_nationality-2').val() == 'yes') {
                     $('.field-block-dual_nationality_country').show();
-                    $('.field-block-dual_nationality_country select').select2();
+                    $('.field-block-dual_nationality_country select').select2({
+                        dropdownCssClass: 'select2-dropdown',
+                        containerCssClass: 'select2-container',
+                        minimumResultsForSearch: 10,
+                        templateResult: formatCountry,
+                        templateSelection: formatCountry,
+                        width: '100%'
+                    });
                 } else {
                     $('.field-block-dual_nationality_country select').select2('destroy');
                     $('.field-block-dual_nationality_country').hide();
@@ -79,7 +86,14 @@
                 $('#field-dual_nationality-2').on('change.select2', function () {
                     if ($(this).val() == 'yes') {
                         $('.field-block-dual_nationality_country').show();
-                        $('.field-block-dual_nationality_country select').select2();
+                        $('.field-block-dual_nationality_country select').select2({
+                            dropdownCssClass: 'select2-dropdown',
+                            containerCssClass: 'select2-container',
+                            minimumResultsForSearch: 10,
+                            templateResult: formatCountry,
+                            templateSelection: formatCountry,
+                            width: '100%'
+                        });
                     } else {
                         $('.field-block-dual_nationality_country select').select2('destroy');
                         $('.field-block-dual_nationality_country').hide();
