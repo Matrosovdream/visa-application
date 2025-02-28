@@ -16,7 +16,7 @@
   <div class="flex items-center space-x-8">
     <div class="hidden md:flex items-center space-x-4">
 
-      <form class="relative group">
+      <div class="relative group">
         <button type="button" class="flex items-center space-x-1 font-medium text-lg group-hover:">
           <span class="hover:text-evisablackhover">
             {{ $activeLanguage->name }}
@@ -39,11 +39,11 @@
           @endforeach
           
         </div>
-      </form>
+      </div>
 
       <div class="h-5 bg-evisalight w-0.5 rounded-full"></div>
 
-      <form class="relative group">
+      <div class="relative group">
 
         <button type="button" class="flex items-center space-x-1 text-lg font-medium group-hover:">
           <span class="hover:text-evisablackhover">
@@ -71,7 +71,7 @@
 
         </div>
         
-      </form>
+      </div>
 
     </div>
 
