@@ -83,4 +83,10 @@ class countryHelper
 
     }
 
+    public static function getFlagUrl( $code ) {
+
+        return asset('user/assets/svg/flags/' . strtolower($code) . '.svg');
+
+    }
+
 }

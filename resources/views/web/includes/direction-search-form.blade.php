@@ -8,8 +8,6 @@
         <div
             class="relative z-10 w-full max-w-[70%] md:max-w-4xl p-4 bg-gray-50 bg-opacity-80 flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 font-inter font-medium rounded-3xl">
 
-
-
             <div class="w-full max-w-xs flex-grow">
                 <label for="countries1" class="block mb-2 font-light text-evisablack">
                     {{ __('Where am I from?') }}
@@ -19,7 +17,7 @@
                     <option selected disabled></option>
                     @foreach($countries as $country)
                         <option value="{{ $country->id }}" @if($location['countryCode'] == $country->code) selected @endif
-                            data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}">
+                            data-flag="{{ App\Helpers\countryHelper::getFlagUrl($country->code) }}">
                             {{ $country->name }} - {{ $country->code }}
                         </option>
                     @endforeach
@@ -35,7 +33,7 @@
                     <option selected disabled></option>
                     @foreach($countries as $country)
                         <option value="{{ $country->id }}"
-                            data-flag="{{ asset('user/assets/img/flags/' . strtolower($country->slug) . '.svg') }}">
+                            data-flag="{{ App\Helpers\countryHelper::getFlagUrl($country->code) }}">
                             {{ $country->name }} - {{ $country->code }}
                         </option>
                     @endforeach

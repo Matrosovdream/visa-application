@@ -54,7 +54,12 @@
                                 class="select2 mt-1 block w-full px-3 py-2 border-solid border-2 border-evisasuperlight hover:border-evisalightblue rounded-lg">
 
                                 @foreach($countries as $country)
-                                    <option value="{{ $country->slug }}" data-slug="{{ $country->slug }}" @if(isset($countryFrom) && $country->slug == $countryFrom->slug) selected @endif>
+                                    <option 
+                                        value="{{ $country->slug }}" 
+                                        data-slug="{{ $country->slug }}" 
+                                        @if(isset($countryFrom) && $country->slug == $countryFrom->slug) selected @endif
+                                        data-flag="{{ App\Helpers\countryHelper::getFlagUrl($country->code) }}"
+                                        >
                                         {{ $country->name }} - {{ $country->code }}
                                     </option>
                                 @endforeach
@@ -72,11 +77,16 @@
                                 <label for="visa-type" class="block text-evisamedium">
                                     {{ __("Applying for") }}
                                 </label>
-                                <select id="visaType" aria-label="Visa Type" name="product_id"
+                                <select 
+                                    id="visaType" 
+                                    aria-label="Visa Type" 
+                                    name="product_id"
                                     class="select2 mt-1 block w-full px-3 py-2 border-solid border-2 border-evisasuperlight hover:border-evisalightblue rounded-lg">
                                     
                                     @foreach($products as $product)
-                                        <option value="{{ $product->id }}">
+                                        <option 
+                                            value="{{ $product->id }}"
+                                            >
                                             {{ $product->name }}
                                         </option>
                                     @endforeach
