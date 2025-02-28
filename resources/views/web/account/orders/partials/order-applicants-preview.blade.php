@@ -2,80 +2,41 @@
     {{ __('Applicants') }}
 </h2>
 <ul class="list-disc pl-5 text-evisablack mb-8">
-@foreach($order->travellers as $traveller)
+    @foreach($order->travellers as $traveller)
 
-<li class="mt-4 ">
-<div class="card shadow-sm h-100">
-    <div class="card-body">
-        <h5 class="mb-10">
-            {{ $traveller->name }} {{ $traveller->lastname }}
-        </h5>
+        <li class="mt-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="mb-5">
+                        {{ $traveller->name }} {{ $traveller->lastname }}
+                    </h5>
 
-        @if(!$traveller->isCompletedForm())
-            <p>{{ __('We need you to complete the following questions in order to move forward with your') }} Egypt
-                eVisa.</p>
-        @endif
-
-    </div>
-
-    <div class="flex items-center justify-between">
-
-    <a 
-            href="{{ route('web.account.order.applicant.personal', ['order_id' => $order->id, 'applicant_id' => $traveller->id, 'category' => 'personal']) }}" class="text-l mt-4 text-gray-500 group-hover:text-blue-700">
-            
-
-        <span class="text-md text-grey-900 bg-orange-100 text-orange-500 px-2 py-1 mt-4 rounded-md">
-            @if(!$traveller->isCompletedForm())
-                {{ __('Complete form now') }} ➔
-            @else
-                {{ __('View details') }}
-            @endif
-        </span>
-
-
-        </a>
-
-    </div>
-
-</div>
-</li>
-
-@endforeach
-</ul>
-
-
-
-
-@php /*
-@foreach($order->travellers as $traveller)
-
-    <div class="col active-status-block">
-        <div class="card shadow-sm h-100">
-            <div class="card-body">
-                <h5 class="mb-10">
-                    {{ $traveller->name }} {{ $traveller->lastname }}
-                </h5>
-
-                @if(!$traveller->isCompletedForm())
-                    <p>{{ __('We need you to complete the following questions in order to move forward with your') }} Egypt
-                        eVisa.</p>
-                @endif
-
-            </div>
-            <div class="card-footer bg-white mb-10 mt-10 border-0 d-flex justify-content-between align-items-center">
-                <a href="{{ route('web.account.order.applicant.personal', ['order_id' => $order->id, 'applicant_id' => $traveller->id, 'category' => 'personal']) }}"
-                    class="text-decoration-none">
                     @if(!$traveller->isCompletedForm())
-                        {{ __('Complete form now') }}
-                    @else
-                        {{ __('View details') }}
+                        <p>{{ __('We need you to complete the following questions in order to move forward with your') }} Egypt
+                            eVisa.</p>
                     @endif
-                </a>
-                <a href="{{ route('web.account.order.applicant.personal', ['order_id' => $order->id, 'applicant_id' => $traveller->id, 'category' => 'personal']) }}"
-                    class="btn-arrow">➔</a>
-            </div>
-        </div>
-    </div>
 
-@endforeach
-*/ @endphp
+                </div>
+
+                <div class="flex items-center justify-between">
+
+                    <a href="{{ route('web.account.order.applicant.personal', ['order_id' => $order->id, 'applicant_id' => $traveller->id, 'category' => 'personal']) }}"
+                        class="text-l mt-4 text-gray-500 group-hover:text-blue-700">
+
+                        <span class="text-md text-grey-900 bg-orange-100 text-orange-500 px-2 py-1 mt-4 rounded-md">
+                            @if(!$traveller->isCompletedForm())
+                                {{ __('Complete form now') }} ➔
+                            @else
+                                {{ __('View details') }}
+                            @endif
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+        </li>
+
+    @endforeach
+</ul>
