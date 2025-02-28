@@ -81,14 +81,10 @@
 
         @else
 
-            <div class="row mt-50">
-
-                <h1 class="mb-20">{{ __('Payment') }}</h1>
-
-                <div class="alert alert-success">
-                    {{ __('Payment has been paid successfully') }}
+            <div class="w-100">
+                <div class="bg-green-500 text-white text-center px-4 py-2 mb-4">
+                    {{ __('Order has been paid successfully') }}
                 </div>
-
             </div>
 
         @endif
