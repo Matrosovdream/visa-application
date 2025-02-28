@@ -86,7 +86,7 @@
     @else
 
       <button id="right-button" type="button"
-      class="space-x-[4px] w-auto md:w-[140px] inline-flex items-center px-3 py-2 whitespace-nowrap text-base md:text-lg text-evisablue font-medium bg-white rounded-xl outline-solid outline-3 outline-evisablue">
+      class="space-x-[4px] w-auto inline-flex items-center px-3 py-2 whitespace-nowrap text-base md:text-lg text-evisablue font-medium bg-white rounded-xl outline-solid outline-3 outline-evisablue">
       <svg width="16" height="16" viewBox="0 0 22 25" fill="currentColor" stroke="currentColor"
         xmlns="http://www.w3.org/2000/svg">
         <path
