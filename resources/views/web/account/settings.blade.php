@@ -52,31 +52,31 @@
                     </div>
                 @endif
 
-                <form class="grid grid-cols-2 gap-6" method="POST" action="{{ route('web.account.settings') }}">
+                <form class="grid grid-cols-1 sm:grid-cols-2 gap-6" method="POST" action="{{ route('web.account.settings') }}">
                     @csrf
 
-                    <div>
+                    <div >
                         <label class="block text-evisamedium mb-1">{{ __('Current password') }}</label>
                         <input type="password" name="current_password"
                             class="block w-full px-3 py-2 border-solid border-2 border-evisasuperlight hover:border-evisalightblue focus:outline-0 focus:border-evisalightblue rounded-lg"
                             value="">
                     </div>
 
-                    <div>
+                    <div >
                         <label class="block text-evisamedium mb-1">{{ __('New password') }}</label>
                         <input type="password" name="new_password"
                             class="block w-full px-3 py-2 border-solid border-2 border-evisasuperlight hover:border-evisalightblue focus:outline-0 focus:border-evisalightblue rounded-lg"
                             value="">
                     </div>
 
-                    <div>
+                    <div class="sm:col-span-2">
                         <label class="block text-evisamedium mb-1">{{ __('Confirm new password') }}</label>
                         <input type="password" name="new_password_confirmation"
                             class="block w-full px-3 py-2 border-solid border-2 border-evisasuperlight hover:border-evisalightblue focus:outline-0 focus:border-evisalightblue rounded-lg"
                             value="">
                     </div>
 
-                    <div class="col-span-2">
+                    <div class="sm:col-span-2">
                         <button type="submit"
                             class="mt-2 bg-evisablue text-white font-medium px-4 py-2 rounded-lg hover:bg-evisabluekhover">
                             {{ __('Update Password') }}
