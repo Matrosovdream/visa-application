@@ -14,10 +14,18 @@ use App\Models\Currency;
 use App\Models\Product;
 use App\Actions\Web\OrderActions;
 use Illuminate\Http\Request;
+use App\Repositories\Order\OrderRepo;
 
 
 class DashboardOrdersController extends Controller
 {
+
+    protected $orderRepo;
+
+    public function __construct()
+    {
+        $this->orderRepo = new OrderRepo();
+    }
     
     public function index()
     {
@@ -34,6 +42,9 @@ class DashboardOrdersController extends Controller
     public function show($id)
     {
         $order = Order::find($id);
+        $orderRepo = $this->orderRepo->getByID($id);
+
+        dd($orderRepo);
 
         $data = [
             'title' => 'Order',

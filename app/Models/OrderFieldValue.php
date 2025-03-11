@@ -16,6 +16,11 @@ class OrderFieldValue extends Model
     ];
     
     public $timestamps = false;
+
+    public function field()
+    {
+        return $this->belongsTo('App\Models\ReferenceFormField', 'field_id');
+    }
     
    
 

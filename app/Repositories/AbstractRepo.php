@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+
 abstract class AbstractRepo {
 
     protected $model;
@@ -16,6 +18,18 @@ abstract class AbstractRepo {
         return $this->mapItem($item);
     }
 
+    public function getBySlug( $slug )
+    {
+
+        $item = $this->model
+            ->where('slug', $slug)
+            ->with($this->withRelations)
+            ->first();
+
+        return $this->mapItem($item);
+
+    }
+
     public function getByUserID($user_id)
     {
         $item = $this->model
@@ -28,10 +42,7 @@ abstract class AbstractRepo {
 
     public function getAll($filter = [], $paginate = 10)
     {
-
-        $items = $this->model
-            ->where( $this->prepareFilter($filter) )
-            ->paginate($paginate);
+        $items = $this->model->where($filter)->paginate($paginate);
         return $this->mapItems($items);
     }
 
@@ -69,15 +80,23 @@ abstract class AbstractRepo {
 
         if( empty($items) ) { return null; }
 
-        $itemsMapped = $items->getCollection()->transform(function ($item) {
-            return $this->mapItem($item);
-        });
+        if( $items instanceof Collection ) { 
 
-        //dd($itemsMapped);
+            $itemsMapped = $items->transform(function ($item) {
+                return $this->mapItem($item);
+            });
+
+        } else {
+
+            $itemsMapped = $items->getCollection()->transform(function ($item) {
+                return $this->mapItem($item);
+            });
+
+        }
 
         return [
             'items' => $itemsMapped,
-            'links' => $items->links(),
+            //'links' => $items->links(),
             'Model' => $items
         ];
     }
@@ -93,18 +112,6 @@ abstract class AbstractRepo {
         ];
 
         return $res;
-    }
-
-    public function prepareFilter($filter)
-    {
-        // loop through and remove null and empty values
-        foreach ($filter as $key => $value) {
-            if (is_null($value) || $value == '') {
-                unset($filter[$key]);
-            }
-        }
-        return $filter;
-
     }
 
 }
