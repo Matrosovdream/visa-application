@@ -5,7 +5,7 @@
 
     <div class="flex h-screen p-6">
         <!-- Sidebar -->
-        <aside class="w-1/4 p-6 ml-6 bg-white">
+        <aside class="w-1/4 p-6 ml-6 bg-white hidden lg:block">
             <a href="/account/" class="text-blue-600 mb-4 inline-block hover:underline">
                 &larr; {{ __('Back to main menu') }}
             </a>
