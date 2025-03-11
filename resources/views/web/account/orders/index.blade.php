@@ -9,6 +9,8 @@
             </h1>
             <div class="grid grid-cols-1 space-y-6 space-x-6 md:grid-cols-2 space-y-6 space-x-6 max-w-5xl">
 
+                @if( count($orders) > 0 )
+
                 @foreach($orders as $order)
 
                     <div
@@ -84,6 +86,14 @@
                     </div>
 
                 @endforeach
+
+                @else
+
+                    <div class="text-left text-gray-500">
+                        {{ __('No orders found') }}
+                    </div>
+
+                @endif
 
             </div>
         </main>
