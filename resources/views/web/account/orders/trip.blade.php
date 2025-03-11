@@ -5,7 +5,7 @@
 
     <div class="flex h-screen p-6">
         <!-- Sidebar -->
-        <aside class="w-1/4 p-6 ml-6 bg-white">
+        <aside class="w-1/4 p-6 ml-6 bg-white hidden md:block">
 
             @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 

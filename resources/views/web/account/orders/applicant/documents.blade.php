@@ -3,14 +3,14 @@
 @section('content')
     <div class="flex min-h-screen p-6">
         <!-- Sidebar -->
-        <aside class="w-1/4 p-6 ml-6 bg-white rounded-lg shadow-md">
+        <aside class="w-1/4 p-6 ml-6 bg-white rounded-lg shadow-md hidden md:block">
             @include('web.account.orders.partials.backlink', ['url' => route('web.account.order', $order->id)])
 
             <h2 class="text-2xl font-semibold mb-6">
                 {{ $order->getProduct()->name }} - {{ __('Trip Details') }}
             </h2>
 
-            <div class="space-y-6">
+            <div class="space-y-6 orders-user-sidebar">
                 @include('web.account.orders.partials.sidebar')
             </div>
         </aside>
@@ -35,7 +35,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <div class="text-right mt-3">
-                                    <button type="submit" class="px-4 py-2 bg-red-600 rounded-lg hover:bg-red-700">
+                                    <button type="submit" class="px-4 py-2 rounded-lg">
                                         {{ __('Remove') }}
                                     </button>
                                 </div>
