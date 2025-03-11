@@ -186,9 +186,11 @@
 
 @section('toolbar-buttons')
 
+    @php /*
     <a href="{{ route('dashboard.orders.create') }}" class="btn btn-sm fw-bold btn-primary">
         New Order
     </a>
+    */ @endphp
 
 @endsection
 

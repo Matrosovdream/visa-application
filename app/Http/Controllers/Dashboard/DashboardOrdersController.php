@@ -24,7 +24,7 @@ class DashboardOrdersController extends Controller
 
         $data = [
             'title' => 'Orders',
-            'orders' => Order::paginate(10),
+            'orders' => Order::orderByDesc('id')->paginate(10),
             'orderStatuses' => OrderStatus::all(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
