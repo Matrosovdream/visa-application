@@ -92,7 +92,7 @@ button {
     line-height: 48px!important;
     border: 2px solid oklch(0.95 0 0)!important;
     border-radius: 10px!important;
-    background-color: oklch(0.98 0 0)!important;
+    /*background-color: oklch(0.98 0 0)!important;*/
 }
 
 .select2-container .select2-selection--single .select2-selection__arrow {
@@ -148,10 +148,12 @@ label.error {
     display: none;
 }
 
+/*
 .summary-table {
     --tw-bg-opacity: 1;
     background-color: rgb(248 249 249 / var(--tw-bg-opacity));
 }
+*/
 
 .step-indicator {
     display: flex;
