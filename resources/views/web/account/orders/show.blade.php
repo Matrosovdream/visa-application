@@ -27,9 +27,7 @@
                     @include('web.account.orders.partials.order-applicants-preview')
                     
                     <!-- Completed Documents, loaded by manager -->
-                    @php /*
                     @include('web.account.orders.partials.order-completed-documents-preview')
-                    */ @endphp
 
                 </div>
 
