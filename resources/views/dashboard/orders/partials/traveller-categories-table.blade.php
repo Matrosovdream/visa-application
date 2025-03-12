@@ -25,7 +25,11 @@
                                         <tr>
                                             <td class="text-muted text-start">{{ $field['field']['title'] }}</td>
                                             <td class="text-start text-gray-800">
-                                                {{ $field['value'] ?? '' }}
+                                                @if( isset( $field['valueReference'] ) )
+                                                    {{ $field['valueReference']['title'] }}
+                                                @else
+                                                    {{ $field['value'] ?? '' }}
+                                                @endif
                                             </td>
                                         </tr>
 

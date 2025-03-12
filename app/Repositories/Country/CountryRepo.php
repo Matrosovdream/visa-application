@@ -25,7 +25,7 @@ class CountryRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
-            'name' => $item->name,
+            'title' => $item->name,
             'slug' => $item->slug,
             'code' => $item->code,
             'icon' => $item->icon,
