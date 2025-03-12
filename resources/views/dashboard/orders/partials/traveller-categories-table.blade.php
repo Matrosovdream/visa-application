@@ -18,25 +18,20 @@
                         <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
                             <tbody class="fw-semibold text-gray-600">
 
-                                @foreach( $travellerFields[ $cat['slug'] ] as $field_slug=>$field )
+                                @if( isset($travellerRepo['fieldValues']['GroupedBySection'][ $cat['slug'] ]) ) 
 
-                                    <tr>
-                                        <td class="text-muted text-start">{{ $field['title'] }}</td>
-                                        <td class="text-start text-gray-800">
-                                            @if( $field['value'] == '')
-                                                -
-                                            @else
-                                                @if( isset($field['valueModel']) )
-                                                    {{ $field['valueModel']['title'] }}
-                                                @else
-                                                    {{ $field['value'] }}
-                                                @endif      
+                                    @foreach( $travellerRepo['fieldValues']['GroupedBySection'][ $cat['slug'] ] as $field )
 
-                                            @endif
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td class="text-muted text-start">{{ $field['field']['title'] }}</td>
+                                            <td class="text-start text-gray-800">
+                                                {{ $field['value'] ?? '' }}
+                                            </td>
+                                        </tr>
 
-                                @endforeach
+                                    @endforeach
+
+                                @endif
 
                             </tbody>
                         </table>

@@ -216,6 +216,7 @@ class DashboardOrdersController extends Controller
             'title' => 'Order Traveller',
             'order' => $order,
             'traveller' => $traveller,
+            'travellerRepo' => $travellerRepo,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
             'orderStatuses' => OrderStatus::all(),
             'travellerFieldCategories' => TravellerHelper::getTravellerFieldCategories(),
