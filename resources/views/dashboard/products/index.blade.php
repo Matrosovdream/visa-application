@@ -39,12 +39,6 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">
-                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                    <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                        data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />
-                                </div>
-                            </th>
                             <th class="min-w-200px">Product</th>
                             <th class="min-w-200px">Description</th>
                             <th class="text-center max-w-100px">Countries</th>
@@ -58,11 +52,6 @@
                         @foreach($products as $product)
 
                             <tr>
-                                <td>
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="1" />
-                                    </div>
-                                </td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                             <a href="{{ route('dashboard.products.show', $product->id) }}"
