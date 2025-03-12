@@ -82,6 +82,7 @@
 
                     @endif
 
+                    @php /*
                     <div class="form-group mt-5">
                         <a href="{{ route('dashboard.orders.traveller.create', $order->id) }}">
                             <button type="button" class="btn btn-sm btn-light-primary">
@@ -90,6 +91,7 @@
                             </button>
                         </a>
                     </div>
+                    */ @endphp
 
                 </div>
 

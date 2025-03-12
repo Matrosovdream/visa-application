@@ -29,7 +29,11 @@
 
 
                     <a href="{{ route('dashboard.orders.traveller.show', ['order_id' => $order->id, 'traveller_id' => $traveller['id']]) }}"
-                        class="btn btn-sm btn-light btn-active-light-primary">Show</a>
+                        class="btn btn-sm btn-light btn-active-light-primary">
+                        Show
+                    </a>
+
+                    @php /*
                     <a href="{{ route('dashboard.orders.traveller.edit', ['order_id' => $order->id, 'traveller_id' => $traveller['id']]) }}"
                         class="btn btn-sm btn-light btn-active-light-primary">Edit</a>
 
@@ -39,6 +43,7 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-light btn-active-light-primary">Delete</button>
                     </form>
+                    */ @endphp
                     
                 </td>
             </tr>
