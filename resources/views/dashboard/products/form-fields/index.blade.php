@@ -1,70 +1,60 @@
 @if(count($fields) > 0)
 
-    <div class="form-group">
-        <div data-repeater-list="kt_ecommerce_add_product_options" class="d-flex flex-column gap-3">
+    <div class="table-responsive">
+        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
+            <thead>
+                <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                    <th class="max-w-150px">Title</th>
+                    <th>Required</th>
+                    <th class="min-w-100px text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600">
 
-            <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
+                @foreach($fields as $field)
 
-                <div class="w-250 w-md-200px">Title</div>
-                <div class="w-250 w-md-100px">Section</div>
-                <div class="w-100 w-md-100px text-center">Required</div>
-                <div class="w-100 w-md-100px text-center">Default value</div>
-                <div class="w-100 w-md-100px text-center">Placeholder</div>
-                <div class="w-100 w-md-100px text-center">Classes</div>
-                <div class="w-50 w-md-50px"></div>
+                    <tr>
 
-            </div>
+                        <td class="pe-0">
+                            {{ $field['field']['title'] }}
+                        </td>
 
-            @foreach($fields as $field)
+                        <td class="pe-0">
+                            @if($field['required'])
+                                <span class="badge badge-light-success">Yes</span>
+                            @else
+                                <span class="badge badge-light-danger">No</span>
+                            @endif
+                        </td>
 
-                <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
+                        <td class="text-center">
+                            <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
 
-                    <div class="w-250 w-md-200px">
-                        <input type="text" class="form-control" name="offer_name[]" value="{{ $field['field']['title'] }}"
-                            disabled />
-                    </div>
+                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                data-kt-menu="true">
 
-                    <div class="w-250 w-md-100px">
-                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['section'] }}" disabled />
-                    </div>
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_product_form_field_{{ $field['id'] }}">
+                                        Edit
+                                    </a>
 
-                    <div class="w-100 w-md-100px text-center">
-                        @if($field['required'])
-                            <span class="badge badge-light-success">Yes</span>
-                        @else
-                            <span class="badge badge-light-danger">No</span>
-                        @endif
-                    </div>
+                                </div>
 
-                    <div class="w-100 w-md-100px">
-                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['default_value'] }}"
-                            disabled />
-                    </div>
+                            </div>
+                        </td>
 
-                    <div class="w-100 w-md-100px">
-                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['placeholder'] }}"
-                            disabled />
-                    </div>
+                    </tr>
 
-                    <div class="w-100 w-md-100px">
-                        <input type="text" class="form-control" name="offer_price[]" value="{{ $field['classes'] ?? '' }}"
-                            disabled />
-                    </div>
+                @endforeach
 
-                    <div class="w-50 w-md-50px">
 
-                        <a href="#" class="btn btn-sm fw-bold btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_product_form_field_{{ $field['id'] }}">
-                            Edit
-                        </a>
-
-                    </div>
-
-                </div>
-
-            @endforeach
-
-        </div>
+            </tbody>
+        </table>
     </div>
 
 @endif
+
+
