@@ -29,7 +29,8 @@ class TravellerRepo extends AbstractRepo
         }
 
         $fieldValues = $this->fieldValueRepo->mapItems( $item->fieldValues );
-        //$fieldValues['Grouped'] = $this->fieldValueRepo->groupFields( $fieldValues['items'] );
+        $fieldValues['Grouped'] = $this->fieldValueRepo->groupFields( $fieldValues['items'] );
+        $fieldValues['GroupedBySection'] = $this->fieldValueRepo->groupFieldsBySection( $fieldValues['items'] );
 
         //dd($fieldValues);
 
@@ -41,14 +42,6 @@ class TravellerRepo extends AbstractRepo
             'birthday' => $item->birthday,
             'passport' => $item->passport,
             'fieldValues' => $fieldValues,
-            /*'hash' => $item->hash,
-            'user' => $item->user_id,
-            'status' => $item->status_id,
-            'payment_method' => $item->payment_method_id,
-            'currency' => $item->currency,
-            'is_paid' => $item->is_paid,
-            'total_price' => $item->total_price,
-            'fieldValues' => $fieldValues,*/
             'Model' => $item
         ];
 

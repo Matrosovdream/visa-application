@@ -44,20 +44,24 @@ class TravellerFieldValueRepo extends AbstractRepo
 
         foreach( $fields as $field ) {
 
-            if( $field['field']['slug'] == 'arrival_date' ) {
-                $grouped['arrival_date'] = $field;
+            if( $field['field']['is_name'] ) {
+                $grouped['name'] = $field;
             }
 
-            if( $field['field']['is_fullname'] ) {
-                $grouped['fullname'] = $field;
+            if( $field['field']['is_lastname'] ) {
+                $grouped['lastname'] = $field;
             }
 
-            if( $field['field']['is_phone'] ) {
-                $grouped['phone'] = $field;
+            if( $field['field']['is_birthday'] ) {
+                $grouped['birthday'] = $field;
             }
 
-            if( $field['field']['is_email'] ) {
-                $grouped['email'] = $field;
+            if( $field['field']['is_passport'] ) {
+                $grouped['passport'] = $field;
+            }
+
+            if( $field['field']['is_passport'] ) {
+                $grouped['passport'] = $field;
             }
 
         }
@@ -65,5 +69,19 @@ class TravellerFieldValueRepo extends AbstractRepo
         return $grouped;
 
     }
+
+    public function groupFieldsBySection( $fields ) {
+
+        $grouped = [];
+
+        foreach( $fields as $field ) {
+            $grouped[ $field['field']['section'] ][] = $field;
+        }
+
+        return $grouped;
+
+    }
+
+
 
 }
