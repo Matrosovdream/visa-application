@@ -30,12 +30,30 @@ class DashboardOrdersController extends Controller
         $this->travellerRepo = new TravellerRepo();
     }
     
-    public function index()
+    public function index( Request $request )
     {
+
+        //dd($request->all());
+
+        // Filter orders
+        $orders = Order::orderByDesc('id');
+
+        if( isset($request->date_from) ) {
+            $orders->where('created_at', '>=', $request->date_from);
+        }
+
+        if( isset($request->date_to) ) {
+            $orders->where('created_at', '<=', $request->date_to);
+        }
+
+        if( isset($request->status) ) {
+            $status = OrderStatus::where('slug', $request->status)->first();
+            $orders->where('status_id', $status->id);
+        }
 
         $data = [
             'title' => 'Orders',
-            'orders' => Order::orderByDesc('id')->paginate(10),
+            'orders' => $orders->paginate(10),
             'orderStatuses' => OrderStatus::all(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
