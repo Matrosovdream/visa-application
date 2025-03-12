@@ -21,7 +21,8 @@
                                         <i class="ki-duotone ki-calendar fs-2 me-2">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
-                                        </i>Status
+                                        </i>
+                                        Status
                                     </div>
                                 </td>
                                 <td class="fw-bold text-end">
@@ -104,7 +105,7 @@
                                     <div class="d-flex align-items-center justify-content-end">
                                         <a href="apps/ecommerce/customers/details.html"
                                             class="text-gray-600 text-hover-primary">
-                                            {{ $order->customerFields()['full_name'] }}
+                                            {{ $orderRepo['fieldValues']['Grouped']['fullname']['value'] ?? '' }}
                                         </a>
                                     </div>
                                 </td>
@@ -119,7 +120,7 @@
                                     </div>
                                 </td>
                                 <td class="fw-bold text-end">
-                                    {{ $order->customerFields()['email'] }}
+                                    {{ $orderRepo['fieldValues']['Grouped']['email']['value'] ?? '' }}
                                 </td>
                             </tr>
                             <tr>
@@ -132,7 +133,7 @@
                                     </div>
                                 </td>
                                 <td class="fw-bold text-end">
-                                    {{ $order->customerFields()['phone'] }}
+                                    {{ $orderRepo['fieldValues']['Grouped']['phone']['value'] ?? '' }}
                                 </td>
                             </tr>
                         </tbody>
@@ -201,7 +202,7 @@
                                     </div>
                                 </td>
                                 <td class="fw-bold text-end">
-                                    {{ $order->customerFields()['time_arrival'] }}
+                                    {{ $orderRepo['fieldValues']['Grouped']['arrival_date']['value'] ?? '' }}
                                 </td>
                             </tr>
                         </tbody>

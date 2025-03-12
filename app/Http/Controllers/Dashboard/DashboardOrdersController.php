@@ -44,11 +44,12 @@ class DashboardOrdersController extends Controller
         $order = Order::find($id);
         $orderRepo = $this->orderRepo->getByID($id);
 
-        dd($orderRepo);
+        //dd($orderRepo);
 
         $data = [
             'title' => 'Order',
             'order' => $order,
+            'orderRepo' => $orderRepo,
             'orderStatuses' => OrderStatus::all(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
             //'travellerFieldCategories' => TravellerHelper::getTravellerFieldCategories(),
