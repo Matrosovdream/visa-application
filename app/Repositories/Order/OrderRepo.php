@@ -42,6 +42,11 @@ class OrderRepo extends AbstractRepo
             return null;
         }
 
+        $fieldValues = $this->fieldValueRepo->mapItems( $item->fieldValues );
+        $fieldValues['Grouped'] = $this->fieldValueRepo->groupFields( $fieldValues['items'] );
+
+        //dd($fieldValues);
+
         $res = [
             'id' => $item->id,
             'hash' => $item->hash,
@@ -51,7 +56,7 @@ class OrderRepo extends AbstractRepo
             'currency' => $item->currency,
             'is_paid' => $item->is_paid,
             'total_price' => $item->total_price,
-            'fieldValues' => $this->fieldValueRepo->mapItems( $item->fieldValues ),
+            'fieldValues' => $fieldValues,
             'Model' => $item
         ];
 
