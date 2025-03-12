@@ -15,16 +15,19 @@ use App\Models\Product;
 use App\Actions\Web\OrderActions;
 use Illuminate\Http\Request;
 use App\Repositories\Order\OrderRepo;
+use App\Repositories\Traveller\TravellerRepo;
 
 
 class DashboardOrdersController extends Controller
 {
 
     protected $orderRepo;
+    protected $travellerRepo;
 
     public function __construct()
     {
         $this->orderRepo = new OrderRepo();
+        $this->travellerRepo = new TravellerRepo();
     }
     
     public function index()
@@ -206,7 +209,9 @@ class DashboardOrdersController extends Controller
     {
         $order = Order::find($orderId);
         $traveller = $order->travellers()->find($travellerId);
+        $travellerRepo = $this->travellerRepo->getByID($travellerId);
 
+dd($travellerRepo['fieldValues']['items'][0]);
         $data = [
             'title' => 'Order Traveller',
             'order' => $order,

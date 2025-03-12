@@ -18,4 +18,9 @@ class TravellerFieldValue extends Model
     // Turn off timestamps
     public $timestamps = false;
 
+    public function field()
+    {
+        return $this->belongsTo('App\Models\ReferenceFormField', 'field_id');
+    }
+
 }
