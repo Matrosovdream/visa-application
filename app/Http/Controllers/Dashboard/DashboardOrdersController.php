@@ -44,15 +44,11 @@ class DashboardOrdersController extends Controller
 
     public function show($id)
     {
-        $order = Order::find($id);
-        $orderRepo = $this->orderRepo->getByID($id);
-
-        //dd($orderRepo);
-
+     
         $data = [
             'title' => 'Order',
-            'order' => $order,
-            'orderRepo' => $orderRepo,
+            'order' => Order::find($id),
+            'orderRepo' => $this->orderRepo->getByID($id),
             'orderStatuses' => OrderStatus::all(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
             //'travellerFieldCategories' => TravellerHelper::getTravellerFieldCategories(),
@@ -64,11 +60,11 @@ class DashboardOrdersController extends Controller
 
     public function edit($id)
     {
-        $order = Order::find($id);
 
         $data = [
             'title' => 'Edit Order',
-            'order' => $order,
+            'order' => Order::find($id),
+            'orderRepo' => $this->orderRepo->getByID($id),
             'orderStatuses' => OrderStatus::all(),
             'Users' => User::all(),
             'countries' => Country::all(),
@@ -76,7 +72,7 @@ class DashboardOrdersController extends Controller
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
-        //dd($data);
+        //dd($data['orderRepo']);
 
         return view('dashboard.orders.edit', $data);
     }
@@ -211,7 +207,7 @@ class DashboardOrdersController extends Controller
         $traveller = $order->travellers()->find($travellerId);
         $travellerRepo = $this->travellerRepo->getByID($travellerId);
 
-        //dd($travellerRepo['fieldValues']['Grouped'], $travellerRepo['fieldValues']['GroupedBySection']);
+        dd($travellerRepo['fieldValues']['Grouped'], $travellerRepo['fieldValues']['GroupedBySection']);
         $data = [
             'title' => 'Order Traveller',
             'order' => $order,

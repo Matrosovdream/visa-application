@@ -40,7 +40,7 @@
                         data-placeholder="Status" data-kt-ecommerce-order-filter="status" name="meta[currency]">
                         <option selected disabled></option>
                         @foreach($currencies as $item)
-                            <option value="{{ $item->code }}" @if($item->code == $order->getMeta('currency')) selected @endif>
+                            <option value="{{ $item->code }}" @if($item->code == $orderRepo['currency']) selected @endif>
                                 {{ $item->code }}
                             </option>
                         @endforeach
@@ -83,7 +83,7 @@
                         Customer name *
                     </label>
                     <input type="text" class="form-control w-100" id="" name="meta[full_name]"
-                        value="{{ $order->getMeta('full_name') }}">
+                        value="{{ $orderRepo['fieldValues']['Grouped']['fullname']['value'] ?? '' }}">
                 </div>
 
                 <div class="mb-10 fv-row fv-plugins-icon-container">
@@ -91,7 +91,7 @@
                         Phone *
                     </label>
                     <input type="text" class="form-control w-100" id="" name="meta[phone]"
-                        value="{{ $order->getMeta('phone') }}">
+                        value="{{ $orderRepo['fieldValues']['Grouped']['phone']['value'] ?? '' }}">
                 </div>
 
             </div>
@@ -147,7 +147,7 @@
                         Time arrival *
                     </label>
                     <input type="text" class="form-control w-75 datepicker" name="meta[time_arrival]"
-                        value="{{ $order->getMeta('time_arrival') }}">
+                        value="{{ $orderRepo['fieldValues']['Grouped']['arrival_date']['value'] ?? '' }}">
                 </div>
 
             </div>
