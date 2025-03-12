@@ -207,7 +207,7 @@ class DashboardOrdersController extends Controller
         $traveller = $order->travellers()->find($travellerId);
         $travellerRepo = $this->travellerRepo->getByID($travellerId);
 
-        dd($travellerRepo['fieldValues']['Grouped'], $travellerRepo['fieldValues']['GroupedBySection']);
+        //dd($travellerRepo['fieldValues']['GroupedBySection']['passport'][5]);
         $data = [
             'title' => 'Order Traveller',
             'order' => $order,

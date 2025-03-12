@@ -4,6 +4,7 @@ namespace App\Repositories\Traveller;
 use App\Repositories\AbstractRepo;
 use App\Models\TravellerFieldValue;
 use App\Repositories\FormField\FormFieldRepo;
+use App\Repositories\Country\CountryRepo;
 
 class TravellerFieldValueRepo extends AbstractRepo
 {
@@ -11,13 +12,16 @@ class TravellerFieldValueRepo extends AbstractRepo
     protected $model;
     protected $fields = [];
     protected $formFieldRepo;
+    protected $countryRepo;
     protected $withRelations = ['field'];
 
     public function __construct() {
 
         $this->model = new TravellerFieldValue();
 
+        // References
         $this->formFieldRepo = new FormFieldRepo();
+        $this->countryRepo = new CountryRepo();
 
     }
 
@@ -28,10 +32,23 @@ class TravellerFieldValueRepo extends AbstractRepo
             return null;
         }
 
+        $field = $this->formFieldRepo->mapItem($item->field);
+
+        if( $field['type'] == 'reference' ) {
+
+            switch( $field['reference_code'] ) {
+                case 'country':
+                    $item->valueReference = $this->countryRepo->getById( $item->value );
+                    break;
+            }
+
+        }
+
         $res = [
             'id' => $item->id,
-            'field' => $this->formFieldRepo->mapItem($item->field),
+            'field' => $field,
             'value' => $item->value,
+            'valueReference' => $item->valueReference,
             'Model' => $item
         ];
 
