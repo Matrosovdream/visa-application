@@ -4,6 +4,7 @@ namespace App\Repositories\Order;
 use App\Repositories\AbstractRepo;
 use App\Models\Order;
 use App\Repositories\Order\OrderFieldValueRepo;
+use App\Repositories\FormFieldValue\FormFieldValueRepo;
 
 class OrderRepo extends AbstractRepo
 {
@@ -11,6 +12,7 @@ class OrderRepo extends AbstractRepo
     protected $model;
     protected $fields = [];
     protected $fieldValueRepo;
+    protected $formFieldValueRepo;
     protected $withRelations = ['user', 'meta', 'travellers', 'cartProducts'];
 
     public function __construct() {
@@ -18,22 +20,21 @@ class OrderRepo extends AbstractRepo
         $this->model = new Order();
 
         $this->fieldValueRepo = new OrderFieldValueRepo();
+        $this->formFieldValueRepo = new FormFieldValueRepo();
 
     }
 
-    /*
     public function getOrderValues( $cart_id )
     {
-        return $this->fieldValueRepo->getOrderValues( $cart_id );
+        return $this->formFieldValueRepo->getOrderValues( $cart_id );
     }
 
     public function saveOrderValues( $order_id, $values )
     {
         foreach( $values as $field_id => $value ) {
-            $this->fieldValueRepo->setOrderValue( $order_id, $field_id, $value );
+            $this->formFieldValueRepo->setOrderValue( $order_id, $field_id, $value );
         }
     }
-    */
 
     public function mapItem($item)
     {
