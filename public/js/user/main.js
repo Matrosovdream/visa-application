@@ -447,6 +447,8 @@ function updateDatePicker() {
 		}
 	});
 
+	$(".hasDatepicker").attr("readonly", "readonly");
+
 }
 
 
