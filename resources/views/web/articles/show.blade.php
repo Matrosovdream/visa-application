@@ -12,14 +12,14 @@
                             <ul class="post-meta ul_li">
                                 <li>
                                     <span class="posted-on">
-                                        {{ $article->created_at->format('F j, Y') }}
+                                        {{ $article['Model']->created_at->format('F j, Y') }}
                                     </span>
                                 </li>
                             </ul>
 
-                            <h2>{{ $article->title }}</h2>
+                            <h2>{{ $article['title'] }}</h2>
 
-                            {{ $article->content }}
+                            {!! $article['content'] !!}
 
                         </article>
 
