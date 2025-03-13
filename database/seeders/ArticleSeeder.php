@@ -13,6 +13,9 @@ class ArticleSeeder extends Seeder
      */
     public function run(): void
     {
-        //Article::factory(30)->create();
+        
+        // Retrieve the countries from the JSON file
+        $countries = json_decode(file_get_contents(database_path('references/articles.json')), true);
+
     }
 }
