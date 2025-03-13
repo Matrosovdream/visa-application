@@ -99,7 +99,7 @@
 
                             <button type="submit"
                                 class="mt-2 w-full bg-evisablue text-white font-medium py-2 rounded-xl hover:bg-evisabluekhover">
-                                {{ __('Apply for eVisa') }}
+                                {{ __('Start application') }}
                             </button>
 
                         @endif
@@ -125,7 +125,7 @@
                             <p class="flex justify-between">
                                 <span class="">{{ __('Valid for') }}:</span>
                                 <span class="font-semibold">
-                                    {{ $product->getMeta('valid_for') }} days
+                                    {{ $product->getMeta('valid_for') }} {{ __('days') }}
                                 </span>
                             </p>
                             <p class="flex justify-between">
