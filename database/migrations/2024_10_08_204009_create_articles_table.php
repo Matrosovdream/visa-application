@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('slug')->unique();
             $table->text('short_description')->nullable();
+            $table->text('summary')->nullable();
             $table->text('content')->nullable();
             $table->foreignId('author_id')->on('users');
             $table->string('image')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->string('locale')->index();
             $table->string('title')->nullable();
             $table->text('short_description')->nullable();
+            $table->text('summary')->nullable();
             $table->text('content')->nullable();
             $table->softDeletes();
             $table->timestamps();
