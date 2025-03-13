@@ -15,7 +15,29 @@ class ArticleSeeder extends Seeder
     {
         
         // Retrieve the countries from the JSON file
-        $countries = json_decode(file_get_contents(database_path('references/articles.json')), true);
+        $articles = json_decode(file_get_contents(database_path('references/articles.json')), true);
+
+        foreach ($articles as $article) {
+            
+            // Get content from html file
+            $path = database_path('references/articles/' . $article['slug'] . '.html'); 
+            $content = file_get_contents($path);
+            
+            // Create the article
+            Article::updateOrCreate(
+                ['slug' => $article['slug']],
+                [
+                    'title' => $article['title'],
+                    'slug' => $article['slug'],
+                    'summary' => $article['summary'],
+                    'short_description' => $article['short_description'],
+                    'content' => $content,
+                    'published' => $article['published'],
+                    'author_id' => $article['author_id'],
+                ]
+            );
+
+        }
 
     }
 }

@@ -14,13 +14,15 @@ class Article extends Model
     use softDeletes;
     use Translatable;
 
-    public $translatedAttributes = ['title', 'short_description', 'content'];
+    public $translatedAttributes = ['title', 'summary', 'short_description', 'content'];
 
     protected $fillable = [
         'title',
         'slug',
+        'summary',
         'short_description',
         'content',
+        'published',
         'author_id',
     ];
 
