@@ -2,25 +2,34 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Helpers\userSettingsHelper;
-use App\Models\Country;
 use Illuminate\Http\Request;
-use App\Models\Article;
+use App\Actions\Web\ArticleActions;
+
 
 class ArticleController extends Controller
 {
+
+    protected $articleActions;
+
+    public function __construct()
+    {
+        $this->articleActions = new ArticleActions();
+    }
     
     public function index( Request $request )
     {
-        $data = array('title' => 'Articles', 'articles' => Article::paginate(10));
-        return view('web.articles.index', $data);
+        return view(
+                'web.articles.index', 
+                $this->articleActions->index($request)
+            );
     }
 
     public function show($article_slug)
     {
-        $article = Article::where('slug', $article_slug)->first();
-        $data = array('title' => '','article' => $article);
-        return view('web.articles.show', $data);
+        return view(
+                'web.articles.show', 
+                $this->articleActions->show($article_slug)
+            );
     }
 
 }
