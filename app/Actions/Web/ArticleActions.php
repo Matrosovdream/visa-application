@@ -19,8 +19,21 @@ class ArticleActions {
 
         $articles = $this->articleRepo->getAll([], $paginate=1000);
 
-        dd($articles);
+        return [
+            'title' => 'Articles',
+            'articles' => $articles
+        ];
 
+    }
+
+    public function show($article_slug) {
+
+        $article = $this->articleRepo->getBySlug($article_slug);
+
+        return [
+            'title' => $article['title'],
+            'article' => $article
+        ];
     }
 
 }
