@@ -1,13 +1,6 @@
 <?php
 namespace App\Actions\Web;
 
-use Illuminate\Support\Facades\Auth;
-use App\Models\Country;
-use App\Models\Product;
-use App\Models\TravelDirection;
-use App\Services\CurrencyConverterService;
-
-
 class ProfileActions {
 
 
