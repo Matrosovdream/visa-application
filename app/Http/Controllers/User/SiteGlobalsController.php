@@ -3,20 +3,28 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\GlobalsService;
+use App\Actions\Web\SiteGlobalsActions;
 
 class SiteGlobalsController extends Controller
 {
+
+    protected $siteGlobalsActions;
+
+    public function __construct( SiteGlobalsActions $siteGlobalsActions ) {
+
+        $this->siteGlobalsActions = $siteGlobalsActions;
+
+    }
     
     public function setLanguage( Request $request )
     {
-        GlobalsService::setLanguage( $request->input('lang') );
+        $this->siteGlobalsActions->setLanguage( $request );
         return redirect()->back();
     }
 
     public function setCurrency( Request $request )
     {
-        GlobalsService::setCurrency( $request->input('currency') );
+        $this->siteGlobalsActions->setCurrency( $request );
         return redirect()->back();
     }
 

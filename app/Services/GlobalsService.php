@@ -80,11 +80,11 @@ class GlobalsService {
         return userSettingsHelper::getTopMenu();
     }
 
-    public static function setCurrency($code) {
+    public function setCurrency($code) {
         setcookie('currency', $code, time() + 60 * 60 * 24 * 30, '/');
     }
 
-    public static function setLanguage($code) {
+    public function setLanguage($code) {
         setcookie('language', $code, time() + 60 * 60 * 24 * 30, '/');
     }
 
