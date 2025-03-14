@@ -6,7 +6,7 @@ use Stevebauman\Location\Facades\Location;
 class LocationService
 {
 
-    public static function getLocation($ipAddress = null)
+    public function getLocation($ipAddress = null)
     {
 
         $location = Location::get($ipAddress);

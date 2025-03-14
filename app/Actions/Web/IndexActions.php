@@ -2,18 +2,24 @@
 namespace App\Actions\Web;
 
 use App\Services\LocationService;
-use App\Models\Article;
 use App\Models\Country;
 
 
 class IndexActions {
 
+    protected $locationService;
+
+    public function __construct( LocationService $locationService ) {
+
+        $this->locationService = $locationService;
+
+    }
+
     public function index( $request ) {
 
         return array(
             'title' => 'Homepage',
-            'articles' => Article::paginate(3),
-            'location' => LocationService::getLocation( $request->ip() )
+            'location' => $this->locationService->getLocation( $request->ip() )
         );
 
     }
