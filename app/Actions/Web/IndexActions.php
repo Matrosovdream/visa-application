@@ -2,16 +2,24 @@
 namespace App\Actions\Web;
 
 use App\Services\LocationService;
-use App\Models\Country;
+use App\Repositories\Country\CountryRepo;
 
 
 class IndexActions {
 
     protected $locationService;
+    protected $countryRepo;
 
-    public function __construct( LocationService $locationService ) {
+    public function __construct( 
+        LocationService $locationService, 
+        CountryRepo $countryRepo 
+        ) {
 
         $this->locationService = $locationService;
+
+        // References
+        $this->countryRepo = $countryRepo;
+
 
     }
 
@@ -26,12 +34,12 @@ class IndexActions {
 
     public function directionApply( $request ) {
 
-        $country_from = Country::find($request->country_from);
-        $country_to = Country::find($request->country_to);
+        $country_from = $this->countryRepo->getById( $request->country_from );
+        $country_to = $this->countryRepo->getById( $request->country_to );
 
         return [
-            'country' => $country_to->slug, 
-            'nationality' => $country_from->slug
+            'country' => $country_to['slug'], 
+            'nationality' => $country_from['slug']
         ];
 
     }

@@ -10,9 +10,7 @@ class CountryRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = [
-        //'title' => [ 'type' => 'string', 'required' => true ],
-    ];
+    protected $fields = [];
 
     public function __construct()
     {
