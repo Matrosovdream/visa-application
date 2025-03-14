@@ -5,28 +5,22 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\File;
-use Illuminate\Support\Facades\Storage;
+
+use App\Actions\Web\FileActions;
 
 class FileController extends Controller
 {
+
+    protected $fileActions;
+
+    public function __construct(FileActions $fileActions)
+    {
+        $this->fileActions = $fileActions;
+    }
     
     public function download(Request $request, File $file)
     {
-
-        if( !auth()->check() ) {
-            abort(404);
-        }
-        
-        // Check if user_id if the auth user or admin user
-        if( 
-            $file->user_id == auth()->user()->id || 
-            auth()->user()->isAdmin() ||
-            auth()->user()->isManager()
-            ) {
-            return Storage::download( $file->path );
-        }
-
+        return $this->fileActions->download($request, $file);
     }
-
 
 }
