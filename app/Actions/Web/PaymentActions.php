@@ -5,7 +5,7 @@ use App\Mixins\Order\OrderPaymentProcesser;
 
 class PaymentActions
 {
-    public static function processPayment($request)
+    public function processPayment($request)
     {
 
         // Prepare payment data

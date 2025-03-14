@@ -7,6 +7,13 @@ use App\Actions\Web\PaymentActions;
 class PaymentController extends Controller
 {
 
+    protected $paymentActions;
+
+    public function __construct(PaymentActions $paymentActions)
+    {
+        $this->paymentActions = $paymentActions;
+    }
+
     public function index()
     {
         return view('payment');
@@ -24,7 +31,7 @@ class PaymentController extends Controller
             'cvv' => 'required',
         ]);
 
-        $res = PaymentActions::processPayment($request);
+        $res = $this->paymentActions->processPayment($request);
 
         if( $res['status'] == 'failed' ) {
             return redirect()->back()->with('error', $res['errors']);
