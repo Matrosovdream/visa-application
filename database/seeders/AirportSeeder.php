@@ -31,6 +31,7 @@ class AirportSeeder extends Seeder
             Airport::updateOrCreate([
                 'ref_id' => $country['id'],
             ], [
+                'entity' => 'airport',
                 'identity' => $country['ident'],
                 'type' => $country['type'],
                 'name' => $country['name'],

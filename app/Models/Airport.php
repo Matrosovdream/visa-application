@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Airport extends Model
 {
 
-    protected $table = "airports";
+    protected $table = "arrival_points";
+
+    public $timestamps = false;
     
     protected $fillable = [
+        'entity',
         'ref_id',
         'identity',
         'type',

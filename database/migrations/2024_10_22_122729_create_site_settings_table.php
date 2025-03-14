@@ -47,20 +47,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('airports', function (Blueprint $table) {
+        Schema::create('arrival_points', function (Blueprint $table) {
             $table->id();
-            $table->integer('ref_id')->unique();
-            $table->string('identity')->unique();
+            $table->string('entity')->nullable();
+            $table->integer('ref_id')->nullable();
+            $table->string('identity')->nullable();
             $table->string('type')->nullable();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->foreignId('country_id')->on('countries')->nullable();
             $table->string('continent')->nullable();
             $table->string('iso_country')->nullable();
             $table->string('iso_region')->nullable();
             $table->string('municipality')->nullable();
             $table->string('wiki_link')->nullable();
-
-            $table->timestamps();
         });
 
         Schema::create('travel_directions', function (Blueprint $table) {
@@ -113,5 +112,6 @@ return new class extends Migration
         Schema::dropIfExists('airports');
         Schema::dropIfExists('travel_directions');
         Schema::dropIfExists('reference_form_fields');
+        Schema::dropIfExists('arrival_points');
     }
 };
