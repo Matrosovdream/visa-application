@@ -16,6 +16,7 @@ class ProductFieldsReferenceRepo {
         'entity',
         'section',
         'placeholder',
+        'classes',
         'required',
         'default_value',
     ];
@@ -71,6 +72,7 @@ class ProductFieldsReferenceRepo {
             'entity' => $item->entity,
             'section' => $item->section,
             'placeholder' => $item->placeholder,
+            'classes' => $item->classes,
             'required' => $item->required,
             'default_value' => $item->default_value,
         ];

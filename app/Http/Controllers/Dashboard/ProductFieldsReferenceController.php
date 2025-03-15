@@ -36,8 +36,7 @@ class ProductFieldsReferenceController extends Controller {
     }
 
     public function update(Request $request, $id) {
-
-
+        
         $request->validate([
             'product_id' => 'required',
             'entity' => 'required',
@@ -46,8 +45,6 @@ class ProductFieldsReferenceController extends Controller {
         ]);
 
         $this->productFieldRepo->update($id, $request->all());
-
-        //dd($request->all());
 
         return redirect()->back()->with('success', 'Product field reference updated successfully');
 

@@ -14,7 +14,11 @@
 
             <div class="modal-body py-lg-10 px-lg-10">
 
-                <form method="POST" action="{{ route('dashboard.productfieldsreference.update', $fieldValue['id']) }}">
+                <form 
+                    method="POST" 
+                    action="{{ route('dashboard.productfieldsreference.update', $fieldValue['id']) }}"
+                    id="form_field_{{ $field['id'] }}_edit"
+                    >
                     @csrf
 
                     <input type="hidden" name="product_id" value="{{ $product->id }}" />
@@ -102,7 +106,11 @@
                     </div>
 
                     <div class="col-lg-6 fv-row fv-plugins-icon-container text-end">
-                        <button type="submit" class="btn btn-lg btn-primary">
+                        <button 
+                            type="submit" 
+                            class="btn btn-lg btn-primary"
+                            onclick="event.preventDefault(); document.getElementById('form_field_{{ $fieldValue['id'] }}_edit').submit();"
+                            >
                             Save
                             <i class="ki-duotone ki-arrow-right fs-3 ms-1 me-0">
                                 <span class="path1"></span>
