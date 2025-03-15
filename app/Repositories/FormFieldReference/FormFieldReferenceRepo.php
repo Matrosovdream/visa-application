@@ -125,7 +125,7 @@ class FormFieldReferenceRepo
                 "slug" => $fieldData['slug'],
                 "title" => $fieldData['title'],
                 "value" => null,
-                "placeholder" => $fieldData['placeholder'],
+                "placeholder" => $field['placeholder'] ?? $fieldData['placeholder'],
                 'classes' => $field->classes,
                 "options" => $fieldData['options'] ?? [],
                 "field" => $fieldData
