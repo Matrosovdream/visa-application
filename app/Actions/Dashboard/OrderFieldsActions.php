@@ -16,17 +16,25 @@ class OrderFieldsActions
         $this->fieldRefRepo = $fieldRefRepo;
     }
 
-    public function index()
+    public function index( $request )
     {
+
         $data = [
             'title' => 'Order form fields',
             'articles' => [],
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
-        $data['items'] = ReferenceFormField::where('entity', 'order')
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+        // Main fields request
+        $data['items'] = ReferenceFormField::where('entity', 'order');
+
+        // Search fields by title
+        if ($request->has('s')) {
+            $data['items'] = $data['items']->where('title', 'like', '%'.$request->s.'%');
+        }
+
+        // Finally, paginate the results
+        $data['items'] = $data['items']->paginate(10);
 
         return $data;
 
