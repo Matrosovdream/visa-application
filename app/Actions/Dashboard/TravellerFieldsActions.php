@@ -15,7 +15,7 @@ class TravellerFieldsActions
         $this->fieldRefRepo = $fieldRefRepo;
     }
 
-    public function index()
+    public function index( $request )
     {
         $data = [
             'title' => 'Traveller form fields',
@@ -23,9 +23,16 @@ class TravellerFieldsActions
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
-        $data['items'] = ReferenceFormField::where('entity', 'traveller')
-        ->orderBy('id', 'asc')
-        ->paginate(10);
+        // Main fields request
+        $data['items'] = ReferenceFormField::where('entity', 'traveller');
+
+        // Search fields by title
+        if ($request->has('s')) {
+            $data['items'] = $data['items']->where('title', 'like', '%'.$request->s.'%');
+        }
+
+        // Finally, paginate the results
+        $data['items'] = $data['items']->paginate(10);
 
         return $data;
 

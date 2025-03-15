@@ -17,9 +17,9 @@ class DashboardTravellerFieldsController extends Controller
         $this->actions = $actions;
     }
     
-    public function index()
+    public function index( Request $request )
     {
-        $data = $this->actions->index(); //dd($data);
+        $data = $this->actions->index( $request );
         return view('dashboard.travellerfields.index', $data);
     }
 
