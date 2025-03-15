@@ -19,15 +19,6 @@
             </div>
 
             <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                <div class="w-100 mw-150px">
-                    <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                        data-placeholder="Status" name="status">
-                        <option></option>
-                        <option value="all">All</option>
-                        <option value="published">Published</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                </div>
                 <a href="{{ route('dashboard.orderfields.create') }}" class="btn btn-primary">Add field</a>
             </div>
         </div>
