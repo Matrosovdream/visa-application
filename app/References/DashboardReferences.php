@@ -46,11 +46,11 @@ class DashboardReferences {
                 'icon' => 'ki-file',
                 'roles' => ['admin', 'manager'],
                 'childs' => array(
-                    /*array(
+                    array(
                         'title' => 'Articles',
                         'url' => route('dashboard.articles.index'),
                         'roles' => ['admin', 'manager'],
-                    ),*/
+                    ),
                     array(
                         'title' => 'Countries',
                         'url' => route('dashboard.countries.index'),
