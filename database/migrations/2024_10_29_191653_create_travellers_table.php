@@ -43,6 +43,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('traveller_field_values', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('traveller_id')->on('travellers');
+            $table->foreignId('field_id')->on('reference_form_fields');
+            $table->text('value');
+        });
+
     }
 
     /**
@@ -54,5 +61,6 @@ return new class extends Migration
         Schema::dropIfExists('traveller_meta');
         Schema::dropIfExists('traveller_documents');
         Schema::dropIfExists('traveller_orders');
+        Schema::dropIfExists('traveller_field_values');
     }
 };

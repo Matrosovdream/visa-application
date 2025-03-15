@@ -74,6 +74,31 @@ return new class extends Migration
             $table->boolean('visa_req')->default(false);
         });
 
+        Schema::create('reference_form_fields', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('slug');
+            $table->string('entity');
+            $table->string('type');
+            $table->string('section')->nullable();
+            $table->string('placeholder')->nullable();
+            $table->text('tooltip')->nullable();
+            $table->text('description')->nullable();
+            $table->text('default_value')->nullable();
+            $table->string('reference_code')->nullable();
+            $table->string('icon')->nullable();
+            $table->boolean('default')->nullable();
+            $table->boolean('is_email')->nullable();
+            $table->boolean('is_phone')->nullable();
+            $table->boolean('is_fullname')->nullable();
+            $table->boolean('is_name')->nullable();
+            $table->boolean('is_lastname')->nullable();
+            $table->boolean('is_birthday')->nullable();
+            $table->boolean('is_passport')->nullable();
+            $table->string('classes')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -87,5 +112,6 @@ return new class extends Migration
         Schema::dropIfExists('countries');
         Schema::dropIfExists('airports');
         Schema::dropIfExists('travel_directions');
+        Schema::dropIfExists('reference_form_fields');
     }
 };

@@ -72,6 +72,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('order_extra_services', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('item_id')->on('carts');
+            $table->foreignId('service_id')->on('product_extras');
+        });
+
+        Schema::create('order_field_values', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('order_id')->on('orders');
+            $table->foreignId('field_id')->on('reference_form_fields');
+            $table->text('value');
+        });
+
     }
 
     /**
@@ -85,5 +98,7 @@ return new class extends Migration
         Schema::dropIfExists('order_statuses');
         Schema::dropIfExists('order_history');
         Schema::dropIfExists('order_certificates');
+        Schema::dropIfExists('order_extra_services');
+        Schema::dropIfExists('order_field_values');
     }
 };

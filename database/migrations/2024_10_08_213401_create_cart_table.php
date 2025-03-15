@@ -42,6 +42,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('cart_field_values', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('cart_id')->on('carts');
+            $table->foreignId('field_id')->on('reference_form_fields');
+            $table->text('value');
+        });
+
+        Schema::create('cart_extra_services', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('item_id')->on('carts');
+            $table->foreignId('service_id')->on('product_extras');
+        });
+
     }
 
     /**
@@ -52,5 +65,7 @@ return new class extends Migration
         Schema::dropIfExists('carts');
         Schema::dropIfExists('cart_products');
         Schema::dropIfExists('cart_meta');
+        Schema::dropIfExists('cart_field_values');
+        Schema::dropIfExists('cart_extra_services');
     }
 };

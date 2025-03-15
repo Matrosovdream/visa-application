@@ -77,6 +77,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('product_fields_reference', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('field_id')->on('order_fields');
+            $table->foreignId('product_id')->on('products')->nullable();
+            $table->string('entity');
+            $table->string('section')->nullable();
+            $table->string('placeholder')->nullable();
+            $table->boolean('required')->default(false);
+            $table->string('default_value')->nullable(); 
+            $table->string('classes')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -91,5 +104,6 @@ return new class extends Migration
         Schema::dropIfExists('product_extras');
         Schema::dropIfExists('product_extras_meta');
         Schema::dropIfExists('product_offers_meta');
+        Schema::dropIfExists('product_fields_reference');
     }
 };
