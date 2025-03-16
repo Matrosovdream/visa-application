@@ -2,8 +2,6 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
-use App\Helpers\adminSettingsHelper;
 use App\Actions\Dashboard\ArticleActions;
 use Illuminate\Http\Request;
 
@@ -27,65 +25,43 @@ class DashboardArticlesController extends Controller
 
     public function show($id)
     {
-        $article = Article::find($id);
-
-        $data = [
-            'title' => 'Edit '.$article->title,
-            'article' => $article,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.articles.show', $data);
+        return view(
+            'dashboard.articles.show', 
+            $this->articleActions->show( $id )
+        );
     }
 
     public function create()
     {
-        $data = [
-            'title' => 'Create Article',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.articles.create', $data);
+        return view(
+            'dashboard.articles.create', 
+            $this->articleActions->create()
+            );
     }
 
-    public function store()
+    public function store( Request $request )
     {
-        $article = new Article();
-        $article->title = request('title');
-        $article->content = request('content');
-        $article->save();
-
+        $this->articleActions->store( $request );
         return redirect()->route('dashboard.articles.index');
     }
 
     public function edit($id)
     {
-        $article = Article::find($id);
-
-        $data = [
-            'title' => 'Edit '.$article->title,
-            'article' => $article,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.articles.edit', $data);
+        return view(
+            'dashboard.articles.edit', 
+            $this->articleActions->show( $id )
+        );
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        $article = Article::find($id);
-        $article->title = request('title');
-        $article->content = request('content');
-        $article->save();
-
+        $this->articleActions->update( $request, $id );
         return redirect()->route('dashboard.articles.index');
     }
 
     public function destroy($id)
     {
-        $article = Article::find($id);
-        $article->delete();
-
+        $this->articleActions->destroy( $id );
         return redirect()->route('dashboard.articles.index');
     }
 

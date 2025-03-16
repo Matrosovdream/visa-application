@@ -30,7 +30,6 @@ class ArticleActions
             'articles' => $items,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
-
         return $data;
 
     }
@@ -38,66 +37,64 @@ class ArticleActions
     public function show( $id )
     {
 
-        $data = [
-            'title' => 'Edit Field #'.$id,
-            'field' => $this->articleRepo->getById($id),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-            'references' => $this->articleRepo->getReferences(),
-            'entities' => $this->articleRepo->getEntities(),
-            'field_types' => $this->articleRepo->getFieldTypes(),
-        ];
-        //dd($data);
+        $article = Article::find($id);
 
+        $data = [
+            'title' => 'Edit '.$article->title,
+            'article' => $article,
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
         return $data;
     }
 
     public function create()
     {
         $data = [
-            'title' => 'Create Field',
-            'entity' => 'traveller',
+            'title' => 'Create Article',
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-            'references' => $this->articleRepo->getReferences(),
-            'entities' => $this->articleRepo->getEntities(),
-            'field_types' => $this->articleRepo->getFieldTypes(),
         ];
-
-        //dd($data);
-
         return $data;
     }
 
     public function store( $request )
     {
 
-        $request->validate([
-            'title' => 'required',
-            'slug' => 'required',
-            'entity' => 'required',
-            'type' => 'required'
-        ]);
-        
-        $data = $request->all();
-        return $this->articleRepo->create($data);
+        $article = new Article();
+        $article->title = $request->title;
+        $article->content = $request->content;
+        $article->save();
+
+        return $article;
 
     }
 
-    public function update($id, $request)
+    public function edit( $id )
     {
-        $request->validate([
-            'title' => 'required',
-            'slug' => 'required',
-            'entity' => 'required',
-            'type' => 'required'
-        ]);
+        $article = Article::find($id);
 
-        $data = $request->all();
-        return $this->articleRepo->update($id, $data);
+        $data = [
+            'title' => 'Edit '.$article->title,
+            'article' => $article,
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
+
+        return $data;
+    }
+
+    public function update( $request, $id )
+    {
+        $article = Article::find($id);
+        $article->title = $request->title;
+        $article->content = $request->content;
+        $article->save();
+
+        return $article;
     }
  
-    public function destroy($id)
+    public function destroy( $id )
     {
-        $this->articleRepo->deleteById($id);
+        $article = Article::find($id);
+        $article->delete();
     }
 
 
