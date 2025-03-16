@@ -4,28 +4,25 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Helpers\adminSettingsHelper;
+use App\Actions\Dashboard\ArticleActions;
+use Illuminate\Http\Request;
 
 class DashboardArticlesController extends Controller
 {
 
-    public $perPage = 10;
-    
-    public function index()
+    protected $articleActions;
+
+    public function __construct( ArticleActions $articleActions )
     {
-
-        if( request('s') ) {
-            $items = Article::search(request('s'))->paginate($this->perPage);
-        } else {
-            $items = Article::paginate($this->perPage);
-        }
-
-        $data = [
-            'title' => 'Articles',
-            'articles' => $items,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.articles.index', $data);
+        $this->articleActions = $articleActions;
+    }
+    
+    public function index( Request $request )
+    {
+        return view(
+            'dashboard.articles.index', 
+            $this->articleActions->index( $request )
+        );
     }
 
     public function show($id)
