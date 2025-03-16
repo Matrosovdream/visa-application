@@ -41,6 +41,26 @@ return new class extends Migration
             
         });
 
+        Schema::create('article_groups', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+
+        Schema::create('article_group_translations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('article_group_id')->on('article_groups')->onDelete('cascade');
+            $table->string('locale')->index();
+            $table->string('name');
+            $table->softDeletes();
+            $table->timestamps();
+         
+            $table->unique(['article_group_id','locale']);
+        });
+
+
     }
 
     /**
