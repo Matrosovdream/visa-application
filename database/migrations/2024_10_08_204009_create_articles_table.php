@@ -60,6 +60,11 @@ return new class extends Migration
             $table->unique(['article_group_id','locale']);
         });
 
+        Schema::create('article_group_article', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('article_id')->on('articles')->onDelete('cascade');
+            $table->foreignId('article_group_id')->on('article_groups')->onDelete('cascade');
+        });
 
     }
 
