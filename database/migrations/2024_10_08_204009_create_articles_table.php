@@ -75,5 +75,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('articles');
         Schema::dropIfExists('article_translations');
+        Schema::dropIfExists('article_groups');
+        Schema::dropIfExists('article_group_translations');
     }
 };
