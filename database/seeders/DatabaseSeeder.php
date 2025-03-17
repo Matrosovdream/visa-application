@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
         
         $this->call([
 
+            CountrySeeder::class,
+            //AirportsSeeder::class,
+            SeaportsSeeder::class,
+
+            /*
             ArticleSeeder::class,
             
             // Users
@@ -47,6 +52,7 @@ class DatabaseSeeder extends Seeder
 
             // Settings
             SiteSettingsSeeder::class,
+            */
             
         ]);
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Country;
 use App\Models\Airport;
 
-class ArrivalPointsSeeder extends Seeder
+class SeaportsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,8 +22,8 @@ class ArrivalPointsSeeder extends Seeder
         }
 
         // Retrieve the countries from the JSON file
-        $countries = json_decode(file_get_contents(database_path('references/airports.json')), true);
-
+        $ports = json_decode(file_get_contents(database_path('references/seaports.json')), true);
+dd($ports);
         // Insert the countries into the database
         foreach ($countries as $country) {
 
