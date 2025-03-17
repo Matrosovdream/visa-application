@@ -19,7 +19,10 @@ class SeaportsSeeder extends Seeder
         // Get all countries
         $countries = Country::all();
         foreach ($countries as $country) {
-            $country_ids[$country->slug] = $country->id;
+            $country_ids[$country->slug] = [
+                'id' => $country->id,
+                'code' => $country->code,
+            ];
         }
 
         // Retrieve the countries from the JSON file
@@ -28,8 +31,8 @@ class SeaportsSeeder extends Seeder
         // Insert the countries into the database
         foreach ($ports as $code=>$port) {
 
-            $countryCode = Str::slug( $port['country'] );
-            if( !isset( $country_ids[ $countryCode ] ) ) {
+            $countrySlug = Str::slug( $port['country'] );
+            if( !isset( $country_ids[ $countrySlug ] ) ) {
                 continue;
             }
 
@@ -40,7 +43,8 @@ class SeaportsSeeder extends Seeder
                 'entity' => 'seaport',
                 'name' => $port['name'].' Seaport',
                 'municipality' => $port['city'],
-                'country_id' => $country_ids[ $countryCode ],
+                'country_id' => $country_ids[ $countrySlug ]['id'],
+                'iso_country' => $country_ids[ $countrySlug ]['code'],
                 'identity' => $code,
             ]);
         }

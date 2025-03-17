@@ -44,7 +44,7 @@ class CountryController extends Controller
             $data['product']['product_id'], 
             $filters 
         );
-
+        
         $countryCode = $data['country']->code;
 
         //dd($data['formFields']);
@@ -73,7 +73,7 @@ class CountryController extends Controller
 
             }
         }
-
+        //dd($data['airports']);
         if( $request->has('lg') ) {
             //dd($data);
             dd($data['cart']['totals']);
