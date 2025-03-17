@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Country;
 use App\Models\Airport;
 
-class AirportSeeder extends Seeder
+class ArrivalPointsSeeder extends Seeder
 {
     /**
      * Run the database seeds.

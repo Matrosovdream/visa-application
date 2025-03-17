@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
             TravelDirectionSeeder::class,
             LanguageSeeder::class,
             CurrencySeeder::class,
-            AirportSeeder::class,
+            ArrivalPointsSeeder::class,
 
             // Order fields
             ReferenceFormFieldsSeeder::class,
