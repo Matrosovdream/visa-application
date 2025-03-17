@@ -52,6 +52,11 @@ class DashboardReferences {
                         'roles' => ['admin', 'manager'],
                     ),
                     array(
+                        'title' => 'Article Groups',
+                        'url' => route('dashboard.articlegroups.index'),
+                        'roles' => ['admin', 'manager'],
+                    ),
+                    array(
                         'title' => 'Countries',
                         'url' => route('dashboard.countries.index'),
                         'roles' => ['admin', 'manager'],
