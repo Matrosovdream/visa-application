@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Country;
 use App\Models\Airport;
+use Illuminate\Support\Str;
 
 class SeaportsSeeder extends Seeder
 {
@@ -18,29 +19,29 @@ class SeaportsSeeder extends Seeder
         // Get all countries
         $countries = Country::all();
         foreach ($countries as $country) {
-            $country_ids[$country->code] = $country->id;
+            $country_ids[$country->slug] = $country->id;
         }
 
         // Retrieve the countries from the JSON file
         $ports = json_decode(file_get_contents(database_path('references/seaports.json')), true);
-dd($ports);
+
         // Insert the countries into the database
-        foreach ($countries as $country) {
+        foreach ($ports as $code=>$port) {
+
+            $countryCode = Str::slug( $port['country'] );
+            if( !isset( $country_ids[ $countryCode ] ) ) {
+                continue;
+            }
 
             // Update or create aiport by ref_id
             Airport::updateOrCreate([
-                'ref_id' => $country['id'],
+                'identity' => $code,
             ], [
-                'entity' => 'airport',
-                'identity' => $country['ident'],
-                'type' => $country['type'],
-                'name' => $country['name'],
-                'country_id' => $country_ids[ $country['iso_country'] ],
-                'continent' => $country['continent'],
-                'iso_country' => $country['iso_country'],
-                'iso_region' => $country['iso_region'],
-                'municipality' => $country['municipality'],
-                'wiki_link' => $country['wikipedia_link'],
+                'entity' => 'seaport',
+                'name' => $port['name'].' Seaport',
+                'municipality' => $port['city'],
+                'country_id' => $country_ids[ $countryCode ],
+                'identity' => $code,
             ]);
         }
 

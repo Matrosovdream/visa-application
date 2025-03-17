@@ -16,11 +16,6 @@ class DatabaseSeeder extends Seeder
         
         $this->call([
 
-            CountrySeeder::class,
-            //AirportsSeeder::class,
-            SeaportsSeeder::class,
-
-            /*
             ArticleSeeder::class,
             
             // Users
@@ -32,7 +27,8 @@ class DatabaseSeeder extends Seeder
             TravelDirectionSeeder::class,
             LanguageSeeder::class,
             CurrencySeeder::class,
-            ArrivalPointsSeeder::class,
+            AirportsSeeder::class,
+            SeaportsSeeder::class,
 
             // Order fields
             ReferenceFormFieldsSeeder::class,
@@ -52,7 +48,6 @@ class DatabaseSeeder extends Seeder
 
             // Settings
             SiteSettingsSeeder::class,
-            */
             
         ]);
 
