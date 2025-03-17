@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardHomeController;
 use App\Http\Controllers\Dashboard\DashboardUsersController;
 use App\Http\Controllers\Dashboard\DashboardArticlesController;
+use App\Http\Controllers\Dashboard\DashboardArticleGroupController;
 use App\Http\Controllers\Dashboard\DashboardCountriesController;
 use App\Http\Controllers\Dashboard\DashboardDirectionsController;
 use App\Http\Controllers\Dashboard\DashboardOrdersController;
@@ -109,6 +110,14 @@ Route::group(['as' => '','prefix' =>'dashboard','namespace' => '', 'middleware' 
         Route::post('articles/{article_id}', [DashboardArticlesController::class, 'update'])->name('dashboard.articles.update');
         Route::delete('articles/{article_id}', [DashboardArticlesController::class, 'destroy'])->name('dashboard.articles.destroy');
 
+        // Article groups
+        Route::get('articlegroups', [DashboardArticleGroupController::class, 'index'])->name('dashboard.articlegroups.index');
+        Route::get('articlegroups/create', [DashboardArticleGroupController::class, 'create'])->name('dashboard.articlegroups.create');
+        Route::post('articlegroups', [DashboardArticleGroupController::class, 'store'])->name('dashboard.articlegroups.store');
+        Route::get('articlegroups/{group_id}', [DashboardArticleGroupController::class, 'show'])->name('dashboard.articlegroups.show');
+        Route::get('articlegroups/{group_id}/edit', [DashboardArticleGroupController::class, 'edit'])->name('dashboard.articlegroups.edit');
+        Route::post('articlegroups/{group_id}', [DashboardArticleGroupController::class, 'update'])->name('dashboard.articlegroups.update');
+        Route::delete('articlegroups/{group_id}', [DashboardArticleGroupController::class, 'destroy'])->name('dashboard.articlegroups.destroy');
 
         // Settings
         Route::get('settings', [DashboardSettingsController::class, 'index'])->name('dashboard.settings.index');
