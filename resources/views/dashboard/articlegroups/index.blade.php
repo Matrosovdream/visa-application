@@ -2,7 +2,7 @@
 
 @section('toolbar-buttons')
 
-    <a href="{{ route('dashboard.servicegroups.create') }}" class="btn btn-sm fw-bold btn-primary">
+    <a href="{{ route('dashboard.articlegroups.create') }}" class="btn btn-sm fw-bold btn-primary">
         New field
     </a>
 
@@ -43,7 +43,7 @@
 
                         <tr>
                             <td>
-                                <a href="{{ route('dashboard.servicegroups.show', $group['id']) }}"
+                                <a href="{{ route('dashboard.articlegroups.show', $group['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
                                     {{ $group['name'] }}
@@ -56,7 +56,7 @@
                             </td>
                             <td class="text-center pe-0">
                                 <span class="text-gray-800 fw-bold d-block fs-6">
-                                    {{ $group['description'] }}
+                                    {{ $group['description'] ?? '' }}
                                 </span>
                             </td>
                             <td class="text-center pe-0">
@@ -73,12 +73,12 @@
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.servicegroups.show', $group['id']) }}"
+                                        <a href="{{ route('dashboard.articlegroups.show', $group['id']) }}"
                                             class="menu-link px-3">Edit</a>
                                     </div>
 
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('dashboard.servicegroups.destroy', $group['id']) }}" method="POST">
+                                        <form action="{{ route('dashboard.articlegroups.destroy', $group['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="menu-link px-3" type="submit">

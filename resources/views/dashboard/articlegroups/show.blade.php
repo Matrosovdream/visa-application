@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form class="form" method="POST" action="{{ route('dashboard.servicegroups.update', $group['id']) }}">
+    <form class="form" method="POST" action="{{ route('dashboard.articlegroups.update', $group['id']) }}">
         @csrf
 
         <div class="d-flex flex-column flex-xl-row">
