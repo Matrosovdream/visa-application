@@ -29,6 +29,8 @@ class ArticleGroupRepo extends AbstractRepo
             'id' => $item->id,
             'name' => $item->name,
             'slug' => $item->slug,
+            'description' => $item->description,
+            'is_active' => $item->is_active,
             'Model' => $item
         ];
 

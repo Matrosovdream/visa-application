@@ -8,6 +8,11 @@ class ArticleGroup extends Model
 {
     
     protected $table = 'article_groups';
-    protected $fillable = ['name', 'slug'];
+    protected $fillable = [
+        'name', 
+        'slug',
+        'description',
+        'is_active'
+    ];
     
 }
