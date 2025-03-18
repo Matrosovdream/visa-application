@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Article;
+use App\Models\ArticleGroupLink;
 
 class ArticleSeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class ArticleSeeder extends Seeder
             $content = file_get_contents($path);
             
             // Create the article
-            Article::updateOrCreate(
+            $articleModel = Article::updateOrCreate(
                 ['slug' => $article['slug']],
                 [
                     'title' => $article['title'],
@@ -36,6 +37,14 @@ class ArticleSeeder extends Seeder
                     'author_id' => $article['author_id'],
                 ]
             );
+
+            // Attach articles to the group
+            foreach ($article['group_ids'] as $group) {
+                ArticleGroupLink::create([
+                    'article_id' => $articleModel->id,
+                    'article_group_id' => $group,
+                ]);
+            }
 
         }
 

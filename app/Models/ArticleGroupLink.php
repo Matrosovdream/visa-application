@@ -9,6 +9,7 @@ class ArticleGroupLink extends Model
     
     protected $table = 'article_group_article';
     protected $fillable = ['article_id', 'article_group_id'];
+    public $timestamps = false;
 
     public function article()
     {

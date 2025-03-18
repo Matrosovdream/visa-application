@@ -33,7 +33,12 @@ class Article extends Model
 
     public function groups()
     {
-        return $this->belongsToMany(ArticleGroup::class, 'article_group_article', 'article_id', 'article_group_id');
+        return $this->hasManyThrough(ArticleGroup::class, ArticleGroupLink::class, 'article_id', 'id', 'id', 'article_group_id');
+    }
+
+    public function groupLinks()
+    {
+        return $this->hasMany(ArticleGroupLink::class, 'article_id', 'article_group_id');
     }
 
     public function scopeSearch($query, $s)

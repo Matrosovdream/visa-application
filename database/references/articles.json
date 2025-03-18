@@ -6,6 +6,7 @@
     "short_description": "",
     "content": "",
     "author_id": 1,
+    "group_ids": [1, 2, 3, 4],
     "published": 1
 }
 ]
