@@ -87,6 +87,7 @@ class ArticleActions
         $article = Article::find($id);
 
         $article->title = $request->title;
+        $article->published = $request->published ? 1 : 0;
         $article->slug = $request->slug;
         $article->short_description = $request->short_description;
         $article->summary = $request->summary;

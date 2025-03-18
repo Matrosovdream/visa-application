@@ -30,14 +30,19 @@
 
                     <li class="nav-item">
                         <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                            href="#kt_ecommerce_customer_general">General</a>
+                            href="#kt_general">General</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                            href="#kt_content">Content</a>
                     </li>
 
                 </ul>
 
                 <div class="tab-content" id="myTabContent">
 
-                    <div class="tab-pane fade active show" id="kt_ecommerce_customer_general" role="tabpanel">
+                    <div class="tab-pane fade active show" id="kt_general" role="tabpanel">
                         <div class="card pt-4 mb-6 mb-xl-9">
 
                             <div class="card-body pt-0 pb-5">
@@ -53,10 +58,10 @@
                                             <input 
                                                 class="form-check-input w-45px h-30px" 
                                                 type="checkbox"
-                                                name="is_active"
-                                                id="is_active" 
+                                                name="published"
+                                                id="published" 
                                                 value="1"
-                                                {{ $article['is_active'] ? 'checked' : '' }}
+                                                {{ $article['published'] ? 'checked' : '' }}
                                                 />
                                             <label class="form-check-label" for="allowmarketing"></label>
                                         </div>
@@ -66,7 +71,7 @@
                                 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Title</label>
-                                    <input type="name" name="name" value="{{ $article['title'] }}"
+                                    <input type="name" name="title" value="{{ $article['title'] }}"
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
 
@@ -90,17 +95,45 @@
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Summary</label>
                                     <textarea 
-                                        name="short_description" 
+                                        name="summary" 
                                         class="form-control form-control-solid" 
                                         placeholder=""
                                         style="height: 200px;"
                                         >{{ $article['summary'] }}</textarea>
                                 </div>
 
+                                <div class="d-flex justify-content-end">
+
+                                    <button type="submit" id="kt_ecommerce_customer_profile_submit"
+                                        class="btn btn-light-primary">
+                                        <span class="indicator-label">Save</span>
+                                        <span class="indicator-progress">Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" id="kt_content" role="tabpanel">
+                        <div class="card pt-4 mb-6 mb-xl-9">
+
+                            <div class="card-body pt-0 pb-5">
+
+                                <input type="hidden" name="action" value="save_content" />
+
                                 <div class="fv-row mb-7">
-                                    <label class="fs-6 fw-semibold mb-2 required">Description</label>
-                                    <input type="text" name="description" value="{{ $article['content'] }}"
-                                        class="form-control form-control-solid" placeholder="" />
+                                    <label class="fs-6 fw-semibold mb-2 required">Summary</label>
+                                    <textarea 
+                                        name="summary" 
+                                        class="form-control form-control-solid" 
+                                        placeholder=""
+                                        style="height: 200px;"
+                                        >{{ $article['summary'] }}</textarea>
                                 </div>
 
                                 <div class="d-flex justify-content-end">
