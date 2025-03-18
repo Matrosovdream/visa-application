@@ -70,10 +70,26 @@ class ArticleActions
     public function store( $request )
     {
 
-        $article = new Article();
+        // Create article
+        $article = new Article;
         $article->title = $request->title;
+        $article->published = $request->published ? 1 : 0;
+        $article->slug = $request->slug;
+        $article->short_description = $request->short_description;
+        $article->summary = $request->summary;
         $article->content = $request->content;
+        $article->author_id = auth()->user()->id;
         $article->save();
+
+        // Update groups
+        foreach( $request->groups as $group ) {
+            // Create new group link
+            $article->groupLinks()->create([
+                'article_group_id' => $group,
+            ]);
+
+        }
+
 
         return $article;
 

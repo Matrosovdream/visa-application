@@ -41,6 +41,12 @@ class DashboardArticlesController extends Controller
 
     public function store( Request $request )
     {
+
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+        ]);
+
         $this->articleActions->store( $request );
         return redirect()->route('dashboard.articles.index');
     }
