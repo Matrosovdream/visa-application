@@ -38,7 +38,7 @@ class Article extends Model
 
     public function groupLinks()
     {
-        return $this->hasMany(ArticleGroupLink::class, 'article_id', 'article_group_id');
+        return $this->hasMany(ArticleGroupLink::class);
     }
 
     public function scopeSearch($query, $s)

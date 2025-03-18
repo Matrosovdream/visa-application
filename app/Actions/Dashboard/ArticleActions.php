@@ -22,7 +22,7 @@ class ArticleActions
         if( request('s') ) {
             $items = Article::search(request('s'))->paginate($this->perPage);
         } else {
-            $items = Article::paginate($this->perPage);
+            $items = Article::with('groups')->paginate($this->perPage);
         }
 
         $data = [
