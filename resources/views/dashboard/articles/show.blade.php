@@ -62,6 +62,32 @@
 
                                 </div>
 
+                                <div class="row mb-7">
+
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Categories</label>
+
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <select multiple class="form-select mb-2" data-control="select2"
+                                            data-hide-search="true" data-placeholder="Select an option"
+                                            id="kt_ecommerce_add_product_status_select" name="groups[]">
+                                            <option></option>
+
+                                            @foreach($groups as $group)
+                                                <option 
+                                                    value="{{ $group->id }}" 
+                                                    @if( isset($articleGroups[$group->id]) )
+                                                        {{ $articleGroups[$group->id] ? 'selected' : '' }}
+                                                    @endif
+                                                    >
+                                                    {{ $group->name }}
+                                                </option>
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                </div>
+
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Title</label>
                                     <input type="name" name="title" value="{{ $article['title'] }}"
@@ -83,13 +109,8 @@
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Summary</label>
-                                    <textarea 
-                                        name="summary" 
-                                        class="form-control form-control-solid" 
-                                        id="kceditor-summary"
-                                        style="height: 200px;"
-                                        placeholder=""
-                                        >{{ $article['summary'] }}</textarea>
+                                    <textarea name="summary" class="form-control form-control-solid" id="kceditor-summary"
+                                        style="height: 200px;" placeholder="">{{ $article['summary'] }}</textarea>
                                 </div>
 
                                 <div class="d-flex justify-content-end">

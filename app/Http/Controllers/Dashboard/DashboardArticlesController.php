@@ -56,7 +56,7 @@ class DashboardArticlesController extends Controller
     public function update(Request $request, $id)
     {
         $this->articleActions->update( $request, $id );
-        return redirect()->route('dashboard.articles.index');
+        return redirect()->route('dashboard.articles.show', $id);
     }
 
     public function destroy($id)

@@ -4,6 +4,7 @@ namespace App\Actions\Dashboard;
 use App\Helpers\adminSettingsHelper;
 use App\Models\Article;
 use App\Repositories\Article\ArticleRepo;
+use App\Models\ArticleGroup;
 
 class ArticleActions
 {
@@ -39,11 +40,20 @@ class ArticleActions
 
         $article = Article::find($id);
 
+        // Prepare article groups for the view
+        $articleGroups = [];
+        foreach( $article['groups'] as $group ) {
+            $articleGroups[$group->id] = $group->name;
+        }
+
         $data = [
             'title' => 'Edit '.$article->title,
             'article' => $article,
+            'articleGroups' => $articleGroups,
+            'groups' => ArticleGroup::all(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
+
         return $data;
     }
 
@@ -51,6 +61,7 @@ class ArticleActions
     {
         $data = [
             'title' => 'Create Article',
+            'groups' => ArticleGroup::all(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
         return $data;
@@ -93,6 +104,18 @@ class ArticleActions
         $article->summary = $request->summary;
         $article->content = $request->content;
         $article->save();
+
+        // Remove all groups
+        $article->groupLinks()->get()->each->delete();
+
+        // Update groups
+        foreach( $request->groups as $group ) {
+            // Create new group link
+            $article->groupLinks()->create([
+                'article_group_id' => $group,
+            ]);
+
+        }
 
         return $article;
     }
