@@ -34,8 +34,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                            href="#kt_content">Content</a>
+                        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" href="#kt_content">Content</a>
                     </li>
 
                 </ul>
@@ -50,25 +49,19 @@
                                 <input type="hidden" name="action" value="save_general" />
 
                                 <div class="row mb-7">
-  
+
                                     <label class="col-lg-4 col-form-label fw-semibold fs-6">Is active</label>
 
                                     <div class="col-lg-8 d-flex align-items-center">
                                         <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                                            <input 
-                                                class="form-check-input w-45px h-30px" 
-                                                type="checkbox"
-                                                name="published"
-                                                id="published" 
-                                                value="1"
-                                                {{ $article['published'] ? 'checked' : '' }}
-                                                />
+                                            <input class="form-check-input w-45px h-30px" type="checkbox" name="published"
+                                                id="published" value="1" {{ $article['published'] ? 'checked' : '' }} />
                                             <label class="form-check-label" for="allowmarketing"></label>
                                         </div>
                                     </div>
 
                                 </div>
-                                
+
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Title</label>
                                     <input type="name" name="title" value="{{ $article['title'] }}"
@@ -83,13 +76,9 @@
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Short description</label>
-                                    <textarea 
-                                        name="short_description" 
-                                        class="form-control form-control-solid" 
-                                        placeholder=""
-                                        style="height: 100px;"
-                                        >{{ $article['short_description'] }}</textarea>
-            
+                                    <textarea name="short_description" class="form-control form-control-solid"
+                                        placeholder="" style="height: 100px;">{{ $article['short_description'] }}</textarea>
+
                                 </div>
 
                                 <div class="fv-row mb-7">
@@ -97,8 +86,9 @@
                                     <textarea 
                                         name="summary" 
                                         class="form-control form-control-solid" 
-                                        placeholder=""
+                                        id="kceditor-summary"
                                         style="height: 200px;"
+                                        placeholder=""
                                         >{{ $article['summary'] }}</textarea>
                                 </div>
 
@@ -128,12 +118,8 @@
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Summary</label>
-                                    <textarea 
-                                        name="summary" 
-                                        class="form-control form-control-solid" 
-                                        placeholder=""
-                                        style="height: 200px;"
-                                        >{{ $article['summary'] }}</textarea>
+                                    <textarea name="content" class="form-control form-control-solid" id="kceditor-content"
+                                        placeholder="" style="height: 800px;">{{ $article['content'] }}</textarea>
                                 </div>
 
                                 <div class="d-flex justify-content-end">
@@ -158,5 +144,33 @@
         </div>
 
     </form>
+
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.2.0/classic/ckeditor.js"></script>
+
+    <script>
+
+        var editors = ['kceditor-summary', 'kceditor-content'];
+
+        editors.forEach(function (editor) {
+            ClassicEditor
+                .create(document.querySelector('#' + editor), {
+                    sourceEditing: true,
+                    htmlSupport: {
+                        allow: [
+                            {
+                                name: /.*/,
+                                attributes: true,
+                                classes: true,
+                                styles: true
+                            }
+                        ]
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
+
+    </script>
 
 @endsection
