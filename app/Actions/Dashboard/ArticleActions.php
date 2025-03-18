@@ -83,8 +83,13 @@ class ArticleActions
 
     public function update( $request, $id )
     {
+
         $article = Article::find($id);
+
         $article->title = $request->title;
+        $article->slug = $request->slug;
+        $article->short_description = $request->short_description;
+        $article->summary = $request->summary;
         $article->content = $request->content;
         $article->save();
 
