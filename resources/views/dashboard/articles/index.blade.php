@@ -47,6 +47,7 @@
                         </th>
                         <th class="max-w-150px">Title</th>
                         <th class="">Author</th>
+                        <th class="text-center">Category</th>
                         <th class="text-center">Status</th>
                         <th class="text-center">Created at</th>
                         <th class="text-center">Actions</th>
@@ -77,8 +78,13 @@
                                 </a>
                             </td>
                             <td class="text-center">
+                                @foreach( $article['groups'] as $group )
+                                    <span class="badge badge-light-primary">{{ $group->name }}</span>
+                                @endforeach
+                            </td>
+                            <td class="text-center">
                                @if( $article->published )
-                                    <span class="badge badge-light-success">Published</span>
+                                   <span class="badge badge-light-success">Published</span>
                                 @else
                                     <span class="badge badge-light-danger">Draft</span>
                                 @endif
