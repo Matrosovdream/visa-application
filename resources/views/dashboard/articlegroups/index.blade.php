@@ -60,9 +60,11 @@
                                 </span>
                             </td>
                             <td class="text-center pe-0">
-                                <span class="text-gray-800 fw-bold d-block fs-6">
-                                    {{ $group['is_active'] ? 'Yes' : 'No' }}
-                                </span>
+                                @if( $group['is_active'] == 'yes' )
+                                    <span class="badge badge-light-success">Published</span>
+                                @else
+                                    <span class="badge badge-light-danger">Draft</span>
+                                @endif
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
