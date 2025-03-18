@@ -285,3 +285,43 @@ h3 {
     background-color: #dce1e6;
 }
 
+article p {
+    margin-bottom: 20px;
+}
+
+article img {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 16px;
+}
+
+article h2 {
+    margin-bottom: 32px;
+    margin-top: 40px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+article ul>li {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    list-style-type: disc;
+}
+
+article blockquote {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 24px;
+}
+
+article blockquote:before {
+    content: url(https://ivisatravel.com/img/open-quote.svg);
+}
+
+article blockquote p {
+    --tw-text-opacity: 1;
+    color: rgb(11 57 71 / var(--tw-text-opacity, 1));
+    font-size: 1.5rem;
+    line-height: 32px;
+}

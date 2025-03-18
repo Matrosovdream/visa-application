@@ -19,7 +19,13 @@
 
                             <h2>{{ $article['title'] }}</h2>
 
-                            {!! $article['content'] !!}
+                            <div class="summary">
+                                {!! $article['summary'] ?? '' !!}
+                            </div>
+
+                            <div class="content">
+                                {!! $article['content'] !!}
+                            </div>
 
                         </article>
 
