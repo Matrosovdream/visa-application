@@ -44,6 +44,7 @@ class DatabaseSeeder extends Seeder
             OrderStatusSeeder::class,
 
             // Content
+            ArticleGroupSeeder::class,
             ArticleSeeder::class,
 
             // Settings
