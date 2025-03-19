@@ -78,6 +78,12 @@
         // Check all fields inside form.apply-form and if it's required then after label etc
         // Check all fields and if not valid, show error label.error after the fields
         $('form.apply-form input.required').each(function () {
+
+            // If is has class hidden, skip it
+            if ($(this).hasClass('hidden')) {
+                return;
+            }
+
             if ($(this).val() == '') {
                 $(this).next('label.error').remove(); // Remove previous error label
                 $(this).after('<label class="error">This field is required</label>');
@@ -94,7 +100,7 @@
     $(document).ready(function() {
 
         // Show/hide passport fields when skip checkbox is checked
-        $('input[name="travellers[skip_pass][]"]').change(function() {
+        /*$('input[name="travellers[skip_pass][]"]').change(function() {
             var index = $(this).attr('id').split('-').pop();
             if($(this).is(':checked')) {
                 $('.traveller-pass-' + index).hide();
@@ -102,16 +108,34 @@
                 $('.traveller-pass-' + index).show();
                 $('.select2-container').css('display', 'block'); // Fix Select2 bug
             }
-        });
+        });*/
 
-        // Check if skip checkbox is checked on load
-        $('input[name="travellers[skip_pass][]"]').each(function() {
-            var index = $(this).attr('id').split('-').pop();
-            if($(this).is(':checked')) {
-                $('.traveller-pass-' + index).hide();
+        /* 
+        On change .field-block-skip checkbox
+        If checked, hide all fields inside .field-block below it
+        */
+        $('.field-block-skip input[type="checkbox"]').change(function() {
+            // if it's on
+            if($(this).is(':checked')) { 
+
+                $(this).parent().parent().nextAll('.field-block').each(function() {
+                    $(this).hide();
+
+                    // Find input fields and add class hidden
+                    $(this).find('input').addClass('hidden');
+                });
+
+            } else {
+
+                $(this).parent().parent().nextAll('.field-block').each(function() {
+                    $(this).show();
+
+                    // Find input fields and remove class hidden
+                    $(this).find('input').removeClass('hidden');
+                });
+                
             }
         });
-
 
     });
 

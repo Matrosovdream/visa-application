@@ -146,9 +146,21 @@ class CountryController extends Controller
             );
         });
 
-        // Sort by fields
+        // Add skip checkbox
+        $skipCheckbox[] = [
+            'id' => 0,
+            'slug' => 'skip',
+            'type' => 'checkbox',
+            'title' => __('Add passport details later'),
+            'required' => false,
+            'value' => 0,
+            'classes' => 'depended-passport|passport_expiration_date',
+        ];
+
+        // Sort by fields and add skip checkbox
         $data['formFields'] = array_merge(
             array_filter($data['formFields'], fn($field) => $field['slug'] == 'birth_country'),
+            $skipCheckbox,
             array_filter($data['formFields'], fn($field) => $field['slug'] == 'passport'),
             array_filter($data['formFields'], fn($field) => $field['slug'] == 'passport_expiration_date')
         );

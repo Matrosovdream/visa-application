@@ -35,7 +35,7 @@
 
     @if($field['type'] == 'text')
 
-        <div class="mb-4 field-block-{{ $field['slug'] }}">
+        <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -60,7 +60,7 @@
 
     @if($field['type'] == 'phone')
 
-        <div class="mb-4 field-block-{{ $field['slug'] }}">
+        <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -89,7 +89,7 @@
     //dd($field);
     @endphp
 
-        <div class="mb-4 field-block-{{ $field['slug'] }}">
+        <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -114,7 +114,7 @@
 
     @if($field['type'] == 'textarea')
 
-        <div class="mb-4 field-block-{{ $field['slug'] }}">
+        <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -139,7 +139,7 @@
 
     @if($field['type'] == 'date')
 
-        <div class="mb-4 field-block-{{ $field['slug'] }}">
+        <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -169,7 +169,7 @@
         //dd($field['options'][0]['code']);
         @endphp
 
-        <div class="mb-4 field-block-{{ $field['slug'] }}">
+        <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -210,7 +210,7 @@
 
     @if($field['type'] == 'file')
 
-        <div class="mb-3 xb-item--field field-block-{{ $field['slug'] }}">
+        <div class="mb-3 xb-item--field field-block field-block-{{ $field['slug'] }}">
             <label for="field-{{ $field['slug'] }}" class="form-label  w-100">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -234,7 +234,7 @@
 
     @if($field['type'] == 'radio')
 
-        <div class="mb-3 xb-item--field field-block-{{ $field['slug'] }}">
+        <div class="mb-3 xb-item--field field-block field-block-{{ $field['slug'] }}">
             <label for="field-{{ $field['slug'] }}" class="form-label">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -264,7 +264,19 @@
 
     @if($field['type'] == 'checkbox')
 
-        <div class="mb-3 xb-item--field field-block-{{ $field['slug'] }}">
+        <div class="mb-5 xb-item--field field-block field-block-{{ $field['slug'] }}">
+
+            <label class="flex items-center space-x-2 text-gray-700">
+                <input 
+                    type="checkbox" 
+                    class="w-4 h-4 border-gray-400 rounded focus:ring focus:ring-blue-300 {{ $field['classes'] ?? '' }}"
+                    >
+                <span class="text-lg">
+                    {{ $field['title'] }}
+                </span>
+            </label>
+
+            @php /*
             <label for="field-{{ $field['slug'] }}" class="form-label">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}
             </label>
@@ -278,6 +290,8 @@
                     {{ $field['field']['tooltip'] }}
                 </p>
             @endif
+            */ @endphp
+
         </div>
 
     @endif
