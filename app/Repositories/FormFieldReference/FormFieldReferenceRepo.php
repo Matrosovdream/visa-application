@@ -85,6 +85,11 @@ class FormFieldReferenceRepo
 
     }
 
+    public function getBySlug($slug)
+    {
+        return $this->model->where('slug', $slug)->first();
+    }
+
     public function getProductFields($product_id, $filters = [])
     {
 
