@@ -108,7 +108,8 @@ Route::group(['as' => '','prefix' =>'account','namespace' => '', 'middleware' =>
 
 // Articles
 Route::get('/articles', [ArticleController::class, 'index'])->name('web.articles.index');
-Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('web.articles.show');
+Route::get('/articles/{group}', [ArticleController::class, 'group'])->name('web.articles.group');
+Route::get('/articles/{group}/{article}', [ArticleController::class, 'show'])->name('web.articles.show');
 
 // Payment
 Route::post('charge', [PaymentController::class, 'charge'])->name('charge');

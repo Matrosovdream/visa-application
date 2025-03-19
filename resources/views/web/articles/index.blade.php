@@ -21,7 +21,7 @@
                 @foreach( $groups['items'] as $group )
 
                     <a 
-                        href="{{ route('articles.show', $group['slug']) }}" 
+                        href="{{ route('web.articles.group', $group['slug']) }}" 
                         class="block p-4 bg-white shadow rounded-lg hover:bg-gray-50 flex justify-between items-center">
                         <span class="text-lg font-medium text-gray-900">
                             {{ $group['name'] }}
