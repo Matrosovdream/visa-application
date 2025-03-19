@@ -285,17 +285,17 @@ h3 {
     background-color: #dce1e6;
 }
 
-article p {
+.blog-single .content p {
     margin-bottom: 20px;
 }
 
-article img {
+.blog-single .content img {
     margin-left: auto;
     margin-right: auto;
     border-radius: 16px;
 }
 
-article h2 {
+.blog-single .content h2 {
     margin-bottom: 32px;
     margin-top: 40px;
     font-size: 1.5rem;
@@ -303,25 +303,96 @@ article h2 {
     line-height: 32px;
 }
 
-article ul>li {
+.blog-single .content ul>li {
     margin-top: 16px;
     margin-bottom: 16px;
     list-style-type: disc;
 }
 
-article blockquote {
+.blog-single .content blockquote {
     flex-direction: column;
     gap: 16px;
     padding: 20px 24px;
 }
 
-article blockquote:before {
+.blog-single .content blockquote:before {
     content: url(https://ivisatravel.com/img/open-quote.svg);
 }
 
-article blockquote p {
+.blog-single .content blockquote p {
     --tw-text-opacity: 1;
     color: rgb(11 57 71 / var(--tw-text-opacity, 1));
     font-size: 1.5rem;
     line-height: 32px;
+}
+
+.blog-single .content .markdown-table {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    border-radius: 8px;
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgb(176 193 197 / var(--tw-border-opacity, 1));
+    
+}
+
+.blog-single .content .markdown-table>div {
+    position: relative;
+    overflow-x: scroll;
+}
+
+.blog-single .content table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: scroll;
+    --tw-text-opacity: 1;
+    color: rgb(11 57 71 / var(--tw-text-opacity, 1));
+    margin-bottom: 25px;
+}
+
+.blog-single .content table thead, .blog-single .content table th:first-child {
+    --tw-bg-opacity: 1;
+    background-color: rgb(221 241 247 / var(--tw-bg-opacity, 1));
+}
+
+.blog-single .content table tr {
+    border-bottom-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgb(213 225 226 / var(--tw-border-opacity, 1));
+}
+
+.blog-single .content table thead, .blog-single .content table th:first-child {
+    --tw-bg-opacity: 1;
+    background-color: rgb(221 241 247 / var(--tw-bg-opacity, 1));
+}
+
+.blog-single .content table td, .blog-single .content table th {
+    padding: 20px;
+    min-width: 140px;
+}
+
+.blog-single .jump {
+    --tw-bg-opacity: 1;
+    background-color: rgb(241 249 252 / var(--tw-bg-opacity, 1));
+    padding: 32px;
+}
+
+.blog-single .jump h2 {
+    font-size: 22px;
+}
+
+
+.blog-single .summary {
+    --tw-bg-opacity: 1;
+    background-color: rgb(241 249 252 / var(--tw-bg-opacity, 1));
+    padding: 32px;
+}
+
+.blog-single .summary h2 {
+    font-size: 22px;
+}
+
+.blog-single .summary ul li {
+    margin-bottom: 16px;
 }

@@ -37,6 +37,7 @@ class ArticleRepo extends AbstractRepo
             'title' => $item->title,
             'slug' => $item->slug,
             'short_description' => $item->short_description,
+            'summary' => $item->summary,
             'content' => $item->content,
             'author' => $this->userRepo->mapItem( $item->author ),
             'groups' => $this->articleGroupRepo->mapItems( $item->groups ),

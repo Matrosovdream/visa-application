@@ -2,6 +2,12 @@
 
 @section('content')
 
+@php
+
+    dd($articles[0]);
+
+@endphp
+
 <div class="card card-flush">
 
     <form action="{{ route('dashboard.articles.index') }}" method="GET">
@@ -68,6 +74,7 @@
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
                                     {{ $article->title }}
+                                    ( Preview )
                                 </a>
                             </td>
                             <td class="text-center">
