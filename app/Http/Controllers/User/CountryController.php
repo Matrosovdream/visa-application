@@ -152,7 +152,14 @@ class CountryController extends Controller
         $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
         $data['travellerFieldValues'] = json_decode($data['travellerFieldValues'], true);
 
-        
+        // Set country birth if it's not set
+        $birthField = (new FormFieldReferenceRepo())->getBySlug('birth_country');
+
+        if( !isset( $data['travellerFieldValues'][0][ $birthField->id ] ) ) {
+            $data['travellerFieldValues'][0][ $birthField->id ] = $data['countryFrom']->id;
+        }
+
+        //dd($data['travellerFieldValues'], $birthField->id);
 
         $data['template'] = 'step-3';
         $data['subtitle'] = 'Passport details';
