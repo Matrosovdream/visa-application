@@ -146,7 +146,12 @@ class CountryController extends Controller
             );
         });
 
-        
+        // Sort by fields
+        $data['formFields'] = array_merge(
+            array_filter($data['formFields'], fn($field) => $field['slug'] == 'birth_country'),
+            array_filter($data['formFields'], fn($field) => $field['slug'] == 'passport'),
+            array_filter($data['formFields'], fn($field) => $field['slug'] == 'passport_expiration_date')
+        );
 
         // Cart field values
         $data['travellerFieldValues'] = $data['cart']['meta']['travellers'] ?? [];
