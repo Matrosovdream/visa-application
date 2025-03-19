@@ -31,6 +31,7 @@ class ArticleGroupRepo extends AbstractRepo
             'slug' => $item->slug,
             'description' => $item->description,
             'is_active' => $item->is_active,
+            'articleCount' => $item->articles_count,
             'Model' => $item
         ];
 

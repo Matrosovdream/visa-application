@@ -14,5 +14,15 @@ class ArticleGroup extends Model
         'description',
         'is_active'
     ];
+
+    public function articles()
+    {
+        return $this->hasMany(ArticleGroupLink::class, 'article_group_id', 'id');
+    }
+
+    public function getArticlesCountAttribute()
+    {
+        return $this->articles()->count();
+    }
     
 }

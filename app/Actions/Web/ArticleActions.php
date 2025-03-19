@@ -2,26 +2,31 @@
 namespace App\Actions\Web;
 
 use App\Repositories\Article\ArticleRepo;
+use App\Repositories\Article\ArticleGroupRepo;
 
 
 
 class ArticleActions {
 
     protected $articleRepo;
+    protected $articleGroupRepo;
 
     public function __construct() {
 
         $this->articleRepo = new ArticleRepo();
+        $this->articleGroupRepo = new ArticleGroupRepo();
 
     }
 
     public function index($request) {
 
-        $articles = $this->articleRepo->getAll([], $paginate=1000);
+        $groups = $this->articleGroupRepo->getAll(['is_active' => 1], $paginate = 1000);
+
+        //dd($groups);
 
         return [
-            'title' => 'Articles',
-            'articles' => $articles
+            'title' => 'All articles',
+            'groups' => $groups
         ];
 
     }

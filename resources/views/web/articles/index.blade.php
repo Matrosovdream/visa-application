@@ -18,20 +18,23 @@
 
             <div class="mt-4 space-y-4">
 
+                @foreach( $groups['items'] as $group )
 
+                    <a 
+                        href="{{ route('articles.show', $group['slug']) }}" 
+                        class="block p-4 bg-white shadow rounded-lg hover:bg-gray-50 flex justify-between items-center">
+                        <span class="text-lg font-medium text-gray-900">
+                            {{ $group['name'] }}
+                        </span>
+                        <span class="text-gray-400">›</span>
+                    </a>
 
-                <a href="#" class="block p-4 bg-white shadow rounded-lg hover:bg-gray-50 flex justify-between items-center">
-                    <span class="text-lg font-medium text-gray-900">Travel visa scams: How to detect and avoid them</span>
-                    <span class="text-gray-400">›</span>
-                </a>
-
-
+                @endforeach
 
             </div>
         </div>
 
         @include('web.articles.partials.apply-form')
-        
 
     </div>
 
