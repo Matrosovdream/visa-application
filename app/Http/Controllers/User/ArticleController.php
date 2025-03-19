@@ -24,6 +24,14 @@ class ArticleController extends Controller
             );
     }
 
+    public function group( Request $request, $group_slug )
+    {
+        return view(
+                'web.articles.group', 
+                $this->articleActions->group($request, $group_slug)
+            );
+    }
+
     public function show($article_slug)
     {
         return view(

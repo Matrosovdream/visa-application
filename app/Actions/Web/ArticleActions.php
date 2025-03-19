@@ -25,8 +25,23 @@ class ArticleActions {
         //dd($groups);
 
         return [
-            'title' => 'All articles',
+            'title' => ' All categories',
+            'groupTitle' => 'Travel',
             'groups' => $groups
+        ];
+
+    }
+
+    public function group($request, $group_slug) {
+
+        $group = $this->articleGroupRepo->getBySlug($group_slug);
+        $articles = $this->articleRepo->getAll([], $paginate = 10);
+//dd($articles);
+        return [
+            'title' => 'Articles by category',
+            'group' => $group,
+            'groupTitle' => $group['name'],
+            'articles' => $articles
         ];
 
     }

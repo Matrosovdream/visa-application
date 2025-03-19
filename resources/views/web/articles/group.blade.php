@@ -18,13 +18,13 @@
 
             <div class="mt-4 space-y-4">
 
-                @foreach( $groups['items'] as $group )
+                @foreach( $articles['items'] as $article )
 
                     <a 
-                        href="{{ route('web.articles.group', $group['slug']) }}" 
+                        href="{{ route('web.articles.show', ['group' => $group['slug'], 'article' => $article['slug']]) }}" 
                         class="block p-4 bg-white shadow rounded-lg hover:bg-gray-50 flex justify-between items-center">
                         <span class="text-lg font-medium text-gray-900">
-                            {{ $group['name'] }}
+                            {{ $article['title'] }}
                         </span>
                         <span class="text-gray-400">›</span>
                     </a>
