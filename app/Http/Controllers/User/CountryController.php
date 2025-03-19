@@ -155,8 +155,10 @@ class CountryController extends Controller
         // Set country birth if it's not set
         $birthField = (new FormFieldReferenceRepo())->getBySlug('birth_country');
 
-        if( !isset( $data['travellerFieldValues'][0][ $birthField->id ] ) ) {
-            $data['travellerFieldValues'][0][ $birthField->id ] = $data['countryFrom']->id;
+        foreach ($data['travellerFieldValues'] as &$traveller) {
+            if (!isset($traveller[$birthField->id])) {
+                $traveller[$birthField->id] = $data['countryFrom']->id;
+            }
         }
 
         //dd($data['travellerFieldValues'], $birthField->id);
