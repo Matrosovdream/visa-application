@@ -22,6 +22,7 @@ class LanguageSeeder extends Seeder
                 'name' => $language['name'],
                 'code' => $language['code'],
                 'is_default' => $language['is_default'],
+                'is_active' => $language['is_active']
             ]);
 
         }    
