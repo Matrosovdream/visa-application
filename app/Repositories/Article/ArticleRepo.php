@@ -5,7 +5,6 @@ use App\Repositories\AbstractRepo;
 use App\Repositories\User\UserRepo;
 use App\Models\Article;
 
-
 class ArticleRepo extends AbstractRepo
 {
 
@@ -13,6 +12,7 @@ class ArticleRepo extends AbstractRepo
     protected $fields = [];
     protected $userRepo;
     protected $articleGroupRepo;
+    protected $articleGroupLinkRepo;
     protected $withRelations = ['groups'];
 
     public function __construct() {
@@ -22,7 +22,23 @@ class ArticleRepo extends AbstractRepo
         $this->userRepo = new UserRepo();
 
         $this->articleGroupRepo = new ArticleGroupRepo();
+        $this->articleGroupLinkRepo = new ArticleGroupLinkRepo();
 
+    }
+
+    public function getAllByGroup($group_id, $paginate = 10)
+    {
+
+        // Get a group by ID
+        $group = $this->articleGroupRepo->getById($group_id);
+
+        // Retrieve article IDs for the group
+        $articles = $group['Model']->articles()->paginate($paginate);
+
+        // Retrieve articles by IDs
+        $articles = $this->model->whereIn('id', $articles->pluck('article_id'))->get();
+
+        return $this->mapItems($articles);
     }
 
     public function mapItem($item)
