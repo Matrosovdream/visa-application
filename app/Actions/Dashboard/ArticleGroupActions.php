@@ -45,6 +45,10 @@ class ArticleGroupActions {
 
     public function update($group_id, $request)
     {
+        
+        // Process is_active
+        $request['is_active'] = isset($request['is_active']) ? 1 : 0;
+
         $data = $this->articleGroupRepo->update($group_id, $request);
 
         return $data;
