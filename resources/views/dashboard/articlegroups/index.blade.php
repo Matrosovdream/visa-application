@@ -60,7 +60,7 @@
                                 </span>
                             </td>
                             <td class="text-center pe-0">
-                                @if( $group['is_active'] == 'yes' )
+                                @if( $group['is_active'] )
                                     <span class="badge badge-light-success">Published</span>
                                 @else
                                     <span class="badge badge-light-danger">Draft</span>

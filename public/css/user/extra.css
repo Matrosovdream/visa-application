@@ -356,6 +356,13 @@ h3 {
     background-color: rgb(221 241 247 / var(--tw-bg-opacity, 1));
 }
 
+/* Make .blog-single .content table scrollable */
+.blog-single .content  {
+    position: relative;
+    display: block;
+    object-fit: contain;
+}
+
 .blog-single .content table tr {
     border-bottom-width: 1px;
     --tw-border-opacity: 1;
