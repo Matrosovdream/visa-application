@@ -19,15 +19,6 @@
                 </div>
 
                 <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-                    <div class="w-100 mw-150px">
-                        <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
-                            data-placeholder="Status" name="status">
-                            <option></option>
-                            <option value="all">All</option>
-                            <option value="published">Published</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                    </div>
                     <a href="{{ route('dashboard.articles.create') }}" class="btn btn-primary">Add article</a>
                 </div>
             </div>
@@ -68,7 +59,6 @@
                                         class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                         data-kt-ecommerce-product-filter="product_name">
                                         {{ $article->title }}
-                                        ( Preview )
                                     </a>
                                 </td>
                                 <td class="text-center">
