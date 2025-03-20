@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Translatable;
 
 class ArticleGroup extends Model
 {
+
+    use Translatable;
+
+    public $translatedAttributes = ['name'];
     
     protected $table = 'article_groups';
     protected $fillable = [
