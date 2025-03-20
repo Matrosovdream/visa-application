@@ -39,7 +39,8 @@ class DashboardArticleGroupController extends Controller
             'name' => 'required',
             'slug' => 'required',
             'description' => 'nullable',
-            'is_active' => 'nullable'
+            'is_active' => 'nullable',
+            'lang' => 'nullable'
         ]);
 
         $data = $this->articleGroupActions->update($driver_id, $validated);

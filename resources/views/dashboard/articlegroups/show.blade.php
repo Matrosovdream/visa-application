@@ -5,6 +5,8 @@
     <form class="form" method="POST" action="{{ route('dashboard.articlegroups.update', $group['id']) }}">
         @csrf
 
+        <input type="hidden" name="lang" value="{{ $activeLang }}" />
+
         <div class="d-flex flex-column flex-xl-row">
             <div class="flex-column flex-lg-row-auto w-100 w-xl-350px mb-10">
                 <div class="card mb-5 mb-xl-8">
@@ -14,6 +16,29 @@
                         <div class="d-flex flex-stack fs-4 py-3">
                             <div class="fw-bold">{{ $title }}</div>
                         </div>
+
+                        <hr/>
+
+                        <h2 class="fs-6 fw-bold pt-5 pb-3">Languages</h2>
+
+                        <!-- Languages ul li -->
+                        <ul>
+
+                            @foreach( $languages as $lang )
+
+                                <li class="navi-item mb-2">
+                                    <a href="?lang={{ $lang['code'] }}"
+                                        class="navi-link {{ $activeLang == $lang['code'] ?? 'active' }}">
+                                        <span class="navi-text">{{ $lang['name'] }}</span>
+                                    </a>
+                                </li>
+
+                            @endforeach
+
+
+                        </ul>
+
+
 
                     </div>
 
