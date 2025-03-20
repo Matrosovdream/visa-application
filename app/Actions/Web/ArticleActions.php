@@ -35,7 +35,11 @@ class ArticleActions {
     public function group($request, $group_slug) {
 
         $group = $this->articleGroupRepo->getBySlug($group_slug);
-        $articles = $this->articleRepo->getAllByGroup( $group['id'], $paginate = 10);
+        $articles = $this->articleRepo->getAllByGroup( 
+            $group['id'], 
+            $filters = ['published' => 1],
+            $paginate = 1000
+        );
 //dd($articles);
         return [
             'title' => 'Articles by category',

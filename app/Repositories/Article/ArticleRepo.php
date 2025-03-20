@@ -26,7 +26,7 @@ class ArticleRepo extends AbstractRepo
 
     }
 
-    public function getAllByGroup($group_id, $paginate = 10)
+    public function getAllByGroup($group_id, $filters = [], $paginate = 10)
     {
 
         // Get a group by ID
@@ -36,7 +36,15 @@ class ArticleRepo extends AbstractRepo
         $articles = $group['Model']->articles()->paginate($paginate);
 
         // Retrieve articles by IDs
-        $articles = $this->model->whereIn('id', $articles->pluck('article_id'))->get();
+        $articles = $this->model->whereIn('id', $articles->pluck('article_id'));
+
+        // Apply filters
+        foreach ($filters as $key => $value) {
+            $articles = $articles->where($key, $value);
+        }
+
+        // Get the paginated result
+        $articles = $articles->get();
 
         return $this->mapItems($articles);
     }
