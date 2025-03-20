@@ -3,14 +3,19 @@ namespace App\Actions\Dashboard;
 
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\Article\ArticleGroupRepo;
+use App\Repositories\References\LanguageRepo;
 
 class ArticleGroupActions {
 
-    private $articleGroupRepo;
+    protected $articleGroupRepo;
+    protected $languageRepo;
 
     public function __construct()
     {
         $this->articleGroupRepo = new ArticleGroupRepo();
+
+        // References
+        $this->languageRepo = new LanguageRepo();
     }
 
     public function index()
@@ -37,6 +42,7 @@ class ArticleGroupActions {
         $data = [
             'title' => 'Article group details',
             'group' => $group,
+            'languages' => $this->languageRepo->getAll(['is_active' => 1]),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 

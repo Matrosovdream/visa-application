@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Article;
+namespace App\Repositories\References;
 
 use App\Repositories\AbstractRepo;
 use App\Models\Language;
@@ -14,6 +14,16 @@ class LanguageRepo extends AbstractRepo
     public function __construct() {
 
         $this->model = new Language();
+    }
+
+    public function mapItems($items)
+    {
+        $res = [];
+        foreach($items as $item) {
+            $res[ $item['code'] ] = $this->mapItem($item);
+        }
+
+        return $res;
     }
 
     public function mapItem($item)
