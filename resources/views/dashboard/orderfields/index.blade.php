@@ -84,7 +84,7 @@
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.articles.show', $item->id) }}"
+                                        <a href="{{ route('dashboard.orderfields.show', $item->id) }}"
                                             class="menu-link px-3">Edit</a>
                                     </div>
 
