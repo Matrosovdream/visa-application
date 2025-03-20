@@ -32,11 +32,11 @@ class ArticleController extends Controller
             );
     }
 
-    public function show($article_slug)
+    public function show($group_slug, $article_slug)
     {
         return view(
                 'web.articles.show', 
-                $this->articleActions->show($article_slug)
+                $this->articleActions->show($group_slug, $article_slug)
             );
     }
 

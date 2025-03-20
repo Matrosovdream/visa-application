@@ -46,8 +46,9 @@ class ArticleActions {
 
     }
 
-    public function show($article_slug) {
+    public function show($group_slug, $article_slug) {
 
+        $group = $this->articleGroupRepo->getBySlug($group_slug);
         $article = $this->articleRepo->getBySlug($article_slug);
 
         return [
