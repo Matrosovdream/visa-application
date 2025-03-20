@@ -22,7 +22,10 @@ class ArticleActions {
 
         $groups = $this->articleGroupRepo->getAll(['is_active' => 1], $paginate = 1000);
 
-        //dd($groups);
+        // Exclude groups with empty articles
+        $groups['items'] = collect($groups['items'])->filter(function($group) {
+            return $group['articleCount'] > 0;
+        });
 
         return [
             'title' => ' All categories',
