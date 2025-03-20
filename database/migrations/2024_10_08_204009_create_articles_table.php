@@ -43,7 +43,7 @@ return new class extends Migration
 
         Schema::create('article_groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(false);
