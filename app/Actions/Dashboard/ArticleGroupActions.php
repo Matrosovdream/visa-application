@@ -4,13 +4,14 @@ namespace App\Actions\Dashboard;
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\Article\ArticleGroupRepo;
 use App\Repositories\References\LanguageRepo;
-use Illuminate\Support\Facades\App;
+use App\Traits\Languable;
+
 
 class ArticleGroupActions {
 
+    use Languable;
+
     protected $articleGroupRepo;
-    protected $languageRepo;
-    protected $activeLang;
 
     public function __construct()
     {
@@ -21,6 +22,7 @@ class ArticleGroupActions {
 
         // Set language globally
         $this->setLang();
+
     }
 
     public function index()
@@ -91,21 +93,6 @@ class ArticleGroupActions {
         $data = $this->articleGroupRepo->delete($group_id);
 
         return $data;
-    }
-
-    public function setLang( $lang=false )
-    {
-
-        if( $lang ) {
-            $activeLang = $lang;
-        } else {
-            $activeLang = isset($_GET['lang']) ? $_GET['lang'] : 'en';
-        }
-        $activeLang = strtolower($activeLang);
-
-        $this->activeLang = $activeLang;
-
-        App::setLocale( $activeLang );
     }
 
 }
