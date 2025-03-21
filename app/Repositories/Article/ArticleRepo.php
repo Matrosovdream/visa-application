@@ -14,6 +14,7 @@ class ArticleRepo extends AbstractRepo
     protected $articleGroupRepo;
     protected $articleGroupLinkRepo;
     protected $withRelations = ['groups'];
+    protected $translatableFields = ['title', 'content'];
 
     public function __construct() {
 
@@ -66,6 +67,7 @@ class ArticleRepo extends AbstractRepo
             'author' => $this->userRepo->mapItem( $item->author ),
             'groups' => $this->articleGroupRepo->mapItems( $item->groups ),
             'published' => $item->published,
+            'isTranslated' => $this->isTranslated( $item ),
             'Model' => $item
         ];
 

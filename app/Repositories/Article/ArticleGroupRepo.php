@@ -11,6 +11,7 @@ class ArticleGroupRepo extends AbstractRepo
     protected $fields = [];
     protected $userRepo;
     protected $withRelations = [];
+    protected $translatableFields = ['name'];
 
     public function __construct() {
 
@@ -31,6 +32,7 @@ class ArticleGroupRepo extends AbstractRepo
             'slug' => $item->slug,
             'description' => $item->description,
             'is_active' => $item->is_active,
+            'isTranslated' => $this->isTranslated( $item ),
             'articleCount' => $item->articles_count,
             'Model' => $item
         ];
