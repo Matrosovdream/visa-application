@@ -143,7 +143,7 @@
                                 <input type="hidden" name="action" value="save_content" />
 
                                 <div class="fv-row mb-7">
-                                    <label class="fs-6 fw-semibold mb-2 required">Summary</label>
+                                    <label class="fs-6 fw-semibold mb-2">Content</label>
                                     <textarea name="content" class="form-control form-control-solid" id="kceditor-content"
                                         placeholder="" style="height: 800px;">{{ $article['content'] }}</textarea>
                                 </div>
