@@ -28,11 +28,11 @@ class DirectionActions
         if ($request->country_to == 'all')
             $request->country_to = null;
 
-        $filter = [
-            'visa_req' => $request->visa_req ?? null,
-            'country_from_id' => $request->country_from ?? null,
-            'country_to_id' => $request->country_to ?? null
-        ];
+        // Filters
+        $filter = [];
+        if( $request->visa_req ) { $filter['visa_req'] = $request->visa_req; }
+        if( $request->country_from ) { $filter['country_from_id'] = $request->country_from; }
+        if( $request->country_to ) { $filter['country_to_id'] = $request->country_to; }
 
         $data = [
             'title' => 'Traveller directions',
@@ -40,6 +40,8 @@ class DirectionActions
             'references' => $this->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
+
+        //dd($data['references']);
 
         return $data;
     }

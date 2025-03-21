@@ -14,9 +14,9 @@
                     <div class="d-flex flex-stack fs-4 py-3">
                         <div class="fw-bold">
                             Edit Direction <br/     >
-                                {{ $direction['countryFrom']['name'] }}
+                                {{ $direction['countryFrom']['title'] }}
                                 ->
-                                {{ $direction['countryTo']['name'] }}
+                                {{ $direction['countryTo']['title'] }}
                         </div>
 
                     </div>

@@ -46,7 +46,7 @@
                                 value="{{ $country['id'] }}"
                                 {{ request()->get('country_from') == $country['id'] ? 'selected' : '' }}
                                 >
-                                {{ $country['name'] }}
+                                {{ $country['title'] }}
                             </option>
                         @endforeach
                         
@@ -66,7 +66,7 @@
                                 value="{{ $country['id'] }}"
                                 {{ request()->get('country_to') == $country['id'] ? 'selected' : '' }}
                                 >
-                                {{ $country['name'] }}
+                                {{ $country['title'] }}
                             </option>
                         @endforeach
 
@@ -100,13 +100,13 @@
                                 <a href=""
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $direction['countryFrom']['name'] }}
+                                    {{ $direction['countryFrom']['title'] }}
                                 </a>
                                 ->
                                 <a href=""
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $direction['countryTo']['name'] }}
+                                    {{ $direction['countryTo']['title'] }}
                                 </a>
                             </td>
                             <td class="text-center">
