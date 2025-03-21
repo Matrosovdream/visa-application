@@ -9,6 +9,8 @@ abstract class AbstractRepo {
     protected $fields = [];
     protected $withRelations = [];
 
+    protected $translatableFields = [];
+
     public function getByID($id)
     {
         $item = $this->model
@@ -73,6 +75,20 @@ abstract class AbstractRepo {
     {
         $item = $this->model->find($id);
         $item->delete();
+    }
+
+    public function isTranslated($item)
+    {
+
+        $fields = $this->translatableFields;
+
+        foreach ($fields as $field) {
+            if( empty($item->$field) ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function mapItems($items)
