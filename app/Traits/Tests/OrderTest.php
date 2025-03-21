@@ -4,7 +4,7 @@ namespace App\Traits\Tests;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Helpers\CartHelper; 
-use App\Helpers\OrderHelper;
+use App\Helpers\orderHelper;
 
 
 
