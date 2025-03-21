@@ -5,17 +5,27 @@ use App\Helpers\adminSettingsHelper;
 use App\Models\Article;
 use App\Repositories\Article\ArticleRepo;
 use App\Models\ArticleGroup;
+use App\Repositories\References\LanguageRepo;
+use App\Traits\Languable;
 
 class ArticleActions
 {
 
+    use Languable;
+
     protected $articleRepo;
 
-    public $perPage = 10;
+    public $perPage = 30;
 
     public function __construct( ArticleRepo $articleRepo )
     {
         $this->articleRepo = $articleRepo;
+
+        // References
+        $this->languageRepo = new LanguageRepo();
+
+        // Set language globally
+        $this->setLang();
     }
 
     public function index( $request )
@@ -51,6 +61,8 @@ class ArticleActions
             'article' => $article,
             'articleGroups' => $articleGroups,
             'groups' => ArticleGroup::all(),
+            'languages' => $this->languageRepo->getAll(['is_active' => 1]),
+            'activeLang' => $this->activeLang,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
@@ -110,6 +122,9 @@ class ArticleActions
 
     public function update( $request, $id )
     {
+
+        // Set langage translation if exists
+        $this->setLang( $request['lang'] );
 
         $article = Article::find($id);
 
