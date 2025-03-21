@@ -22,9 +22,9 @@ class ArticleActions {
 
         $groups = $this->articleGroupRepo->getAll(['is_active' => 1], $paginate = 1000);
 
-        // Exclude groups with empty articles
+        // Exclude groups with empty and untranslated groups
         $groups['items'] = collect($groups['items'])->filter(function($group) {
-            return $group['articleCount'] > 0;
+            return $group['articleCount'] > 0 && $group['isTranslated'];
         });
 
         return [
@@ -43,7 +43,12 @@ class ArticleActions {
             $filters = ['published' => 1],
             $paginate = 1000
         );
-//dd($articles);
+
+        // Exclude untranslated articles
+        $articles['items'] = collect($articles['items'])->filter(function($article) {
+            return $article['isTranslated'];
+        });
+
         return [
             'title' => 'Articles by category',
             'group' => $group,
