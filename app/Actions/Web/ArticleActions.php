@@ -28,8 +28,8 @@ class ArticleActions {
         });
 
         return [
-            'title' => ' All categories',
-            'groupTitle' => 'Travel',
+            'title' => __('All categories'),
+            'groupTitle' => __('Travel'),
             'groups' => $groups
         ];
 
@@ -50,7 +50,7 @@ class ArticleActions {
         });
 
         return [
-            'title' => 'Articles by category',
+            'title' => __('Articles by category'),
             'group' => $group,
             'groupTitle' => $group['name'],
             'articles' => $articles
