@@ -1,9 +1,4 @@
-<nav class="text-sm text-gray-500 mb-4">
-    Home &gt;
-    <span class="text-blue-600">
-        {{ $article['title'] }}
-    </span>
-</nav>
+@include('web.articles.partials.navbar')
 
 <h1 class="text-3xl font-bold mb-2">
     {{ $article['title'] }}

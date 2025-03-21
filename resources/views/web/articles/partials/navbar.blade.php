@@ -1,10 +1,15 @@
-<nav class="text-gray-500 text-sm">
+<nav class="text-sm text-gray-500 mb-4">
 
-    <a href="#" class="hover:underline">
-        {{ __('Home') }}
-    </a>
+    @foreach( $breadcrumbs as $breadcrumb )
 
-    <span class="font-semibold text-gray-700">
-        {{ __('All categories') }}: {{ __('Travel') }}
-    </span>
+        <a href="{{ $breadcrumb['url'] ?? '' }}" class="text-blue-600">
+            {{ $breadcrumb['title'] }}
+        </a>
+
+        @if( !$loop->last )
+            &gt;
+        @endif
+
+    @endforeach
+
 </nav>

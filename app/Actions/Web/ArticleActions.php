@@ -27,10 +27,17 @@ class ArticleActions {
             return $group['articleCount'] > 0 && $group['isTranslated'];
         });
 
+        // Breadcrumbs
+        $breadcrumbs = [
+            ['title' => __('Home'), 'url' => route('web.index')],
+            ['title' => __('All categories'), 'url' => route('web.articles.index')]
+        ];
+
         return [
             'title' => __('All categories'),
             'groupTitle' => __('Travel'),
-            'groups' => $groups
+            'groups' => $groups,
+            'breadcrumbs' => $breadcrumbs
         ];
 
     }
@@ -49,11 +56,19 @@ class ArticleActions {
             return $article['isTranslated'];
         });
 
+        // Breabcrumbs
+        $breadcrumbs = [
+            ['title' => __('Home'), 'url' => route('web.index')],
+            ['title' => __('All categories'), 'url' => route('web.articles.index')],
+            ['title' => $group['name'], 'url' => route('web.articles.group', $group['slug'])]
+        ];
+
         return [
             'title' => __('Articles by category'),
             'group' => $group,
             'groupTitle' => $group['name'],
-            'articles' => $articles
+            'articles' => $articles,
+            'breadcrumbs' => $breadcrumbs
         ];
 
     }
@@ -63,9 +78,18 @@ class ArticleActions {
         $group = $this->articleGroupRepo->getBySlug($group_slug);
         $article = $this->articleRepo->getBySlug($article_slug);
 
+        // Breadcrumbs
+        $breadcrumbs = [
+            ['title' => __('Home'), 'url' => route('web.index')],
+            ['title' => __('All categories'), 'url' => route('web.articles.index')],
+            ['title' => $group['name'], 'url' => route('web.articles.group', $group['slug'])],
+            ['title' => $article['title'], 'url' => route('web.articles.show', [$group['slug'], $article['slug']])]
+        ];
+
         return [
             'title' => $article['title'],
-            'article' => $article
+            'article' => $article,
+            'breadcrumbs' => $breadcrumbs
         ];
     }
 
