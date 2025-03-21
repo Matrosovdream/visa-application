@@ -16,7 +16,8 @@ class ArticleRepo extends AbstractRepo
     protected $withRelations = ['groups'];
     protected $translatableFields = ['title', 'content'];
 
-    public function __construct() {
+    public function __construct()
+    {
 
         $this->model = new Article();
 
@@ -53,7 +54,7 @@ class ArticleRepo extends AbstractRepo
     public function mapItem($item)
     {
 
-        if( empty($item) ) {
+        if (empty($item)) {
             return null;
         }
 
@@ -64,14 +65,43 @@ class ArticleRepo extends AbstractRepo
             'short_description' => $item->short_description,
             'summary' => $item->summary,
             'content' => $item->content,
-            'author' => $this->userRepo->mapItem( $item->author ),
-            'groups' => $this->articleGroupRepo->mapItems( $item->groups ),
+            'author' => $this->userRepo->mapItem($item->author),
+            'groups' => $this->articleGroupRepo->mapItems($item->groups),
             'published' => $item->published,
-            'isTranslated' => $this->isTranslated( $item ),
+            'isTranslated' => $this->isTranslated($item),
+            'contentLinks' => $this->prepareContentLinks($item->content),
             'Model' => $item
         ];
 
         return $res;
     }
+
+    public function prepareContentLinks($content)
+    {
+        $links = [];
+
+        // Load HTML content
+        libxml_use_internal_errors(true); // Suppress HTML5 parsing warnings
+        $dom = new \DOMDocument();
+        $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
+
+        // Find all h2 tags with id
+        $h2Tags = $dom->getElementsByTagName('h2');
+
+        foreach ($h2Tags as $h2) {
+            $id = $h2->getAttribute('id');
+            $text = trim($h2->textContent);
+
+            if ($id && $text) {
+                $links[] = [
+                    'link' => '#' . $id,
+                    'text' => $text,
+                ];
+            }
+        }
+
+        return $links;
+    }
+
 
 }
