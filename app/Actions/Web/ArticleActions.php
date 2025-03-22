@@ -38,14 +38,13 @@ class ArticleActions {
             ['title' => __('All categories'), 'url' => route('web.articles.index')]
         ];
 
-        $data = [
+       return [
             'title' => __('All categories'),
             'groupTitle' => __('Travel'),
             'groups' => $groups,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumbs' => $breadcrumbs,
+            'references' => $this->getReferences()
         ];
-
-        return array_merge($data, $this->getReferences());
 
     }
 
@@ -70,15 +69,14 @@ class ArticleActions {
             ['title' => $group['name'], 'url' => route('web.articles.group', $group['slug'])]
         ];
 
-        $data = [
+        return [
             'title' => __('Articles by category'),
             'group' => $group,
             'groupTitle' => $group['name'],
             'articles' => $articles,
-            'breadcrumbs' => $breadcrumbs
+            'breadcrumbs' => $breadcrumbs,
+            'references' => $this->getReferences()
         ];
-
-        return array_merge($data, $this->getReferences());
 
     }
 
