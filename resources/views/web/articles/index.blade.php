@@ -34,7 +34,10 @@
             </div>
         </div>
 
+        @php /*
+        @include('web.includes.direction-search-form-sidebar')
         @include('web.articles.partials.apply-form')
+        */ @endphp
 
     </div>
 

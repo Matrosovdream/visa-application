@@ -1,6 +1,6 @@
 <div class="w-full lg:w-[30%] bg-blue-50 p-6 rounded-lg shadow ml-auto">
-    <h2 class="text-xl font-semibold text-gray-900">
-        Start your application{{ __('Home') }}
+    <h2 class="text-2xl font-semibold text-gray-900 text-center">
+        {{ __('Start your application') }}
     </h2>
 
     <div class="mt-4">
