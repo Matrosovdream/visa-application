@@ -8,7 +8,7 @@
 
         <div class="flex flex-col md:flex-row gap-10 justify-between">
 
-            @include('web.articles.partials.sidebar', ['breadcrumbs' => $breadcrumbs])
+            @include('web.articles.partials.sidebar')
 
             <div class="md:w-7/12 ">
 
