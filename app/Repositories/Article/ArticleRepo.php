@@ -4,6 +4,8 @@ namespace App\Repositories\Article;
 use App\Repositories\AbstractRepo;
 use App\Repositories\User\UserRepo;
 use App\Models\Article;
+use App\Helpers\ArticleHelper;
+
 
 class ArticleRepo extends AbstractRepo
 {
@@ -13,6 +15,7 @@ class ArticleRepo extends AbstractRepo
     protected $userRepo;
     protected $articleGroupRepo;
     protected $articleGroupLinkRepo;
+    protected $articleHelper;
     protected $withRelations = ['groups'];
     protected $translatableFields = ['title', 'content'];
 
@@ -25,6 +28,9 @@ class ArticleRepo extends AbstractRepo
 
         $this->articleGroupRepo = new ArticleGroupRepo();
         $this->articleGroupLinkRepo = new ArticleGroupLinkRepo();
+
+        // Helpers
+        $this->articleHelper = new ArticleHelper();
 
     }
 
@@ -69,38 +75,11 @@ class ArticleRepo extends AbstractRepo
             'groups' => $this->articleGroupRepo->mapItems($item->groups),
             'published' => $item->published,
             'isTranslated' => $this->isTranslated($item),
-            'contentLinks' => $this->prepareContentLinks($item->content),
+            'contentLinks' => $this->articleHelper->extractArticleCursors($item->content),
             'Model' => $item
         ];
 
         return $res;
-    }
-
-    public function prepareContentLinks($content)
-    {
-        $links = [];
-
-        // Load HTML content
-        libxml_use_internal_errors(true); // Suppress HTML5 parsing warnings
-        $dom = new \DOMDocument();
-        $dom->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
-
-        // Find all h2 tags with id
-        $h2Tags = $dom->getElementsByTagName('h2');
-
-        foreach ($h2Tags as $h2) {
-            $id = $h2->getAttribute('id');
-            $text = trim($h2->textContent);
-
-            if ($id && $text) {
-                $links[] = [
-                    'link' => '#' . $id,
-                    'text' => $text,
-                ];
-            }
-        }
-
-        return $links;
     }
 
 
