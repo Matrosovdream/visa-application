@@ -3,6 +3,7 @@ namespace App\Actions\Web;
 
 use App\Repositories\Article\ArticleRepo;
 use App\Repositories\Article\ArticleGroupRepo;
+use App\Repositories\Country\CountryRepo;
 
 
 
@@ -10,11 +11,15 @@ class ArticleActions {
 
     protected $articleRepo;
     protected $articleGroupRepo;
+    protected $countryRepo;
 
     public function __construct() {
 
         $this->articleRepo = new ArticleRepo();
         $this->articleGroupRepo = new ArticleGroupRepo();
+
+        // References
+        $this->countryRepo = new CountryRepo();
 
     }
 
@@ -33,12 +38,14 @@ class ArticleActions {
             ['title' => __('All categories'), 'url' => route('web.articles.index')]
         ];
 
-        return [
+        $data = [
             'title' => __('All categories'),
             'groupTitle' => __('Travel'),
             'groups' => $groups,
             'breadcrumbs' => $breadcrumbs
         ];
+
+        return array_merge($data, $this->getReferences());
 
     }
 
@@ -63,13 +70,15 @@ class ArticleActions {
             ['title' => $group['name'], 'url' => route('web.articles.group', $group['slug'])]
         ];
 
-        return [
+        $data = [
             'title' => __('Articles by category'),
             'group' => $group,
             'groupTitle' => $group['name'],
             'articles' => $articles,
             'breadcrumbs' => $breadcrumbs
         ];
+
+        return array_merge($data, $this->getReferences());
 
     }
 
@@ -91,6 +100,14 @@ class ArticleActions {
             'article' => $article,
             'breadcrumbs' => $breadcrumbs
         ];
+    }
+
+    public function getReferences() {
+
+        return [
+            'countries' => $this->countryRepo->getAll([], $paginate = 1000)
+        ];
+
     }
 
 }
