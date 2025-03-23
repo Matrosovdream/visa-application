@@ -44,7 +44,7 @@
                         {{ __("Choose a nationality to see if you need a visa to travel to") }} {{ $country->name }}.
                     @endif
 
-                    @if($direction->visa_req == 1 && isset($products) && count($products) > 0)
+                    @if( isset($direction) && $direction->visa_req == 1 && isset($products) && count($products) > 0)
 
                         <div class="mb-4">
                             <label for="nationality" class="block text-evisamedium">
@@ -110,7 +110,7 @@
 
             </form>
 
-            @if($direction->visa_req == 1 && isset($products) && count($products) > 0)
+            @if( isset($direction) && $direction->visa_req == 1 && isset($products) && count($products) > 0)
 
                 @php $key = 0; @endphp
                 @foreach($products as $product)

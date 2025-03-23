@@ -20,49 +20,51 @@ class CountryController extends Controller
 
     protected $cartRepoStore;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->cartRepoStore = new CartRepoStore();
     }
 
     public function index(Request $request)
     {
 
-        $data = $this->getDirectionData( $request );
-//dd($data['products']);
-        if ( $data['country'] ) {
+        $data = $this->getDirectionData($request);
+        //dd($data['products']);
+        if ($data['country']) {
             return view('web.country.index', $data);
-        } 
+        }
 
     }
 
-    public function applyCartStep1(Request $request) {
+    public function applyCartStep1(Request $request)
+    {
 
-        $data = $this->collectCartData( $request );
+        $data = $this->collectCartData($request);
 
         $filters = ['entity' => 'order', 'section' => 'trip'];
-        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
-            $data['product']['product_id'], 
-            $filters 
+        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields(
+            $data['product']['product_id'],
+            $filters
         );
-        
+
         $countryCode = $data['country']->code;
 
         //dd($data['formFields']);
 
         // Cart field values
-        $data['cartFieldValues'] = $this->cartRepoStore->getCartValues( $data['cart']['fields']['id'] );
+        $data['cartFieldValues'] = $this->cartRepoStore->getCartValues($data['cart']['fields']['id']);
 
         // Traveller field values
         //$data['travellerFieldValues'] = [];
 
         // Prepare references
         foreach ($data['formFields'] as $key => $field) {
-            if( $field['type'] == 'reference' ) {
+            if ($field['type'] == 'reference') {
 
-                if( $field['field']['reference_code'] == 'airport' ) {
+                if ($field['field']['reference_code'] == 'airport') {
 
                     // Filter $field['options'] by country code
-                    $field['field']['options'] = array_filter($field['field']['options'], function($airport) use ($countryCode) {
+                    $field['field']['options'] = array_filter($field['field']['options'], function ($airport) use ($countryCode) {
                         return $airport['iso_country'] == $countryCode;
                     });
 
@@ -74,11 +76,11 @@ class CountryController extends Controller
             }
         }
         //dd($data['airports']);
-        if( $request->has('lg') ) {
+        if ($request->has('lg')) {
             //dd($data);
             dd($data['cart']['totals']);
         }
-        
+
 
         $data['template'] = 'step-1';
         $data['subtitle'] = 'Trip Details';
@@ -90,22 +92,23 @@ class CountryController extends Controller
 
     }
 
-    public function applyCartStep2(Request $request) {
+    public function applyCartStep2(Request $request)
+    {
 
-        $data = $this->collectCartData( $request );
+        $data = $this->collectCartData($request);
 
 
         $filters = ['entity' => 'traveller'];
-        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
-            $data['product']['product_id'], 
-            $filters 
+        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields(
+            $data['product']['product_id'],
+            $filters
         );
-        $data['formFields'] = array_filter($data['formFields'], function($field) {
+        $data['formFields'] = array_filter($data['formFields'], function ($field) {
             return in_array($field['slug'], ['name', 'lastname', 'birthday']);
         });
 
         // Cart field values
-        if( isset($data['cart']['meta']['travellers']) ) {
+        if (isset($data['cart']['meta']['travellers'])) {
             $data['travellerFieldValues'] = json_decode($data['cart']['meta']['travellers'], true);
         } else {
             $data['travellerFieldValues'] = [];
@@ -121,27 +124,28 @@ class CountryController extends Controller
 
     }
 
-    public function applyCartStep3(Request $request) {
+    public function applyCartStep3(Request $request)
+    {
 
-        $data = $this->collectCartData( $request );
+        $data = $this->collectCartData($request);
 
 
         $filters = ['entity' => 'traveller'];
-        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields( 
-            $data['product']['product_id'], 
-            $filters 
+        $data['formFields'] = (new FormFieldReferenceRepo())->getProductFields(
+            $data['product']['product_id'],
+            $filters
         );
 
-        $data['personFormFields'] = array_filter($data['formFields'], function($field) {
+        $data['personFormFields'] = array_filter($data['formFields'], function ($field) {
             return in_array(
-                $field['slug'], 
+                $field['slug'],
                 ['name', 'lastname', 'birthday']
             );
         });
 
-        $data['formFields'] = array_filter($data['formFields'], function($field) {
+        $data['formFields'] = array_filter($data['formFields'], function ($field) {
             return in_array(
-                $field['slug'], 
+                $field['slug'],
                 ['birth_country', 'passport', 'passport_expiration_date']
             );
         });
@@ -190,9 +194,10 @@ class CountryController extends Controller
 
     }
 
-    public function applyCartStepConfirm(Request $request) {
+    public function applyCartStepConfirm(Request $request)
+    {
 
-        $data = $this->collectCartData( $request );
+        $data = $this->collectCartData($request);
 
         //dd($data);
 
@@ -206,49 +211,51 @@ class CountryController extends Controller
 
     }
 
-    public function updateCart(Request $request) {
+    public function updateCart(Request $request)
+    {
 
-        $data = $this->collectCartData( $request );
+        $data = $this->collectCartData($request);
 
         $cart = Cart::where('hash', $request->cart)->first();
 
         // Update cart meta
-        CartRepoStore::updateMeta( $cart->id, $request->all() );
+        CartRepoStore::updateMeta($cart->id, $request->all());
 
         // Update cart fields
-        if( isset($request->fields) ) {
-            $this->cartRepoStore->updateFields( $cart->id, $request->fields );
+        if (isset($request->fields)) {
+            $this->cartRepoStore->updateFields($cart->id, $request->fields);
         }
 
         // Update cart product
         $cartRepo = CartRepo::find($cart->id);
 
         // Update travellers count
-        if( count( $cartRepo['travellers'] ) > 0 ) {
+        if (count($cartRepo['travellers']) > 0) {
 
             $fields['product'] = [
-                'quantity' => count( $cartRepo['travellers'] )
+                'quantity' => count($cartRepo['travellers'])
             ];
-            CartRepoStore::update( $cart->id, $fields );
+            CartRepoStore::update($cart->id, $fields);
 
         }
 
         // Return to $request->next_page
-        return redirect( $request->next_page );
-        
+        return redirect($request->next_page);
+
     }
 
-    public function collectCartData( $request ) {
+    public function collectCartData($request)
+    {
 
         $cart = CartRepo::getCartBy($request->cart, 'hash');
-        if( !$cart ) {
+        if (!$cart) {
             abort(404);
         }
 
         $data['cart'] = $cart;
 
         $data['country'] = Country::find($cart['meta']['country_to_id']);
-        $data['countryFrom'] = Country::find( $cart['meta']['country_from_id'] );
+        $data['countryFrom'] = Country::find($cart['meta']['country_from_id']);
 
         $data['cart'] = $cart;
 
@@ -269,7 +276,7 @@ class CountryController extends Controller
         //dd($data);
 
         // Prepare travellers
-        if( isset($data['cart']['meta']['travellers']) ) {
+        if (isset($data['cart']['meta']['travellers'])) {
             $data['travellers'] = json_decode($data['cart']['meta']['travellers'], true);
         } else {
             $data['travellers'] = [];
@@ -284,7 +291,7 @@ class CountryController extends Controller
     public function apply(Request $request, GlobalsService $globalsService)
     {
 
-        $countryFrom = $this->findCountry( $request->nationality );
+        $countryFrom = $this->findCountry($request->nationality);
         $countryTo = $this->findCountry($request->country);
 
         //dd($request->all());
@@ -300,10 +307,10 @@ class CountryController extends Controller
             'country_from' => $countryFrom,
             'country_to' => $countryTo,
         ];
-        $cart = CartRepoStore::create( $data );
+        $cart = CartRepoStore::create($data);
 
         // Add cart hash to Cookie
-        GlobalsService::setCart( $cart['fields']['id'] );
+        GlobalsService::setCart($cart['fields']['id']);
 
         return redirect()->route('web.country.apply.cart.step1', [$countryTo->slug, $cart['Model']->hash]);
 
@@ -312,38 +319,47 @@ class CountryController extends Controller
     public function findCountry($slug)
     {
         $country = Country::where('slug', $slug)->first();
-        if ($country) { return $country; }
+        if ($country) {
+            return $country;
+        }
     }
 
-    public function getCountries( $slug=null )
+    public function getCountries($slug = null)
     {
-        return Country::all()->filter(function($country) use ($slug) {
+        return Country::all()->filter(function ($country) use ($slug) {
             return $country->slug != $slug;
         });
     }
 
-    public function getDirectionData( $request ) {
+    public function getDirectionData($request)
+    {
 
         $countryTo = $this->findCountry($request->country);
-        $countryFrom = $this->findCountry( $request->nationality );
+        $countryFrom = $this->findCountry($request->nationality);
 
         $direction = [];
         $products = [];
 
-        if( isset($countryFrom) && isset($countryTo) ) {
-
-            $direction = TravelDirection::where('country_from_id', $countryFrom->id)
-            ->where('country_to_id', $countryTo->id)
-            ->first();
-            
-            $product_ids = $direction->products;
+        if (isset($countryFrom) && isset($countryTo)) {
 
             $products = [];
-            foreach ($product_ids as $product) {
-                $productData = Product::find($product->product_id);
-                if( $productData ) {
-                    $products[] = $productData;
-                } 
+
+            $direction = TravelDirection::where('country_from_id', $countryFrom->id)
+                ->where('country_to_id', $countryTo->id)
+                ->first();
+
+            if ($direction) {
+
+                $product_ids = $direction->products;
+
+
+                foreach ($product_ids as $product) {
+                    $productData = Product::find($product->product_id);
+                    if ($productData) {
+                        $products[] = $productData;
+                    }
+                }
+
             }
 
         }
