@@ -23,9 +23,9 @@
         <main class="flex-1 p-6 max-w-5xl">
             <div class="bg-white border-2 border-solid border-evisasuperlight rounded-3xl p-8">
 
-                <h1 class="text-2xl font-medium mb-6">Personal information</h1>
+                <h1 class="text-2xl font-medium mb-6 ">Personal information</h1>
 
-                <form class="grid grid-cols-2 gap-6" method="POST"
+                <form class="grid grid-cols-2 gap-6 fields-loop-form" method="POST"
                     action="{{ route('web.account.order.trip.update', $order->id) }}">
                     @csrf
 
@@ -53,5 +53,6 @@
         </main>
     </div>
 
+    @include('web.account.orders.partials.form-script')
 
 @endsection

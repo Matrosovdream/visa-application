@@ -85,10 +85,6 @@
 
     @if($field['type'] == 'email')
 
-    @php
-    //dd($field);
-    @endphp
-
         <div class="mb-4 field-block field-block-{{ $field['slug'] }}">
             <label class="block text-evisamedium" for="field-{{ $field['slug'] }}">
                 {{ $field['title'] }} {{ $field['required'] ? '*' : '' }}

@@ -28,7 +28,7 @@
 
                 <form method="POST"
                     action="{{ route('web.account.order.applicant.fields.update', ['order_id' => $order->id, 'applicant_id' => $applicant->id]) }}"
-                    class="grid grid-cols-2 gap-6">
+                    class="grid grid-cols-2 gap-6 fields-loop-form">
                     @csrf
 
                     <input type="hidden" name="next_page" value="{{ $next_page ?? '' }}">
@@ -56,6 +56,6 @@
         </main>
     </div>
 
-
+    @include('web.account.orders.partials.form-script')
 
 @endsection
