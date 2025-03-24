@@ -12,8 +12,18 @@
                 var value = $this.val();
                 var required = $this.hasClass('required');
 
-                if (required && value == '') {
-                    $this.after('<label class="error">This field is required</label>');
+                console.log( value );
+
+                if (required && ( value == '' || value == null )) {
+
+                    var isSelect2 = $this.hasClass('select2-hidden-accessible');
+
+                    if( isSelect2 ) {
+                        $(this).parent().find('.select2-selection').after('<label class="error">This field is required</label>');
+                    } else {
+                        $this.after('<label class="error">This field is required</label>');
+                    }
+
                     isValid = false;
                 }
             });
