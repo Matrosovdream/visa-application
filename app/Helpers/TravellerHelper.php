@@ -52,48 +52,20 @@ class TravellerHelper
 
     }
 
-    public static function isCompletedForm($traveller)
+    public static function isCompletedForm($travellerModel)
     {
 
-        $fields = self::getRequiredFields( $traveller->id );
+        $traveller = (new TravellerRepo)->getByID( $travellerModel->id );
+        $order = (new TravellerRepo)->getOrder( $travellerModel->id );
 
-        (new TravellerRepo)->getOrders( $traveller->id );
-
-        dd($fields);
-
-        /*$traveller_id = $traveller->id;
-
+        // Required fields
         
 
-        $all_fields = self::getTravellerFieldList( $traveller_id );*/
-
-        $fields = $traveller->getFieldList();
-
-        dd( $fields );
 
 
 
 
-        // Check main fields
-        /*
-        foreach ($fields['main'] as $field) {
-            if (empty($traveller->$field)) {
-                return false;
-            }
-        }
-   
-        // Check meta fields
-        foreach ($fields['meta'] as $field) {
-            if (empty($traveller->getMeta($field))) {
-                return false;
-            }
-        }
-
-        // Check documents, should be uploaded at least one
-        if( count( $traveller->documents ) == 0) {
-            return false;
-        }
-        */
+        dd($traveller['fieldValues']['items'], $order['product']['fields']);
 
         return true;
 

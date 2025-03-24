@@ -25,36 +25,6 @@ class TravellerFieldValueRepo extends AbstractRepo
 
     }
 
-    public function mapItem($item)
-    {
-
-        if( empty($item) ) {
-            return null;
-        }
-
-        $field = $this->formFieldRepo->mapItem($item->field);
-
-        if( $field['type'] == 'reference' ) {
-
-            switch( $field['reference_code'] ) {
-                case 'country':
-                    $item->valueReference = $this->countryRepo->getById( $item->value );
-                    break;
-            }
-
-        }
-
-        $res = [
-            'id' => $item->id,
-            'field' => $field,
-            'value' => $item->value,
-            'valueReference' => $item->valueReference,
-            'Model' => $item
-        ];
-
-        return $res;
-    }
-
     public function groupFields( $fields ) {
 
         $grouped = [];
@@ -99,6 +69,52 @@ class TravellerFieldValueRepo extends AbstractRepo
 
     }
 
+    public function mapItems($items)
+    {
 
+        $res = [];
+
+        foreach( $items as $item ) {
+            $mappedItem = $this->mapItem($item);
+            $res[ $mappedItem['field']['id'] ] = $mappedItem;
+        }
+
+        return [
+            'items' => $res,
+            'Grouped' => $this->groupFields( $res ),
+            'GroupedBySection' => $this->groupFieldsBySection( $res ),
+        ];
+
+    }
+
+    public function mapItem($item)
+    {
+
+        if( empty($item) ) {
+            return null;
+        }
+
+        $field = $this->formFieldRepo->mapItem($item->field);
+
+        if( $field['type'] == 'reference' ) {
+
+            switch( $field['reference_code'] ) {
+                case 'country':
+                    $item->valueReference = $this->countryRepo->getById( $item->value );
+                    break;
+            }
+
+        }
+
+        $res = [
+            'id' => $item->id,
+            'field' => $field,
+            'value' => $item->value,
+            'valueReference' => $item->valueReference,
+            'Model' => $item
+        ];
+
+        return $res;
+    }
 
 }

@@ -24,13 +24,13 @@ class TravellerRepo extends AbstractRepo
 
     }
 
-    public function getOrders( $traveller_id ) {
+    public function getOrder( $traveller_id ) {
 
         $order = $this->orderRepo->mapItem( 
             $this->model->find($traveller_id)->orders->first()
         );
 
-        dd($order);
+        return $order;
 
     } 
 
@@ -41,12 +41,6 @@ class TravellerRepo extends AbstractRepo
             return null;
         }
 
-        $fieldValues = $this->fieldValueRepo->mapItems( $item->fieldValues );
-        $fieldValues['Grouped'] = $this->fieldValueRepo->groupFields( $fieldValues['items'] );
-        $fieldValues['GroupedBySection'] = $this->fieldValueRepo->groupFieldsBySection( $fieldValues['items'] );
-
-        //dd($fieldValues);
-
         $res = [
             'id' => $item->id,
             'fullname' => $item->full_name,
@@ -54,7 +48,7 @@ class TravellerRepo extends AbstractRepo
             'lastname' => $item->lastname,
             'birthday' => $item->birthday,
             'passport' => $item->passport,
-            'fieldValues' => $fieldValues,
+            'fieldValues' => $this->fieldValueRepo->mapItems( $item->fieldValues ),
             'Model' => $item
         ];
 
