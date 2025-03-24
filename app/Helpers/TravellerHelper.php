@@ -6,6 +6,7 @@ use App\Models\File;
 use App\Models\Country;
 use App\Helpers\TravellerRefs;
 use App\References\TravellerReferences;
+use App\Repositories\Traveller\TravellerRepo;
 
 class TravellerHelper
 {
@@ -54,11 +55,15 @@ class TravellerHelper
     public static function isCompletedForm($traveller)
     {
 
-        return false;
+        $fields = self::getRequiredFields( $traveller->id );
+
+        (new TravellerRepo)->getOrders( $traveller->id );
+
+        dd($fields);
 
         /*$traveller_id = $traveller->id;
 
-        $fields = self::getRequiredFields($traveller_id);
+        
 
         $all_fields = self::getTravellerFieldList( $traveller_id );*/
 

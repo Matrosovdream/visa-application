@@ -5,6 +5,7 @@ use App\Repositories\AbstractRepo;
 use App\Models\Order;
 use App\Repositories\Order\OrderFieldValueRepo;
 use App\Repositories\FormFieldValue\FormFieldValueRepo;
+use App\Repositories\Product\ProductRepo;
 
 class OrderRepo extends AbstractRepo
 {
@@ -13,6 +14,7 @@ class OrderRepo extends AbstractRepo
     protected $fields = [];
     protected $fieldValueRepo;
     protected $formFieldValueRepo;
+    protected $productRepo;
     protected $withRelations = ['user', 'meta', 'travellers', 'cartProducts'];
 
     public function __construct() {
@@ -21,6 +23,7 @@ class OrderRepo extends AbstractRepo
 
         $this->fieldValueRepo = new OrderFieldValueRepo();
         $this->formFieldValueRepo = new FormFieldValueRepo();
+        $this->productRepo = new ProductRepo();
 
     }
 
@@ -43,10 +46,9 @@ class OrderRepo extends AbstractRepo
             return null;
         }
 
+        // Field values
         $fieldValues = $this->fieldValueRepo->mapItems( $item->fieldValues );
         $fieldValues['Grouped'] = $this->fieldValueRepo->groupFields( $fieldValues['items'] );
-
-        //dd($fieldValues);
 
         $res = [
             'id' => $item->id,
@@ -58,6 +60,7 @@ class OrderRepo extends AbstractRepo
             'is_paid' => $item->is_paid,
             'total_price' => $item->total_price,
             'fieldValues' => $fieldValues,
+            'product' => $this->productRepo->mapItem( $item->getProduct()->first() ),
             'Model' => $item
         ];
 

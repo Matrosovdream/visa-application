@@ -4,6 +4,7 @@ namespace App\Repositories\Traveller;
 use App\Repositories\AbstractRepo;
 use App\Models\Traveller;
 use App\Repositories\Traveller\TravellerFieldValueRepo;
+use App\Repositories\Order\OrderRepo;
 
 class TravellerRepo extends AbstractRepo
 {
@@ -11,6 +12,7 @@ class TravellerRepo extends AbstractRepo
     protected $model;
     protected $fields = [];
     protected $fieldValueRepo;
+    protected $orderRepo;
     protected $withRelations = ['fieldValues', 'documents'];
 
     public function __construct() {
@@ -18,8 +20,19 @@ class TravellerRepo extends AbstractRepo
         $this->model = new Traveller();
 
         $this->fieldValueRepo = new TravellerFieldValueRepo();
+        $this->orderRepo = new OrderRepo();
 
     }
+
+    public function getOrders( $traveller_id ) {
+
+        $order = $this->orderRepo->mapItem( 
+            $this->model->find($traveller_id)->orders->first()
+        );
+
+        dd($order);
+
+    } 
 
     public function mapItem($item)
     {

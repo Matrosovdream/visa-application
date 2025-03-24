@@ -141,18 +141,8 @@ class OrderController extends Controller
             $this->orderRepo->saveOrderValues( $order_id, $request->fields );
         }
 
-        /*
-        $order = Order::find($order_id);
-
-        // Set meta
-        $order->setMeta('phone', $request->phone);
-        $order->setMeta('time_arrival', $request->time_arrival);
-        $order->setMeta('country_from_id', $request->country_from);
-        
-
         // Check if is completed then update status
         orderHelper::checkUpdateStatus( $order_id );
-        */
 
         if( isset( $request->next_page ) ) {
             return redirect($request->next_page );
