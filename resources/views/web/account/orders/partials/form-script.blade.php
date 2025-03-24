@@ -12,7 +12,10 @@
                 var value = $this.val();
                 var required = $this.hasClass('required');
 
-                console.log( value );
+                // If $this.parent() is has display:none, skip this field
+                if ($this.parent().css('display') == 'none') {
+                    return;
+                }
 
                 if (required && ( value == '' || value == null )) {
 
