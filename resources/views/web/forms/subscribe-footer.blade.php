@@ -27,16 +27,18 @@
 
             e.preventDefault();
 
+            $('.alert-message').addClass('hidden');
+            $('.success-message').addClass('hidden');
+
             var form = $(this);
             var email = $(this).find('input[name="email"]').val();
             var url = form.attr('action');
             var data = form.serialize();
 
-            console.log(email);
-
             // Validate input name email
             if (data.email == '' || !validateEmail(email)) {
                 $('.alert-message').removeClass('hidden');
+                $('.alert-message').text('{{ __('Please enter a valid email address') }}');
                 return;
             } else {
                 $('.alert-message').addClass('hidden');
@@ -47,12 +49,11 @@
                 url: url,
                 data: data,
                 success: function (response) {
+
                     // If response.success
                     if (response.status == 'success') {
 
                         $('.success-message').removeClass('hidden');
-                        $('.alert-message').addClass('hidden');
-
                         $('.success-message').text(response.message);
 
                         form.trigger('reset');
@@ -64,7 +65,7 @@
                     }
                 },
                 error: function (response) {
-                    alert('Error');
+                    
                 }
             });
 
