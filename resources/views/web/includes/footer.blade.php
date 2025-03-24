@@ -23,7 +23,7 @@
                         The latest news, articles, and resources, sent to your inbox
                         weekly.
                     </p>
-                    <div >
+                    <div>
 
                         @include('web.forms.subscribe-footer')
 
