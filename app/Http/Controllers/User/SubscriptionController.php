@@ -24,7 +24,9 @@ class SubscriptionController extends Controller
         ]);
 
         // Return json response
-        return $this->subscriptionActions->subscribe($validated['email']);
+        return response()->json(
+            $this->subscriptionActions->subscribe($validated['email'])
+        );
     }
 
 }
