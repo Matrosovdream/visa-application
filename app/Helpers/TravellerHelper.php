@@ -58,16 +58,30 @@ class TravellerHelper
         $traveller = (new TravellerRepo)->getByID( $travellerModel->id );
         $order = (new TravellerRepo)->getOrder( $travellerModel->id );
 
+        $fieldValues = $traveller['fieldValues']['items'];
+
         // Required fields
-        
+        $reqFields = array_filter( $order['product']['fields']['all'], function($field) {
+            return $field['required'];
+        });
+
+        // Check if all required fields are filled
+        $completed = true;
+        foreach( $reqFields as $field_id=>$field ) {
+
+            $value = $fieldValues[ $field_id ]['value'] ?? null;
+
+            if( $value == null || empty($value) ) {
+                $completed = false;
+                break;
+            }
+
+        }
+
+        // Documents here
 
 
-
-
-
-        dd($traveller['fieldValues']['items'], $order['product']['fields']);
-
-        return true;
+        return $completed;
 
     }
 
