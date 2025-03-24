@@ -23,19 +23,9 @@
                         The latest news, articles, and resources, sent to your inbox
                         weekly.
                     </p>
-                    <div class="font-inter flex space-x-4 font-medium">
+                    <div >
 
-                        <form method="POST" action="{{ route('subscribe') }}">
-                            @csrf
-
-                            <input type="email" placeholder="Enter your email"
-                                class="w-80 px-3 rounded-lg outline-solid outline-2 outline-evisasuperlight" />
-
-                            <button class="w-auto rounded-lg bg-evisablue hover:bg-evisabluekhover px-4 py-2 text-white">
-                                Subscribe
-                            </button>
-                            
-                        </form>
+                        @include('web.forms.subscribe-footer')
 
                     </div>
                 </div>
