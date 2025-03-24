@@ -1,7 +1,7 @@
 <?php
 namespace App\Actions\Web;
 
-use App\Repositories\Subscription\SubcriptionRepo;
+use App\Repositories\Subscription\SubscriptionRepo;
 
 
 
@@ -11,7 +11,7 @@ class SubscriptionActions {
 
     public function __construct() {
 
-        $this->subRepo = new SubcriptionRepo();
+        $this->subRepo = new SubscriptionRepo();
 
     }
 
