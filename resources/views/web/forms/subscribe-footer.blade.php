@@ -14,9 +14,7 @@
         <span class="text-xs text-red-500 alert-message hidden">
             {{ __('Please enter a valid email address') }}
         </span>
-        <span class="text-xs text-green-500 success-message hidden">
-            {{ __('You have successfully subscribed to our newsletter') }}
-        </span>
+        <span class="text-xs text-green-500 success-message hidden"></span>
     </div>
 
 </form>
@@ -50,12 +48,19 @@
                 data: data,
                 success: function (response) {
                     // If response.success
-                    if (response.success) {
+                    if (response.status == 'success') {
+
                         $('.success-message').removeClass('hidden');
                         $('.alert-message').addClass('hidden');
+
+                        $('.success-message').text(response.message);
+
                         form.trigger('reset');
                     } else {
+
                         $('.alert-message').removeClass('hidden');
+                        $('.alert-message').text(response.message);
+                        
                     }
                 },
                 error: function (response) {
