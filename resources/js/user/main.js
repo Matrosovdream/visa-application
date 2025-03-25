@@ -1,3 +1,10 @@
+import $ from 'jquery';
+
+window.$ = $;
+window.jQuery = $;
+
+
+
 (function ($) {
 	"use strict";
 
@@ -150,7 +157,7 @@
 	// xbo counter end
 
 	// isotop
-	$('.grid').imagesLoaded(function () {
+	/*$('.grid').imagesLoaded(function () {
 		// init Isotope
 		var $grid = $('.grid').isotope({
 			itemSelector: '.grid-item',
@@ -160,7 +167,7 @@
 				columnWidth: '.grid-item',
 			}
 		});
-	});
+	});*/
 
 	// brand slider
 	var slider = new Swiper('.brand-slider .swiper-container', {
@@ -347,8 +354,26 @@
 	});
 
 	// nice select
-	$('#nice-select').niceSelect();
-	$('.nice-select').niceSelect();
+	//$('#nice-select').niceSelect();
+	//$('.nice-select').niceSelect();
+
+	// Select
+	$(document).ready(function() {
+		let i = 0;
+		$('.select2').each(function() {
+
+			$(this).select2({
+				dropdownCssClass: 'select2-dropdown',
+				containerCssClass: 'select2-container',
+				minimumResultsForSearch: 10,
+				templateResult: formatCountry,
+            	templateSelection: formatCountry,
+				width: '100%'
+			});
+			console.log(i);
+			i++;
+		});
+	});
 
 	/* magnificPopup img view */
 	$('.popup-image').magnificPopup({
@@ -387,9 +412,71 @@
 	// Accordion Box end
 
 	// datepicker
-	$(".datepicker").datepicker();
+	updateDatePicker();
 
 })(jQuery);
+
+function updateDatePicker() {
+
+	$(".datepicker").datepicker({
+		dateFormat: 'mm/dd/yy',
+	});
+
+	$(".datepicker-birthday").datepicker({
+		maxDate: "-0d",
+		yearRange: "-120:+0",
+		changeYear: true,
+		dateFormat: 'mm/dd/yy'
+	});
+
+	// Datepicker that takes today as minimum date
+	$(".datepicker-min-today").datepicker({
+		minDate: new Date(),
+		dateFormat: 'mm/dd/yy',
+		onSelect: function (dateText, inst) {
+			// Show message alert
+			if( $(this).hasClass('min-5-alert') ) {
+
+				// If the value is less than 5 days from today, show alert $(this).closest('.alert.hidden').removeClass('hidden');
+				var date1 = new Date();
+				var date2 = new Date(dateText);
+				var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+				var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+				if (diffDays < 5) { 
+					console.log(diffDays);
+					$(this).parent().find('.alert').removeClass('hidden');
+				} else {
+					$(this).parent().find('.alert').addClass('hidden');
+				}
+
+			}
+		}
+	});
+
+	$(".hasDatepicker").attr("readonly", "readonly");
+
+}
+
+
+function formatCountry(country) {
+		
+	if (!country.id) {
+		return country.text;
+	}
+
+	var flagUrl = $(country.element).data('flag'); // Get flag URL from data attribute
+	var $country = '';
+	if (flagUrl) {
+		$country = $(
+			`<span><img src="${flagUrl}" class="w-5 h-5 inline-block mr-2" /> ${country.text}</span>`
+		);
+	} else {
+		$country = $(`<span>${country.text}</span>`);
+	}
+	return $country;
+}
+
 
 
 

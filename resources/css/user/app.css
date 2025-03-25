@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@theme {
+    --font-inter: "Inter", "sans-serif";
+    --color-evisablue: oklch(43.72% 0.24865432609267016 263.90946967489356);
+    --color-evisalightblue: oklch(64.05% 0.19156302486014723 268.01682615416854);
+    --color-evisapeach: oklch(95.48% 0.027 56.77);
+    --color-evisaorange: oklch(70.28% 0.1816 45.86);
+    --color-evisapink: oklch(93.87% 0.0308 17.71);
+    --color-evisasky: oklch(94.79% 0.0251 255.56);
+    --color-evisasalad: oklch(97.3% 0.0463 144.24);
+    --color-evisamedium: oklch(62.68% 0 0);
+    --color-evisalight: oklch(86.07% 0 0);
+    --color-evisasuperlight: oklch(95.21% 0 0);
+    --color-evisablack: oklch(24.35% 0 0);
+    --color-evisablackhover: oklch(51.03% 0 0);
+    --color-evisabluekhover: oklch(38.78% 0.2184 263.86);
+}
