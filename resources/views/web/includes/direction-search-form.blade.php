@@ -53,8 +53,9 @@
 
 
 <script type="text/javascript">
-    jQuery(document).ready(function () {
-        jQuery('#search_direction').validate({
+
+    $(document).ready(function () {
+        $('#search_direction').validate({
             rules: {
                 country_from: {
                     required: true
@@ -71,14 +72,12 @@
                     required: "Please select your destination country"
                 }
             },
-            /*errorPlacement: function (error, element) {
-                $(element).closest('tr').next().find('.error_label').html(error);
-            },*/
             submitHandler: function (form) {
                 form.submit();
             }
         });
     });
+
 </script>
 
 <style>

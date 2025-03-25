@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
+@layer base {
+  :root {
     --font-inter: "Inter", "sans-serif";
     --color-evisablue: oklch(43.72% 0.24865432609267016 263.90946967489356);
     --color-evisalightblue: oklch(64.05% 0.19156302486014723 268.01682615416854);
@@ -17,4 +18,5 @@
     --color-evisablack: oklch(24.35% 0 0);
     --color-evisablackhover: oklch(51.03% 0 0);
     --color-evisabluekhover: oklch(38.78% 0.2184 263.86);
+  }
 }

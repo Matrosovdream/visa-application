@@ -1,12 +1,14 @@
-import $ from 'jquery';
+import jQuery from 'jquery';
+window.$ = jQuery;
 
-window.$ = $;
-window.jQuery = $;
+
+
+//import 'jquery-ui/ui/widgets/datepicker.js';
+
+import 'bootstrap-datepicker';
 
 import 'select2';
 import 'select2/dist/css/select2.css';
-
-
 
 
 
