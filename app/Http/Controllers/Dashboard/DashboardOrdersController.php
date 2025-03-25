@@ -248,6 +248,21 @@ class DashboardOrdersController extends Controller
             $value = $travellerRepo['fieldValues']['items'][ $field['id'] ] ?? null;
             $field['field']['value'] = $value['value'] ?? null;
 
+            // If type is reference
+            if( $field['field']['type'] == 'reference' ) {
+
+                // Filter from options by id
+                foreach( $field['field']['options'] as $option ) {
+
+                    if( !isset($option['id']) ) { continue; }
+
+                    if( $option['id'] == $field['field']['value'] ) {
+                        $field['field']['valueRef'] = $option['name'];
+                        break;
+                    }
+                }
+            }
+
             $groupedFields[ $field['section'] ][] = $field['field'];
         }
 
