@@ -60,9 +60,9 @@ class TravellerHelper
 
         $fieldValues = $traveller['fieldValues']['items'];
 
-        // Required fields
+        // Required and traveller fields
         $reqFields = array_filter( $order['product']['fields']['all'], function($field) {
-            return $field['required'];
+            return $field['required'] && $field['entity'] == 'traveller';
         });
 
         // Check if all required fields are filled
@@ -73,7 +73,8 @@ class TravellerHelper
 
             if( $value == null || empty($value) ) {
                 $completed = false;
-                break;
+                $empty[$field_id] = $field_id;
+                //break;
             }
 
         }
