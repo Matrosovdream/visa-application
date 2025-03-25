@@ -225,7 +225,6 @@ class DashboardOrdersController extends Controller
         $traveller = $order->travellers()->find($travellerId);
         $travellerRepo = $this->travellerRepo->getByID($travellerId);
 
-        //dd($travellerRepo['fieldValues']['GroupedBySection']['passport'][5]);
         $data = [
             'title' => 'Order Traveller',
             'order' => $order,
@@ -267,10 +266,6 @@ class DashboardOrdersController extends Controller
         }
 
         $data['groupedFields'] = $groupedFields;
-
-        if( request()->has('log') ) {
-            dd($data['groupedFields']);
-        }
 
         return view('dashboard.orders.traveller.show', $data);
     }
