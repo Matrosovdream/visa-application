@@ -229,6 +229,7 @@ class DashboardOrdersController extends Controller
         $data = [
             'title' => 'Order Traveller',
             'order' => $order,
+            'orderRepo' => $this->orderRepo->getByID($orderId),
             'traveller' => $traveller,
             'travellerRepo' => $travellerRepo,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
@@ -237,7 +238,24 @@ class DashboardOrdersController extends Controller
             'travellerFields' => TravellerHelper::getTravellerFieldList( $traveller->id )
         ];
 
-        //dd($data['travellerFields']);
+        // Traveller fields
+        $fields = $data['orderRepo']['product']['fields']['traveller']['all'];
+
+        // Group by section field
+        $groupedFields = [];
+        foreach( $fields as $field ) {
+            // Retrieve the value
+            $value = $travellerRepo['fieldValues']['items'][ $field['id'] ] ?? null;
+            $field['field']['value'] = $value['value'] ?? null;
+
+            $groupedFields[ $field['section'] ][] = $field['field'];
+        }
+
+        $data['groupedFields'] = $groupedFields;
+
+        if( request()->has('log') ) {
+            dd($data['groupedFields']);
+        }
 
         return view('dashboard.orders.traveller.show', $data);
     }

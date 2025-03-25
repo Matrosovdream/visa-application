@@ -18,18 +18,18 @@
                         <table class="table align-middle table-row-bordered mb-0 fs-6 gy-5 min-w-300px">
                             <tbody class="fw-semibold text-gray-600">
 
-                                @if( isset($travellerRepo['fieldValues']['GroupedBySection'][ $cat['slug'] ]) ) 
+                                @if( isset($groupedFields[ $cat['slug'] ]) ) 
 
-                                    @foreach( $travellerRepo['fieldValues']['GroupedBySection'][ $cat['slug'] ] as $field )
+                                    @php
+                                    //dd($groupedFields[ $cat['slug'] ]);
+                                    @endphp
+
+                                    @foreach( $groupedFields[ $cat['slug'] ] as $field )
 
                                         <tr>
-                                            <td class="text-muted text-start">{{ $field['field']['title'] }}</td>
+                                            <td class="text-muted text-start">{{ $field['title'] }}</td>
                                             <td class="text-start text-gray-800">
-                                                @if( isset( $field['valueReference'] ) )
-                                                    {{ $field['valueReference']['title'] }}
-                                                @else
-                                                    {{ $field['value'] ?? '' }}
-                                                @endif
+                                                {{ $field['value'] ?? '' }}
                                             </td>
                                         </tr>
 
