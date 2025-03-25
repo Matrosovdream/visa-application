@@ -1,25 +1,32 @@
-<h2 class="text-lg font-semibold text-evisablack mb-4">Status</h2>
+<h2 class="text-lg font-semibold text-evisablack mb-4">
+    {{ __('Status') }}
+</h2>
 
 @if(!$order->isCompletedForm())
     <div class="flex items-center space-x-4 mb-4">
-        <span class="text-md font-medium text-evisablack bg-evisapeach px-4 py-2 rounded-2xl">Actions
-            needed</span>
+        <span class="text-md font-medium text-evisablack bg-evisapeach px-4 py-2 rounded-2xl">
+            {{ __('Actions needed') }}
+        </span>
     </div>
     <p class="text-evisablack mb-4">
-        We need more information from you to start processing documents
+        {{ __('We need more information from you to start processing documents') }}
     </p>
 
     <a href="{{ route('web.account.order.trip', $order->id) }}">
         <button 
             class="mb-8 inline-block text-evisablue border-solid border-3 font-medium border-evisablue rounded-xl px-4 py-2 hover:bg-evisablue hover:border-evisablue hover:text-white">
-            Complete form now
+            {{ __('Complete form now') }}
         </button>
     </a>
 
 @else
-    <h5 class="card-title card-title-small mt-3 alert alert-success text-center">
-        {{ __('Form is completed') }}
-    </h5>
+
+    <div class="flex items-center space-x-4 mb-4">
+        <span class="text-md font-medium text-green-600 bg-green-100 px-4 py-2 rounded-2xl">
+            {{ __('Form is completed') }}
+        </span>
+    </div>
+
 @endif
 
 
