@@ -3,6 +3,11 @@ import $ from 'jquery';
 window.$ = $;
 window.jQuery = $;
 
+import 'select2';
+import 'select2/dist/css/select2.css';
+
+
+
 
 
 (function ($) {
@@ -117,17 +122,7 @@ window.jQuery = $;
 	/* End Menu Mobile */
 
 
-	//data background
-	$("[data-background]").each(function () {
-		$(this).css("background-image", "url(" + $(this).attr("data-background") + ") ")
-	})
-
-	// data bg color
-	$("[data-bg-color]").each(function () {
-		$(this).css("background-color", $(this).attr("data-bg-color"));
-
-	});
-
+	/*
 	function wowAnimation() {
 		var wow = new WOW({
 			boxClass: 'wow',
@@ -139,223 +134,7 @@ window.jQuery = $;
 		wow.init();
 	}
 	wowAnimation();
-
-	// xbo counter start
-	if ($(".xbo").length) {
-		$('.xbo').appear();
-		$(document.body).on('appear', '.xbo', function (e) {
-			var odo = $(".xbo");
-			odo.each(function () {
-				var countNumber = $(this).attr("data-count");
-				$(this).html(countNumber);
-			});
-			window.xboOptions = {
-				format: 'd',
-			};
-		});
-	}
-	// xbo counter end
-
-	// isotop
-	/*$('.grid').imagesLoaded(function () {
-		// init Isotope
-		var $grid = $('.grid').isotope({
-			itemSelector: '.grid-item',
-			percentPosition: true,
-			masonry: {
-				// use outer width of grid-sizer for columnWidth
-				columnWidth: '.grid-item',
-			}
-		});
-	});*/
-
-	// brand slider
-	var slider = new Swiper('.brand-slider .swiper-container', {
-		slidesPerView: 7,
-		roundLengths: true,
-		loop: true,
-		centeredSlides: true,
-		loopAdditionalSlides: 30,
-		watchSlidesVisibility: true,
-		slideVisibleClass: 'swiper-slide-visible',
-		autoplay: {
-			enabled: true,
-			delay: 6000
-		},
-		speed: 400,
-		breakpoints: {
-			'1600': {
-				slidesPerView: 7,
-			},
-			'1200': {
-				slidesPerView: 6,
-			},
-			'992': {
-				slidesPerView: 5,
-				centeredSlides: false,
-			},
-			'768': {
-				slidesPerView: 4,
-				centeredSlides: false,
-			},
-			'576': {
-				slidesPerView: 3,
-				centeredSlides: false,
-			},
-			'0': {
-				slidesPerView: 2,
-			},
-		},
-	});
-
-	// testimonial slider
-	var slider = new Swiper('.xb-testimonial-slider', {
-		spaceBetween: 34,
-		slidesPerView: 2,
-		roundLengths: true,
-		loop: true,
-		loopAdditionalSlides: 30,
-		watchSlidesVisibility: true,
-		slideVisibleClass: 'swiper-slide-visible',
-		navigation: {
-			nextEl: ".tm-button-next",
-			prevEl: ".tm-button-prev",
-		},
-		autoplay: {
-			enabled: true,
-			delay: 6000
-		},
-		speed: 400,
-		breakpoints: {
-			'1600': {
-				slidesPerView: 2,
-			},
-			'1200': {
-				slidesPerView: 2,
-			},
-			'992': {
-				slidesPerView: 2,
-			},
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 2,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
-	});
-
-	// testimonial slider
-	var slider = new Swiper('.xb-testimonial-slider2', {
-		spaceBetween: 30,
-		slidesPerView: 3,
-		roundLengths: true,
-		loop: true,
-		loopAdditionalSlides: 30,
-		watchSlidesVisibility: true,
-		autoplay: {
-			enabled: true,
-			delay: 6000
-		},
-		speed: 400,
-		breakpoints: {
-			'1600': {
-				slidesPerView: 3,
-			},
-			'1200': {
-				slidesPerView: 3,
-			},
-			'992': {
-				slidesPerView: 2,
-			},
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 2,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
-	});
-
-	// country slider
-	var slider = new Swiper('.xb-country-slide', {
-		slidesPerView: 6,
-		roundLengths: true,
-		loop: true,
-		loopAdditionalSlides: 30,
-		watchSlidesVisibility: true,
-		slideVisibleClass: 'swiper-slide-visible',
-		autoplay: {
-			enabled: true,
-			delay: 6000
-		},
-		speed: 400,
-		breakpoints: {
-			'1600': {
-				slidesPerView: 6,
-			},
-			'1200': {
-				slidesPerView: 6,
-			},
-			'992': {
-				slidesPerView: 5,
-			},
-			'768': {
-				slidesPerView: 4,
-			},
-			'576': {
-				slidesPerView: 3,
-			},
-			'0': {
-				slidesPerView: 2,
-			},
-		},
-	});
-
-	// category slider
-	var slider = new Swiper('.xb-category-slider', {
-		spaceBetween: 30,
-		slidesPerView: 7,
-		roundLengths: true,
-		loop: true,
-		loopAdditionalSlides: 30,
-		watchSlidesVisibility: true,
-		autoplay: {
-			enabled: true,
-			delay: 6000
-		},
-		speed: 400,
-		breakpoints: {
-			'1600': {
-				slidesPerView: 7,
-			},
-			'1200': {
-				slidesPerView: 6,
-			},
-			'992': {
-				slidesPerView: 5,
-			},
-			'768': {
-				slidesPerView: 4,
-			},
-			'576': {
-				slidesPerView: 3,
-			},
-			'0': {
-				slidesPerView: 2,
-			},
-		},
-	});
-
-	// nice select
-	//$('#nice-select').niceSelect();
-	//$('.nice-select').niceSelect();
+	*/
 
 	// Select
 	$(document).ready(function() {
@@ -373,20 +152,6 @@ window.jQuery = $;
 			console.log(i);
 			i++;
 		});
-	});
-
-	/* magnificPopup img view */
-	$('.popup-image').magnificPopup({
-		type: 'image',
-		gallery: {
-			enabled: true
-		}
-	});
-
-	/* magnificPopup video view */
-	$('.popup-video').magnificPopup({
-		type: 'iframe',
-		mainClass: 'mfp-zoom-in',
 	});
 
 	// Accordion Box start
