@@ -11,11 +11,8 @@ class SeaportsSeeder extends Seeder
 {
     public function run(): void
     {
-        // Get countries map [slug => [id, code]]
-        $country_ids = Country::all()->pluck('code', 'slug')->mapWithKeys(function ($code, $slug) use (&$country_ids) {
-            $id = Country::where('slug', $slug)->value('id');
-            return [$slug => ['id' => $id, 'code' => $code]];
-        })->toArray();
+        // Get country codes mapped to their IDs
+        $country_ids = Country::pluck('id', 'code')->toArray();
 
         // Load seaports JSON
         $ports = json_decode(file_get_contents(database_path('references/seaports.json')), true);
