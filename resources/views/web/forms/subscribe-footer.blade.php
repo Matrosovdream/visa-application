@@ -20,7 +20,7 @@
 </form>
 
 <script>
-    /*
+
     $(document).ready(function () {
 
         $('#subscribe-footer-form').submit(function (e) {
@@ -78,5 +78,5 @@
         var re = /\S+@\S+\.\S+/;
         return re.test(email);
     }
-    */
+
 </script>
