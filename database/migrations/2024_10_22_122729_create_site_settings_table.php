@@ -51,7 +51,7 @@ return new class extends Migration
             $table->id();
             $table->string('entity')->nullable();
             $table->integer('ref_id')->nullable();
-            $table->string('identity')->nullable();
+            $table->string('identity')->nullable()->unique();
             $table->string('type')->nullable();
             $table->string('name')->nullable();
             $table->foreignId('country_id')->on('countries')->nullable();

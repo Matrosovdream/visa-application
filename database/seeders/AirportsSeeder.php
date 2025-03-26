@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Country;
 use App\Models\Airport;
+use Illuminate\Support\Facades\DB;
 
 class AirportsSeeder extends Seeder
 {
@@ -14,35 +15,79 @@ class AirportsSeeder extends Seeder
      */
     public function run(): void
     {
+        // Prepare country map: [code => id]
+        $country_ids = Country::pluck('id', 'code')->toArray();
 
-        // Get all countries
-        $countries = Country::all();
-        foreach ($countries as $country) {
-            $country_ids[$country->code] = $country->id;
+        // Read JSON data
+        $airports = json_decode(file_get_contents(database_path('references/airports.json')), true);
+
+        // Tune chunk size to your server's capability
+        $chunks = array_chunk($airports, 500); 
+
+        foreach ($chunks as $chunk) {
+            $values = [];
+
+            foreach ($chunk as $airport) {
+                if (!isset($country_ids[$airport['iso_country']])) {
+                    continue;
+                }
+
+                $values[] = sprintf(
+                    "('%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', '%s', '%s')",
+                    addslashes($airport['id']),
+                    addslashes('airport'),
+                    addslashes($airport['ident']),
+                    addslashes($airport['type']),
+                    addslashes($airport['name']),
+                    $country_ids[$airport['iso_country']],
+                    addslashes($airport['continent']),
+                    addslashes($airport['iso_country']),
+                    addslashes($airport['iso_region']),
+                    addslashes($airport['municipality']),
+                    addslashes($airport['wikipedia_link'])
+                );
+            }
+
+            if (!empty($values)) {
+                $sql = "
+            INSERT INTO arrival_points (ref_id, entity, identity, type, name, country_id, continent, iso_country, iso_region, municipality, wiki_link)
+            VALUES " . implode(',', $values) . "
+            ON DUPLICATE KEY UPDATE
+                entity = VALUES(entity),
+                identity = VALUES(identity),
+                type = VALUES(type),
+                name = VALUES(name),
+                country_id = VALUES(country_id),
+                continent = VALUES(continent),
+                iso_country = VALUES(iso_country),
+                iso_region = VALUES(iso_region),
+                municipality = VALUES(municipality),
+                wiki_link = VALUES(wiki_link)
+        ";
+
+                DB::statement($sql);
+            }
         }
 
-        // Retrieve the countries from the JSON file
-        $countries = json_decode(file_get_contents(database_path('references/airports.json')), true);
-
-        // Insert the countries into the database
-        foreach ($countries as $country) {
-
-            // Update or create aiport by ref_id
-            Airport::updateOrCreate([
-                'ref_id' => $country['id'],
-            ], [
-                'entity' => 'airport',
-                'identity' => $country['ident'],
-                'type' => $country['type'],
-                'name' => $country['name'],
-                'country_id' => $country_ids[ $country['iso_country'] ],
-                'continent' => $country['continent'],
-                'iso_country' => $country['iso_country'],
-                'iso_region' => $country['iso_region'],
-                'municipality' => $country['municipality'],
-                'wiki_link' => $country['wikipedia_link'],
-            ]);
-        }
 
     }
+
+    protected function prepareFields($airport, $country_ids)
+    {
+
+        return [
+            'entity' => 'airport',
+            'identity' => $airport['ident'],
+            'type' => $airport['type'],
+            'name' => $airport['name'],
+            'country_id' => $country_ids[$airport['iso_country']],
+            'continent' => $airport['continent'],
+            'iso_country' => $airport['iso_country'],
+            'iso_region' => $airport['iso_region'],
+            'municipality' => $airport['municipality'],
+            'wiki_link' => $airport['wikipedia_link'],
+        ];
+
+    }
+
 }
