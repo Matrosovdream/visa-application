@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Repositories\Order\OrderFieldValueRepo;
 use App\Repositories\FormFieldValue\FormFieldValueRepo;
 use App\Repositories\Product\ProductRepo;
+use App\Repositories\Traveller\TravellerRepo;
 
 class OrderRepo extends AbstractRepo
 {
@@ -15,6 +16,7 @@ class OrderRepo extends AbstractRepo
     protected $fieldValueRepo;
     protected $formFieldValueRepo;
     protected $productRepo;
+    protected $travellerRepo;
     protected $withRelations = ['user', 'meta', 'travellers', 'cartProducts'];
 
     public function __construct() {
@@ -24,6 +26,7 @@ class OrderRepo extends AbstractRepo
         $this->fieldValueRepo = new OrderFieldValueRepo();
         $this->formFieldValueRepo = new FormFieldValueRepo();
         $this->productRepo = new ProductRepo();
+        $this->travellerRepo = new TravellerRepo();
 
     }
 
@@ -61,6 +64,7 @@ class OrderRepo extends AbstractRepo
             'total_price' => $item->total_price,
             'fieldValues' => $fieldValues,
             'product' => $this->productRepo->mapItem( $item->getProduct()->first() ),
+            'travellers' => $this->travellerRepo->mapItems( $item->travellers ),
             'Model' => $item
         ];
 

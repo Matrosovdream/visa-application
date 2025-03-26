@@ -20,11 +20,13 @@ class TravellerRepo extends AbstractRepo
         $this->model = new Traveller();
 
         $this->fieldValueRepo = new TravellerFieldValueRepo();
-        $this->orderRepo = new OrderRepo();
 
     }
 
     public function getOrder( $traveller_id ) {
+
+        // Set order repo and not break OrderRepo call from outside
+        $this->orderRepo = new OrderRepo();
 
         $order = $this->orderRepo->mapItem( 
             $this->model->find($traveller_id)->orders->first()
