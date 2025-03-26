@@ -22,7 +22,10 @@ class ArticleGroupSeeder extends Seeder
         ];
         
         foreach ($orderStatuses as $orderStatus) {
-            ArticleGroup::firstOrCreate($orderStatus);
+            ArticleGroup::updateOrCreate(
+                ['slug' => $orderStatus['slug']], 
+                $orderStatus
+            );
         }
 
     }
