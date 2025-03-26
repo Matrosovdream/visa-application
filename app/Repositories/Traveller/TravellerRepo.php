@@ -43,14 +43,17 @@ class TravellerRepo extends AbstractRepo
             return null;
         }
 
+        // Field value from another table
+        $fieldValues = $this->fieldValueRepo->mapItems( $item->fieldValues );
+
         $res = [
             'id' => $item->id,
             'fullname' => $item->full_name,
             'name' => $item->name,
             'lastname' => $item->lastname,
             'birthday' => $item->birthday,
-            'passport' => $item->passport,
-            'fieldValues' => $this->fieldValueRepo->mapItems( $item->fieldValues ),
+            'passport' => $fieldValues['Grouped']['passport']['value'] ?? $item->passport,
+            'fieldValues' => $fieldValues,
             'Model' => $item
         ];
 
